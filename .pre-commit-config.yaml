@@ -1,0 +1,38 @@
+# Pre-commit standards for Lighthouse FD team
+repos:
+-   repo: https://github.com/pre-commit/pre-commit-hooks    # This is usually the git repo host of the tool but can be a local reference
+    rev: v4.0.1
+    hooks:                                                  # Each tool has one or more specific hooks, these are individual code checks
+    -   id: check-yaml                                      # Basic tools rule! Check format of yaml, end of line and trailing whitespace ftw
+        exclude: "project_cookiecutter/{{cookiecutter.project_name}}/environment.yml"
+    -   id: end-of-file-fixer
+    -   id: trailing-whitespace
+-   repo: https://github.com/psf/black                      # Black code formatting
+    rev: 19.3b0
+    hooks:
+    -   id: black
+-   repo: https://github.com/roy-ht/pre-commit-jupyter
+    rev: v1.2.1
+    hooks: # Cleans up jupyter notebooks before committing
+      - id: jupyter-notebook-cleanup
+        args:
+          - --pin-patterns
+          - "[pin];[donotremove]"
+- repo: https://github.com/Lucas-C/pre-commit-hooks
+  rev: v1.1.10
+  hooks: # Adds LICENSE notice to top of all python files, must have a LICENSE file
+    - id: insert-license
+      name: Add license for all python files
+      exclude: ^\.github/.*$
+      types: [python]
+      args:
+        - --comment-style
+        - "|#|"
+        - --license-filepath
+        - LICENSE
+        - --fuzzy-match-generates-todo
+- repo: https://github.com/PyCQA/isort
+  rev: "5.9.2"
+  hooks: # Sorts imports
+    - id: isort
+      additional_dependencies: [toml]
