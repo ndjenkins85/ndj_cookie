@@ -14,9 +14,9 @@ The cookie-cutter includes the following tools:
 
 # Getting started
 
-1. Use (cookie-cutter) or github to copy repo.
+## 1. Use (cookie-cutter) or github to copy repo.
 
-2. Instantiate pre-commit, add log directory, create git repo
+## 2. Instantiate pre-commit, add log directory, create git repo
 
 ```bash
 pre-commit install
@@ -29,9 +29,9 @@ git tag 0.1.0
 
 Create a repo in github and follow instructions to push (including tags)
 
-3. Choose any of poetry, conda or docker-compose for project. (NOTE: only poetry available at this stage)
+## 3. Choose any of poetry, conda or docker-compose for project. (NOTE: only poetry available at this stage)
 
-## Poetry
+### Poetry
 
 Make sure you deactivate any existing virtual environments (i.e. conda).
 
@@ -50,7 +50,7 @@ Remove conda based material such as
 - `my_project.__init__.py:VERSION`
 
 
-## Conda
+### Conda
 
 ```bash
 conda create --name my_project
@@ -61,13 +61,13 @@ conda env export > environment.yml
 Setup project details in `setup.py`.
 
 
-## Docker
+### Docker-compose
 
 ```bash
 docker-compose up
 ```
 
-4. Setup online resources for Github actions
+## 4. Setup online resources for Github actions
 
 Check python version in noxfile and  Github actions
 
@@ -75,7 +75,7 @@ Check python version in noxfile and  Github actions
 - pypi and test-pypi
 - Readthedocs
 
-5. Other cleanup
+## 5. Other cleanup
 
 Change name from my_project to new name in:
 
