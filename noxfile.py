@@ -116,9 +116,9 @@ def tests(session: Session) -> None:
     """Run the test suite."""
     # Updated with fix from:
     # https://stackoverflow.com/questions/59768651/how-to-use-nox-with-poetry
-    args = session.posargs or ["-m", "not e2e"]
+    args = session.posargs or ["--cov", "-m", "not e2e"]
     session.install(".")
-    install_with_constraints_nohash(session, "pytest", "pytest-mock")
+    install_with_constraints_nohash(session, "coverage[toml]", "pytest", "pytest-cov", "pytest-mock")
     session.run("pytest", *args)
 
 

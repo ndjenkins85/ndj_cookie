@@ -6,7 +6,7 @@ import pytest
 from my_project import utils
 
 
-@pytest.mark.xfail(raises=FileNotFoundError)
 def test_fail() -> None:
     """It tests nothing useful."""
-    utils.update_environments()
+    with pytest.raises(FileNotFoundError):
+        utils.update_environments()

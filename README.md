@@ -67,7 +67,9 @@ Setup project details in `setup.py`.
 docker-compose up
 ```
 
-4. Setup online actions
+4. Setup online resources for Github actions
+
+Check python version in noxfile and  Github actions
 
 - Codecov
 - pypi and test-pypi
@@ -75,7 +77,7 @@ docker-compose up
 
 5. Other cleanup
 
-## Change name from my_project to new name in:
+Change name from my_project to new name in:
 
 - project folder name
 - README
@@ -83,7 +85,6 @@ docker-compose up
 - mypy.ini
 - pyproject.toml
 
-Check python version in noxfile
 
 ==================
 
