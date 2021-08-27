@@ -111,7 +111,7 @@ def mypy(session: Session) -> None:
     args = session.posargs or locations
 
     install_with_constraints_nohash(session, "mypy")
-    session.run("mypy", *args)
+    session.run("mypy", "--install-types", "--non-interactive", *args)
 
 
 @nox.session(python="3.8")
