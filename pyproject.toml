@@ -9,8 +9,7 @@ python = ">=3.7.1,<4"
 pip = "^21.1.2"
 
 [tool.poetry.dev-dependencies]
-bandit = "^1.7.0"
-behave = "^1.2.6"
+autoflake = "^1.4"
 black = "^21.7b0"
 m2r2 = "^0.3.1"
 mypy = "^0.910"
@@ -18,11 +17,8 @@ nox = "^2021.6.12"
 pytest = "^6.2.4"
 pytest-cov = "^2.12.1"
 pre-commit = "^2.14.0"
-pylint-fail-under = "^0.3.0"
-safety = "^1.10.3"
 sphinx-rtd-theme = "^0.5.2"
 sphinx-autodoc-typehints = "^1.12.0"
-autoflake = "^1.4"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
@@ -48,3 +44,20 @@ module = [
     'pytest',
     ]
 ignore_missing_imports = true
+
+[tool.coverage.run]
+parallel = true
+source = [
+    "my_project",
+    "tests",
+    "noxfile.py",
+    "docs/conf.py"
+]
+
+[tool.coverage.report]
+exclude_lines = [
+    "pragma: no cover",
+    "@overload",
+    'if __name__ == "__main__":',
+    "if TYPE_CHECKING:",
+]
