@@ -146,7 +146,7 @@ Recommended to use pre-commit for black.
 
 ```bash
 poetry run nox
-poetry run nox -s black safety pytype typeguard coverage xdoctest docs
+poetry run nox -s black safety pytype typeguard coverage xdoctest docs autoflake
 ```
 
 # Contributors

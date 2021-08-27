@@ -20,9 +20,9 @@ pytest-cov = "^2.11.1"
 pre-commit = "^2.12.1"
 pylint-fail-under = "^0.3.0"
 safety = "^1.10.3"
-sphynx = "^0.0.3"
 sphinx-rtd-theme = "^0.5.2"
 sphinx-autodoc-typehints = "^1.12.0"
+autoflake = "^1.4"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
@@ -30,3 +30,25 @@ build-backend = "poetry.core.masonry.api"
 
 [tool.black]
 line-length = 120
+
+[tool.isort]
+profile = "black"
+known_third_party = ["my_project"]
+skip_glob = [
+    "my_project/__init__.py",
+    ]
+
+[tool.mypy]
+python_version = 3.8
+
+[[tool.mypy.overrides]]
+module = [
+    'nox.*',
+    'pytest',
+    'pytest_mock',
+    '_pytest.*',
+    'importlib_metadata',
+    'logging',
+    'sphinx_rtd_theme',
+    ]
+ignore_missing_imports = true
