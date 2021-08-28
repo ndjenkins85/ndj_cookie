@@ -81,7 +81,9 @@ def lint(session: Session) -> None:
         "flake8-bandit",
         "flake8-black",
         "flake8-bugbear",
+        "flake8-builtins",
         "flake8-docstrings",
+        "flake8-eradicate",
         "flake8-import-order",
         "darglint",
     )
@@ -155,7 +157,6 @@ def xdoctest(session: Session) -> None:
     """Run examples with xdoctest."""
     args = session.posargs or ["all"]
     session.install(".")
-    # session.run("poetry", "install", "--no-dev", external=True)
     install_with_constraints_nohash(session, "xdoctest")
     session.run("python", "-m", "xdoctest", package, *args)
 
@@ -164,7 +165,6 @@ def xdoctest(session: Session) -> None:
 def docs(session: Session) -> None:
     """Build the documentation."""
     session.install(".")
-    # session.run("poetry", "install", "--no-dev", external=True)
     install_with_constraints_nohash(session, "sphinx", "sphinx-autodoc-typehints", "m2r2", "sphinx_rtd_theme")
     session.run("rm", "-rf", "docs/_build")
     session.run("sphinx-build", "docs", "docs/_build", *session.posargs)
