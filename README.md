@@ -59,8 +59,9 @@ conda create --name my_project
 conda env export > environment.yml
 ```
 
-Setup project details in `setup.py`.
-
+* Setup project details in `setup.py`.
+* Nox functions need to be changed to Conda (`noxfile.py:black_conda_example`)
+* Create new Github Actions (currently using poetry)
 
 ### Docker-compose
 
