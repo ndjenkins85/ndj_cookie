@@ -60,6 +60,13 @@ def black(session: Session) -> None:
     session.run("black", *args)
 
 
+@nox.session(python="3.8", venv_backend="conda")
+def black_conda_example(session: Session) -> None:
+    """Run black code formatter."""
+    args = session.posargs or locations
+    session.run("black", *args, external=True)
+
+
 @nox.session(python="3.8")
 def autoflake(session: Session) -> None:
     """Run autoflake checks."""
