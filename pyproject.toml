@@ -7,7 +7,11 @@ readme = "README.md"
 homepage = "https://www.nickjenkins.com.au/"
 repository = "https://github.com/ndjenkins85/ndj_cookie/"
 documentation = ""
-keywords = "quick_start,best_practice,python_packaging"
+keywords = [
+    "quick_start",
+    "best_practice",
+    "python_packaging",
+    ]
 classifiers = [
     "Development Status :: 4 - Beta",
     "Intended Audience :: Developers",
