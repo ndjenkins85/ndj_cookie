@@ -33,6 +33,8 @@ Create a repo in github and follow instructions to push (including tags)
 
 ### Poetry
 
+Ensure you have Poetry 1.2.0a1 or above, along with poetry-version-plugin.
+
 Make sure you deactivate any existing virtual environments (i.e. conda).
 
 ```bash
@@ -45,10 +47,9 @@ In another terminal and in conda, run `which python`.
 poetry env use /path/to/python3
 ```
 
-Remove conda based material such as
+Remove materials required by conda such as
 - setup.py
-- `my_project.__init__.py:VERSION`
-
+- `docs/requirements.txt`
 
 ### Conda
 
