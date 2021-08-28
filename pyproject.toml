@@ -1,8 +1,26 @@
 [tool.poetry]
 name = "my_project"
 version = "0"
-description = ""
+description = "Personal python project quick starter example."
 authors = ["Nick Jenkins"]
+readme = "README.md"
+homepage = "https://www.nickjenkins.com.au/"
+repository = "https://github.com/ndjenkins85/ndj_cookie/"
+documentation = ""
+keywords = "quick_start,best_practice,python_packaging"
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "Intended Audience :: Education",
+    "Programming Language :: Python :: 3 :: Only",
+    "Topic :: Documentation",
+    "Topic :: Documentation :: Sphinx",
+    "Topic :: Education :: Testing",
+    "Topic :: Software Development :: Build Tools",
+    "Topic :: Software Development :: Documentation",
+    "Topic :: Software Development :: Libraries",
+    "Topic :: Utilities",
+]
 
 [tool.poetry.dependencies]
 python = ">=3.7.1,<4"
