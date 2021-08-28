@@ -47,7 +47,7 @@ In another terminal and in conda, run `which python`.
 poetry env use /path/to/python3
 ```
 
-Remove materials required by conda such as
+Remove tools not required by poetry, but required for conda
 - setup.py
 - `docs/requirements.txt`
 
