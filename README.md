@@ -1,18 +1,30 @@
 # ndj_cookie
 
-This repo is my personal python project cookie-cutter.
+This repo is my personal python project quick starter.
 It contains my favourite tools and options for creating python projects for data science, web development, and adhoc projects.
 While this is intended to be a personal resource, this is open to public users.
 
-The cookie-cutter includes the following tools:
+The quick-start includes the following features:
 
-- Handy git files i.e. gitignore, codeowners, templates, github actions
-- Initial documentation README, standard git docs, sphinx documentation
-- Automations including pre-commit, nox
-- Dependency and virtual environment management with poetry, (conda) or (docker-compose)
-- Warmed up project example with logging, imports, and argparse
+- Handy git files i.e. gitignore, codeowners, templates
+- Initial documentation README, standard git project docs, sphinx documentation for static and API reference
+- Automations including pre-commit, nox, github actions
+- Dependency and virtual environment management with poetry or conda (or docker-compose TBC)
+- Warmed up project example with logging, imports, pytest, and argparse CLI
 
-# Getting started
+This README contains three major sections:
+
+* [About this repo](#ndj_cookie). General info about this repo.
+* [Setup new repo](#Instructions-for-copying-to-set-up-new-project). Instructions for copying this repo to create a new project.
+* [README Template](#my_project). Warmed up README template for new projects with writing prompts, instructions for usage and development.
+
+The following sources have been inspiration for creating my own project quick starter.
+
+* [Hypermodern python](https://cjolowicz.github.io/posts/hypermodern-python-01-setup/)
+* [SQLmodel](https://github.com/tiangolo/sqlmodel)
+* [Project blueprint](https://github.com/johnthagen/python-blueprint)
+
+# Instructions for copying to set up new project
 
 ## 1. Use (cookie-cutter) or github to copy repo.
 
@@ -96,12 +108,19 @@ What is it, at a high high level?
 Who is the audience or end users? Any requirements?
 What are the feature and benefits?
 
+* [Instructions for users](#instructions-for-users)
+* [Instructions for developers](#instructions-for-developers)
+* [Contributors](#contributors)
+
 # Instructions for users
 
-The following are the quick start instructions for using/consuming assets such as the library or project cookiecutter.
-Instructions for developers follows this section.
+The following are the quick start instructions for using the library as an end-user.
+[Instructions for developers](#instructions-for-developers) follows this section.
 
 # Instructions for developers
+
+The following are the setup instructions for developers looking to improve this project.
+For information on current contributors and guidelines see the [contributors](#contributors) section.
 
 ### Dependencies and virtual env (conda)
 
