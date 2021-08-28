@@ -7,6 +7,7 @@ nox.option.sessions is default run for 'nox' on command line inc:
     * tests (pytest^): runs our test suite
 
 Additional options:
+    * autoflake^: remove unused imports and variables
     * black^: codestyle alignment
     * safety^: security checks
     * typeguard: strict type checking of functions
@@ -59,6 +60,16 @@ def black(session: Session) -> None:
     session.run("black", *args)
 
 
+@nox.session(python="3.8")
+def autoflake(session: Session) -> None:
+    """Run autoflake checks."""
+    args = session.posargs or locations
+    install_with_constraints_nohash(session, "autoflake")
+    session.run(
+        "autoflake", "--remove-all-unused-imports", "--recursive", "--remove-unused-variables", "--in-place", *args
+    )
+
+
 @nox.session(python=["3.8"])
 def lint(session: Session) -> None:
     """Lint using flake8."""
@@ -70,7 +81,9 @@ def lint(session: Session) -> None:
         "flake8-bandit",
         "flake8-black",
         "flake8-bugbear",
+        "flake8-builtins",
         "flake8-docstrings",
+        "flake8-eradicate",
         "flake8-import-order",
         "darglint",
     )
@@ -100,7 +113,7 @@ def mypy(session: Session) -> None:
     args = session.posargs or locations
 
     install_with_constraints_nohash(session, "mypy")
-    session.run("mypy", *args)
+    session.run("mypy", "--install-types", "--non-interactive", *args)
 
 
 @nox.session(python="3.8")
@@ -144,7 +157,6 @@ def xdoctest(session: Session) -> None:
     """Run examples with xdoctest."""
     args = session.posargs or ["all"]
     session.install(".")
-    # session.run("poetry", "install", "--no-dev", external=True)
     install_with_constraints_nohash(session, "xdoctest")
     session.run("python", "-m", "xdoctest", package, *args)
 
@@ -153,7 +165,6 @@ def xdoctest(session: Session) -> None:
 def docs(session: Session) -> None:
     """Build the documentation."""
     session.install(".")
-    # session.run("poetry", "install", "--no-dev", external=True)
     install_with_constraints_nohash(session, "sphinx", "sphinx-autodoc-typehints", "m2r2", "sphinx_rtd_theme")
     session.run("rm", "-rf", "docs/_build")
     session.run("sphinx-build", "docs", "docs/_build", *session.posargs)

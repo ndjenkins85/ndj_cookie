@@ -1,12 +1,11 @@
 from distutils.core import setup
 
+from my_project import __version__
 from setuptools import find_packages
-
-from my_project import VERSION
 
 setup(
     name="my_project",
-    version=VERSION,
+    version=__version__,
     description="",
     author="Nick Jenkins",
     author_email="",

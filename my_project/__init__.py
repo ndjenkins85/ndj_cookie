@@ -2,4 +2,5 @@
 
 from . import utils  # noqa: F401
 
-VERSION = "0.1.0"  # Initial commit
+__version__ = "0.1.1"  # Rationalizing files
+# "0.1.0" # Initial commit

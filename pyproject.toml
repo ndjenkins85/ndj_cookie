@@ -1,28 +1,31 @@
 [tool.poetry]
 name = "my_project"
-version = "0.1.0"
+version = "0"
 description = ""
 authors = ["Nick Jenkins"]
 
 [tool.poetry.dependencies]
 python = ">=3.7.1,<4"
 pip = "^21.1.2"
+sphinx = {version = "^4", optional = true}
 
 [tool.poetry.dev-dependencies]
-bandit = "^1.7.0"
-behave = "^1.2.6"
-black = "^21.4b2"
-m2r2 = "^0.2.7"
-mypy = "^0.812"
+autoflake = "^1.4"
+black = "^21.7b0"
+m2r2 = "^0.3.1"
+mypy = "^0.910"
 nox = "^2021.6.12"
 pytest = "^6.2.4"
-pytest-cov = "^2.11.1"
-pre-commit = "^2.12.1"
-pylint-fail-under = "^0.3.0"
-safety = "^1.10.3"
-sphynx = "^0.0.3"
+pytest-cov = "^2.12.1"
+pre-commit = "^2.14.0"
 sphinx-rtd-theme = "^0.5.2"
 sphinx-autodoc-typehints = "^1.12.0"
+
+[tool.poetry.extras]
+docs = ["sphinx"]
+
+[tool.poetry-version-plugin]
+source = "init"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
@@ -30,3 +33,38 @@ build-backend = "poetry.core.masonry.api"
 
 [tool.black]
 line-length = 120
+
+[tool.isort]
+profile = "black"
+known_third_party = ["my_project"]
+skip_glob = [
+    "my_project/__init__.py",
+    ]
+
+[tool.mypy]
+python_version = 3.8
+
+[[tool.mypy.overrides]]
+module = [
+    'sphinx_rtd_theme',
+    'nox.*',
+    'pytest',
+    ]
+ignore_missing_imports = true
+
+[tool.coverage.run]
+parallel = true
+source = [
+    "my_project",
+    "tests",
+    "noxfile.py",
+    "docs/conf.py"
+]
+
+[tool.coverage.report]
+exclude_lines = [
+    "pragma: no cover",
+    "@overload",
+    'if __name__ == "__main__":',
+    "if TYPE_CHECKING:",
+]
