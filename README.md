@@ -83,11 +83,12 @@ docker-compose up
 
 ## 4. Setup online resources for Github actions
 
-Check python version in noxfile and  Github actions
+Check python version in noxfile and Github actions
 
-- Codecov
-- pypi and test-pypi
-- Readthedocs
+- Setup Codecov connection
+- Setup pypi and test-pypi connections
+- Setup Readthedocs (and Github pages)
+- Set up dependabot
 
 ## 5. Other cleanup
 
