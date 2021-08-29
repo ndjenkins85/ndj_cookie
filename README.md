@@ -65,24 +65,26 @@ poetry env use /path/to/python3
 Remove tools not required by poetry, but required for conda
 - setup.py
 - `docs/requirements.txt`
+- Conda references in README.md
 
 ### Conda
 
 *Note*: using conda will mean incompatability with some Nox, Github actions, and library publish functionality. Only the default Nox sessions are included (with light flake8 checks), plus black and docs.
-
-Setup project details in `setup.py`.
 
 ```bash
 conda env create -f environment.yml
 conda activate my_project
 ```
 
-Remove or update the following Github Actions:
+Additional conda related setup:
 
-* coverage
-* release
-* test-pypi
-* tests
+* Setup project details in `setup.py`.
+* Remove or update the following Github Actions:
+  * coverage
+  * release
+  * test-pypi
+  * tests
+* Update project README specify conda instructions
 
 ### Docker-compose
 
@@ -104,7 +106,7 @@ Check python and library versions in noxfile and Github actions.
 
 Change name from my_project to new name in:
 
-- project folder name
+- project folder name and imports
 - README.md
 - .flake8
 - pyproject.toml
