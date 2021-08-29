@@ -2,6 +2,7 @@
 name = "my_project"
 version = "0"
 description = "Personal python project quick starter example."
+license = "MIT"
 authors = ["Nick Jenkins"]
 readme = "README.md"
 homepage = "https://www.nickjenkins.com.au/"
@@ -14,6 +15,7 @@ keywords = [
     ]
 classifiers = [
     "Development Status :: 4 - Beta",
+    "License :: OSI Approved :: MIT License",
     "Intended Audience :: Developers",
     "Intended Audience :: Education",
     "Programming Language :: Python :: 3 :: Only",
