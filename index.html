@@ -176,7 +176,7 @@ While this is intended to be a personal resource, this is open to public users.<
 <li><p>Dependency and virtual environment management with poetry or conda (or docker-compose TBC)</p></li>
 <li><p>Warmed up project example with logging, imports, pytest, and argparse CLI</p></li>
 </ul>
-<p>This README contains three major sections:</p>
+<p>This guide contains three major sections:</p>
 <ul class="simple">
 <li><p><a class="reference external" href="#python-project-quick-start">About this repo</a>. General info about this repo.</p></li>
 <li><p><a class="reference external" href="#instructions-for-copying-to-set-up-new-project">Setup new repo</a>. Instructions for copying this repo to create a new project.</p></li>
@@ -193,23 +193,11 @@ While this is intended to be a personal resource, this is open to public users.<
 <h1>Instructions for copying to set up new project<a class="headerlink" href="#instructions-for-copying-to-set-up-new-project" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="clone-repo">
 <h2>1. Clone repo<a class="headerlink" href="#clone-repo" title="Permalink to this headline">¶</a></h2>
-</div>
-<div class="section" id="instantiate-pre-commit-add-log-directory-create-new-git-repo">
-<h2>2. Instantiate pre-commit, add log directory, create new git repo<a class="headerlink" href="#instantiate-pre-commit-add-log-directory-create-new-git-repo" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pre-commit install
-git init
-git add .
-git add logs/.gitkeep --force
-git commit -m <span class="s2">&quot;initial commit&quot;</span>
-git tag <span class="m">0</span>.1.0
-git remote rm origin
-</pre></div>
-</div>
-<p>Create a repo in github and follow instructions to push (including tags).</p>
-<p>Check if the branch name is <code class="docutils literal notranslate"><span class="pre">main</span></code> or <code class="docutils literal notranslate"><span class="pre">master</span></code> - Github Actions are set to use <code class="docutils literal notranslate"><span class="pre">main</span></code>.</p>
+<p>Clone repo locally and delete the <code class="docutils literal notranslate"><span class="pre">.git</span></code> directory to start fresh.
+Edit the <code class="docutils literal notranslate"><span class="pre">my_project.__init__.py</span></code> to revert to version <code class="docutils literal notranslate"><span class="pre">0.1.0</span></code>.</p>
 </div>
 <div class="section" id="choose-any-of-poetry-conda-or-docker-compose-for-project">
-<h2>3. Choose any of poetry, conda (or docker-compose) for project.<a class="headerlink" href="#choose-any-of-poetry-conda-or-docker-compose-for-project" title="Permalink to this headline">¶</a></h2>
+<h2>2. Choose any of poetry, conda (or docker-compose) for project.<a class="headerlink" href="#choose-any-of-poetry-conda-or-docker-compose-for-project" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="poetry">
 <h3>Poetry<a class="headerlink" href="#poetry" title="Permalink to this headline">¶</a></h3>
 <p>Ensure you have and installation of Poetry 1.2.0a1 or above, along with poetry-version-plugin.</p>
@@ -222,11 +210,15 @@ In another terminal and in conda, run <code class="docutils literal notranslate"
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>poetry env use /path/to/python3
 </pre></div>
 </div>
+<p>Enter the poetry shell.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>poetry shell
+</pre></div>
+</div>
 <p>Remove tools not required by poetry, but required for conda</p>
 <ul class="simple">
-<li><p>setup.py</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">docs/requirements.txt</span></code></p></li>
-<li><p>Conda references in README.md</p></li>
+<li><p>Delete <code class="docutils literal notranslate"><span class="pre">setup.py</span></code></p></li>
+<li><p>Delete <code class="docutils literal notranslate"><span class="pre">docs/requirements.txt</span></code></p></li>
+<li><p>Edit Conda references in <code class="docutils literal notranslate"><span class="pre">README.md</span></code></p></li>
 </ul>
 </div>
 <div class="section" id="conda">
@@ -258,6 +250,19 @@ conda activate my_project
 </div>
 </div>
 </div>
+<div class="section" id="instantiate-pre-commit-add-log-directory-create-new-git-repo">
+<h2>3. Instantiate pre-commit, add log directory, create new git repo<a class="headerlink" href="#instantiate-pre-commit-add-log-directory-create-new-git-repo" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pre-commit install
+git init
+git add .
+git add logs/.gitkeep --force
+git commit -m <span class="s2">&quot;initial commit&quot;</span>
+git tag <span class="m">0</span>.1.0
+</pre></div>
+</div>
+<p>Create a repo in github and follow instructions to push (including tags).</p>
+<p>Check if the branch name is <code class="docutils literal notranslate"><span class="pre">main</span></code> or <code class="docutils literal notranslate"><span class="pre">master</span></code> - Github Actions are set to use <code class="docutils literal notranslate"><span class="pre">main</span></code>.</p>
+</div>
 <div class="section" id="other-setup-and-cleanup">
 <h2>4. Other setup and cleanup<a class="headerlink" href="#other-setup-and-cleanup" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
@@ -270,12 +275,12 @@ conda activate my_project
 <p>Change name from my_project to new name in:</p>
 <ul class="simple">
 <li><p>project folder name and imports</p></li>
-<li><p>README.md</p></li>
-<li><p>CONTRIBUTING.md</p></li>
-<li><p>.flake8</p></li>
-<li><p>pyproject.toml</p></li>
-<li><p>docs/conf.py</p></li>
-<li><p>setup.py</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">README.md</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">CONTRIBUTING.md</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">.flake8</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">pyproject.toml</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">docs/conf.py</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">setup.py</span></code></p></li>
 </ul>
 </div>
 </div>
