@@ -107,11 +107,11 @@ Check if the branch name is `main` or `master` - Github Actions are set to use `
 
 ## 4. Other setup and cleanup
 
-- Check python and library versions in noxfile and Github actions.
+- Check python and library versions in noxfile and Github actions
 - Setup Codecov connection
-- Setup pypi and test-pypi connections
+- Setup pypi and test-pypi secrets, uncomment test-pypi github action
 - In Github repo set up dependabot and Github pages
-- Change [LICENSE](LICENSE) as required. Use [this guide](https://github.com/Lucas-C/pre-commit-hooks#removing-old-license-and-replacing-it-with-a-new-one) to redo licenses across project.
+- Change [LICENSE](LICENSE) as required. Use [this guide](https://github.com/Lucas-C/pre-commit-hooks#removing-old-license-and-replacing-it-with-a-new-one) to redo licenses across project
 
 Change name from my_project to new name in:
 
