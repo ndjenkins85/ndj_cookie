@@ -15,7 +15,7 @@ The quick-start includes the following features:
 
 This README contains three major sections:
 
-* [About this repo](#ndj-cookie). General info about this repo.
+* [About this repo](#python-project-quick-start). General info about this repo.
 * [Setup new repo](#instructions-for-copying-to-set-up-new-project). Instructions for copying this repo to create a new project.
 * [README Template](#my-project). Warmed up README template for new projects with writing prompts, instructions for usage and development.
 
@@ -44,7 +44,7 @@ Create a repo in github and follow instructions to push (including tags).
 
 Check if the branch name is `main` or `master` - Github Actions are set to use `main`.
 
-## 3. Choose any of poetry, conda or docker-compose for project. (NOTE: only poetry available at this stage)
+## 3. Choose any of poetry, conda (or docker-compose) for project.
 
 ### Poetry
 
@@ -121,19 +121,39 @@ What are the feature and benefits?
 
 * [Instructions for users](#instructions-for-users)
 * [Instructions for developers](#instructions-for-developers)
+  * [Dependency and virtual environment management, library development and build with poetry](#dependency-and-virtual-environment-management-library-development-and-build-with-poetry)
+  * [Dependency and virtual environment management, library development and build with conda](#dependency-and-virtual-environment-management-library-development-and-build-with-conda)
+  * [Code quality, testing, and generating documentation with Nox](#code-quality-testing-and-generating-documentation-with-nox)
+  * [Code formatting with Pre-commit](#code-formatting-with-pre-commit)
 * [Contributors](#contributors)
 
 ## Instructions for users
 
-The following are the quick start instructions for using the library as an end-user.
+The following are the quick start instructions for using the project as an end-user.
 [Instructions for developers](#instructions-for-developers) follows this section.
+
+Include an example of running the program with expected outputs.
+
+```bash
+python -m my_project.utils -i1 environment.yml -i2 environment.yml
+...
+2021-08-29 14:59:09,489 [DEBUG] Loading main file from environment.yml
+2021-08-29 14:59:09,489 [DEBUG] Loading second file from environment.yml
+...
+  - pytest-cov=2.10.1
+  - python=^3.8
+  - sphinx=3.2.1
+  - sphinx-autodoc-typehints=1.12.0
+  - sphinx_rtd_theme=0.4.3
+```
 
 ## Instructions for developers
 
 The following are the setup instructions for developers looking to improve this project.
 For information on current contributors and guidelines see the [contributors](#contributors) section.
+Follow each step here and ensure tests are working.
 
-### Dependency and virtual environment management, library development and build (poetry)
+### Dependency and virtual environment management, library development and build with poetry
 
 Ensure you have and installation of Poetry 1.2.0a1 or above, along with poetry-version-plugin.
 
@@ -155,7 +175,7 @@ Library can be built using
 poetry build
 ```
 
-### Dependency and virtual environment management, library development and build (conda)
+### Dependency and virtual environment management, library development and build with conda
 
 Following commands will create the conda environment and setup the library in interactive development mode using setup.py.
 
@@ -171,7 +191,7 @@ Library can be built using
 python setup.py bdist_wheel
 ```
 
-## Code quality, testing, and generating documentation with Nox
+### Code quality, testing, and generating documentation with Nox
 
 Nox is a python task automation tool similar to Tox, Makefiles or scripts.
 
@@ -196,7 +216,7 @@ All other task automations commands can be optionally run locally with below com
 poetry run nox -s black safety pytype typeguard coverage xdoctest autoflake
 ```
 
-### Installing Pre-commit
+### Code formatting with Pre-commit
 
 On first time use of the repository, pre-commit will need to be installed locally. 
 You can use the following command to install and run pre-commit over all files.
