@@ -4,7 +4,6 @@ channels:
   - conda-forge
   - defaults
 dependencies:
-  - autoflake=1.4
   - black=19.10b0
   - m2r2=0.3.1
   - mypy=0.790
@@ -13,7 +12,7 @@ dependencies:
   - pre-commit=2.14.0
   - pytest=6.1.1
   - pytest-cov=2.10.1
-  - python=3.8.5
+  - python=^3.8
   - sphinx=3.2.1
   - sphinx-autodoc-typehints=1.12.0
   - sphinx_rtd_theme=0.4.3
