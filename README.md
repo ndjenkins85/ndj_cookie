@@ -30,7 +30,9 @@ The following sources have been inspiration for creating my own project quick st
 ## 1. Clone repo
 
 Clone repo locally and delete the `.git` directory to start fresh.
+
 Edit the `my_project.__init__.py` to revert to version `0.1.0`.
+Edit the `README.md` to include [my project](#my-project) onwards.
 
 ## 2. Choose any of poetry, conda (or docker-compose) for project.
 
@@ -251,6 +253,6 @@ pre-commit run --all-files
 
 * [Nick Jenkins](https://www.nickjenkins.com.au) - Data Scientist, API & Web dev, Team lead, Writer
 
-See [CONTRIBUTING.md](CONTRIBUTING.md) for specific instructions on contributing to project.
+See [CONTRIBUTING.md](CONTRIBUTING.md) in Github repo for specific instructions on contributing to project.
 
-Usage rights governed by [LICENSE](LICENSE).
+Usage rights governed by [LICENSE](LICENSE)  in Github repo or page footer.
