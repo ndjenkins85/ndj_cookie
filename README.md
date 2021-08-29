@@ -48,7 +48,7 @@ Check if the branch name is `main` or `master` - Github Actions are set to use `
 
 ### Poetry
 
-Ensure you have Poetry 1.2.0a1 or above, along with poetry-version-plugin.
+Ensure you have and installation of Poetry 1.2.0a1 or above, along with poetry-version-plugin.
 
 Make sure you deactivate any existing virtual environments (i.e. conda).
 
@@ -133,56 +133,84 @@ The following are the quick start instructions for using the library as an end-u
 The following are the setup instructions for developers looking to improve this project.
 For information on current contributors and guidelines see the [contributors](#contributors) section.
 
-### Dependencies and virtual env (conda)
+### Dependency and virtual environment management, library development and build (poetry)
+
+Ensure you have and installation of Poetry 1.2.0a1 or above, along with poetry-version-plugin.
+
+Make sure you deactivate any existing virtual environments (i.e. conda).
+
+```bash
+poetry install
+```
+
+You may need to point poetry to the correct python interpreter using the following command.
+In another terminal and in conda, run `which python`.
+```bash
+poetry env use /path/to/python3
+```
+
+Library can be built using
+
+```bash
+poetry build
+```
+
+### Dependency and virtual environment management, library development and build (conda)
+
+Following commands will create the conda environment and setup the library in interactive development mode using setup.py.
 
 ```bash
 conda env create -f environment.yml
 conda activate my_project
+pip install -e .
 ```
 
-Packaging and publishing (conda, setup.py), details to be added TODO.
-
-### Dependencies and virtual env (poetry)
-
-`poetry install`
-
-### Pre-commit
-
-On first time use of the repository, pre-commit will need to be installed locally. You can use the following command to run pre-commit over all files and install.
-
-``` bash
-pre-commit run --all-files
-```
-
-### Install library for adhoc development testing
-
-setup.py can be used to generate a python wheel, or install the library for local usage.
-It is useful to run this step before working on project code.
+Library can be built using
 
 ```bash
 python setup.py bdist_wheel
 ```
 
-```bash
-python setup.py develop
-```
+## Code quality, testing, and generating documentation with Nox
 
-## Manage sphinx documentation
+Nox is a python task automation tool similar to Tox, Makefiles or scripts.
 
-`poetry run nox -s docs`
-
-## Nox for task
-
-Following can be used to run mypy, lint, and tests.
-Recommended to use pre-commit for black.
+The following command can be used to run mypy, lint, and tests.
+It is recommended to run these before pushing code, as this is run with Github Actions.
+Some checks such as black are run more frequently with [pre-commit](#installing-pre-commit).
 
 ```bash
 poetry run nox
-poetry run nox -s black safety pytype typeguard coverage xdoctest docs autoflake
+```
+
+Local Sphinx documentation can be generated with the following command.
+Documentation publishing using Github Actions to Github pages is enabled by default.
+
+```bash
+poetry run nox -s docs
+```
+
+All other task automations commands can be optionally run locally with below command.
+
+```bash
+poetry run nox -s black safety pytype typeguard coverage xdoctest autoflake
+```
+
+### Installing Pre-commit
+
+On first time use of the repository, pre-commit will need to be installed locally. 
+You can use the following command to install and run pre-commit over all files.
+See .pre-commit-config.yaml for checks in use.
+Intention is to have lightweight checks that automatically make code changes.
+
+``` bash
+pre-commit run --all-files
 ```
 
 ## Contributors
 
-Copyright © 2021 by Nick Jenkins. All rights reserved
+* [Nick Jenkins](https://www.nickjenkins.com.au) - Data Scientist, API & Web dev, Team lead, Writer
 
-See [CONTRIBUTING.md](CONTRIBUTING.md) and [LICENSE](LICENSE) for more info.
+See [CONTRIBUTING.md](CONTRIBUTING.md) for specific instructions on contributing to project.
+
+Usage rights governed by [LICENSE](LICENSE).
