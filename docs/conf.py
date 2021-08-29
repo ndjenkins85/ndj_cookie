@@ -4,6 +4,7 @@
 from pathlib import Path
 
 import sphinx_rtd_theme  # noqa: F401
+
 from my_project import __version__
 
 project = "my_project"
