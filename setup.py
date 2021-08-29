@@ -1,7 +1,8 @@
 from distutils.core import setup
 
-from my_project import __version__
 from setuptools import find_packages
+
+from my_project import __version__
 
 setup(
     name="my_project",
