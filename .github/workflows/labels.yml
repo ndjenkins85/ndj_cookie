@@ -1,4 +1,9 @@
-on: issues
+on:
+  push:
+    branches:
+      - main
+  issues:
+
 name: Create Default Labels
 jobs:
   labels:
