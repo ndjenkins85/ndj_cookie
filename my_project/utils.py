@@ -89,7 +89,7 @@ def update_environments(
     print("".join(keep_libraries))
 
 
-if __name__ == "__main__":
+def start():
     parser = argparse.ArgumentParser("Conda environment management util")
     parser.add_argument("-i1", help="Path to main environment.yml")
     parser.add_argument("-i2", help="Path to opt environment2.yml")
@@ -110,3 +110,7 @@ if __name__ == "__main__":
     main_env = Path(args.i1)
     opt_env = Path(args.i2)
     update_environments(main_env=main_env, opt_env=opt_env)
+
+
+if __name__ == "__main__":
+    start()
