@@ -94,15 +94,13 @@ Not currently supported, future TODO.
 docker-compose up
 ```
 
-## 4. Setup online resources for Github actions
+## 4. Other setup and cleanup
 
-Check python and library versions in noxfile and Github actions.
-
+- Check python and library versions in noxfile and Github actions.
 - Setup Codecov connection
 - Setup pypi and test-pypi connections
 - In Github repo set up dependabot and Github pages
-
-## 5. Other cleanup
+- Change [LICENSE](LICENSE) as required. Use [this guide](https://github.com/Lucas-C/pre-commit-hooks#removing-old-license-and-replacing-it-with-a-new-one) to redo licenses across project.
 
 Change name from my_project to new name in:
 
@@ -113,6 +111,8 @@ Change name from my_project to new name in:
 - pyproject.toml
 - docs/conf.py
 - setup.py
+
+
 
 # My Project
 
