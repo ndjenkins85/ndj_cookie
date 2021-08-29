@@ -219,7 +219,7 @@ poetry run nox -s black safety pytype typeguard coverage xdoctest autoflake
 
 ### Code formatting with Pre-commit
 
-On first time use of the repository, pre-commit will need to be installed locally. 
+On first time use of the repository, pre-commit will need to be installed locally.
 You can use the following command to install and run pre-commit over all files.
 See .pre-commit-config.yaml for checks in use.
 Intention is to have lightweight checks that automatically make code changes.
