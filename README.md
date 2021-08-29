@@ -13,7 +13,7 @@ The quick-start includes the following features:
 - Dependency and virtual environment management with poetry or conda (or docker-compose TBC)
 - Warmed up project example with logging, imports, pytest, and argparse CLI
 
-This README contains three major sections:
+This guide contains three major sections:
 
 * [About this repo](#python-project-quick-start). General info about this repo.
 * [Setup new repo](#instructions-for-copying-to-set-up-new-project). Instructions for copying this repo to create a new project.
@@ -29,23 +29,10 @@ The following sources have been inspiration for creating my own project quick st
 
 ## 1. Clone repo
 
-## 2. Instantiate pre-commit, add log directory, create new git repo
+Clone repo locally and delete the `.git` directory to start fresh.
+Edit the `my_project.__init__.py` to revert to version `0.1.0`.
 
-```bash
-pre-commit install
-git init
-git add .
-git add logs/.gitkeep --force
-git commit -m "initial commit"
-git tag 0.1.0
-git remote rm origin
-```
-
-Create a repo in github and follow instructions to push (including tags).
-
-Check if the branch name is `main` or `master` - Github Actions are set to use `main`.
-
-## 3. Choose any of poetry, conda (or docker-compose) for project.
+## 2. Choose any of poetry, conda (or docker-compose) for project.
 
 ### Poetry
 
@@ -63,10 +50,16 @@ In another terminal and in conda, run `which python`.
 poetry env use /path/to/python3
 ```
 
+Enter the poetry shell.
+
+```bash
+poetry shell
+```
+
 Remove tools not required by poetry, but required for conda
-- setup.py
-- `docs/requirements.txt`
-- Conda references in README.md
+- Delete `setup.py`
+- Delete `docs/requirements.txt`
+- Edit Conda references in `README.md`
 
 ### Conda
 
@@ -95,6 +88,21 @@ Not currently supported, future TODO.
 docker-compose up
 ```
 
+## 3. Instantiate pre-commit, add log directory, create new git repo
+
+```bash
+pre-commit install
+git init
+git add .
+git add logs/.gitkeep --force
+git commit -m "initial commit"
+git tag 0.1.0
+```
+
+Create a repo in github and follow instructions to push (including tags).
+
+Check if the branch name is `main` or `master` - Github Actions are set to use `main`.
+
 ## 4. Other setup and cleanup
 
 - Check python and library versions in noxfile and Github actions.
@@ -106,12 +114,12 @@ docker-compose up
 Change name from my_project to new name in:
 
 - project folder name and imports
-- README.md
-- CONTRIBUTING.md
-- .flake8
-- pyproject.toml
-- docs/conf.py
-- setup.py
+- `README.md`
+- `CONTRIBUTING.md`
+- `.flake8`
+- `pyproject.toml`
+- `docs/conf.py`
+- `setup.py`
 
 # My Project
 
