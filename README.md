@@ -38,6 +38,7 @@ git add .
 git add logs/.gitkeep --force
 git commit -m "initial commit"
 git tag 0.1.0
+git remote rm origin
 ```
 
 Create a repo in github and follow instructions to push (including tags).
