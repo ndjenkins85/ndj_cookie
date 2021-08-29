@@ -49,6 +49,9 @@ sphinx-autodoc-typehints = "^1.12.0"
 [tool.poetry.extras]
 docs = ["sphinx"]
 
+[tool.poetry.scripts]
+my_project = 'my_project.utils:start'
+
 [tool.poetry-version-plugin]
 source = "init"
 
