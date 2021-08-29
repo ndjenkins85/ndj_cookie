@@ -1,6 +1,6 @@
 # Copyright © 2021 by Nick Jenkins. All rights reserved
 
-from . import utils  # noqa: F401
+from my_project import utils  # noqa: F401
 
 # Program version and changelog. __version__ is used in setup.py
 # Poetry attaches to this version via poetry-version-plugin
