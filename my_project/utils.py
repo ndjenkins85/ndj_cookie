@@ -89,7 +89,8 @@ def update_environments(
     print("".join(keep_libraries))
 
 
-def start():
+def start() -> None:
+    """Program entry point for python and script."""
     parser = argparse.ArgumentParser("Conda environment management util")
     parser.add_argument("-i1", help="Path to main environment.yml")
     parser.add_argument("-i2", help="Path to opt environment2.yml")
@@ -105,7 +106,7 @@ def start():
             handlers=[logging.FileHandler(log_path), logging.StreamHandler()],
         )
     except FileNotFoundError:
-        raise FileNotFoundError("'/logs/' directory missing, cannot create log files.")
+        logging.warning("'/logs/' directory missing, cannot create log files.")
 
     main_env = Path(args.i1)
     opt_env = Path(args.i2)
