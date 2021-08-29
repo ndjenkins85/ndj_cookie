@@ -16,15 +16,13 @@ This project uses Git Flow, with the exception that releases are cut directly fr
 - Dev branch is where work is merged into until ready for release.
 - Working branches should follow the naming conventions mentioned below
   - feature/ - adding functionality to project
-  - bugfix/ - addressing issues with current process
+  - bugfix/ or bug/ - addressing issues with current process
   - docs/ - for documentation improvements
   - infra/ - for CI/CD and tooling
   - hotfix/ - only for fixing broken releases
   - experiment/ - for testing and experiments, not to be merged (formalize as feature)
 
-These branches and descriptions can optionally replace default github tags by manual update.
-
-Using these branch names helps [pr-labeler](.github/pr-labeler.yml) to automatically label pull requests, which in turn helps [release-drafter](.github/release-drafter.md) create nice release notes related to the pull request information.
+Labels are automatically managed through a github action. Using these branch names helps [pr-labeler](.github/pr-labeler.yml) to automatically label pull requests, which in turn helps [release-drafter](.github/release-drafter.md) create nice release notes related to the pull request information.
 
 # Issuing releases
 

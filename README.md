@@ -7,7 +7,7 @@ While this is intended to be a personal resource, this is open to public users.
 The quick-start includes the following features:
 
 - Choice of full poetry workflow or partial conda workflow
-- Handy git files i.e. gitignore, codeowners, templates
+- Pre-populated git and github files including gitignore, codeowners, templates, and branch labeler
 - Documentation including README, standard git project docs, sphinx documentation for static and API reference
 - Automations including pre-commit, nox, github actions (including custom poetry nox sphinx github pages workflow)
 - Dependency and virtual environment management with poetry or conda (or docker-compose TBC)
