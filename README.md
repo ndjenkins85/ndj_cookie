@@ -109,6 +109,7 @@ Change name from my_project to new name in:
 - .flake8
 - pyproject.toml
 - docs/conf.py
+- setup.py
 
 # my_project
 
