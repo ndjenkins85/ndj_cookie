@@ -193,8 +193,9 @@ While this is intended to be a personal resource, this is open to public users.<
 <h1>Instructions for copying to set up new project<a class="headerlink" href="#instructions-for-copying-to-set-up-new-project" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="clone-repo">
 <h2>1. Clone repo<a class="headerlink" href="#clone-repo" title="Permalink to this headline">¶</a></h2>
-<p>Clone repo locally and delete the <code class="docutils literal notranslate"><span class="pre">.git</span></code> directory to start fresh.
-Edit the <code class="docutils literal notranslate"><span class="pre">my_project.__init__.py</span></code> to revert to version <code class="docutils literal notranslate"><span class="pre">0.1.0</span></code>.</p>
+<p>Clone repo locally and delete the <code class="docutils literal notranslate"><span class="pre">.git</span></code> directory to start fresh.</p>
+<p>Edit the <code class="docutils literal notranslate"><span class="pre">my_project.__init__.py</span></code> to revert to version <code class="docutils literal notranslate"><span class="pre">0.1.0</span></code>.
+Edit the <code class="docutils literal notranslate"><span class="pre">README.md</span></code> to include <a class="reference external" href="#my-project">my project</a> onwards.</p>
 </div>
 <div class="section" id="choose-any-of-poetry-conda-or-docker-compose-for-project">
 <h2>2. Choose any of poetry, conda (or docker-compose) for project.<a class="headerlink" href="#choose-any-of-poetry-conda-or-docker-compose-for-project" title="Permalink to this headline">¶</a></h2>
@@ -284,8 +285,8 @@ git tag <span class="m">0</span>.1.0
 </ul>
 </div>
 </div>
-<div class="section" id="my-project">
-<h1>My Project<a class="headerlink" href="#my-project" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="id1">
+<h1>My Project<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
 <p>What is it, at a high high level?
 Who is the audience or end users? Any requirements?
 What are the feature and benefits?</p>
@@ -301,8 +302,8 @@ What are the feature and benefits?</p>
 </li>
 <li><p><a class="reference external" href="#contributors">Contributors</a></p></li>
 </ul>
-<div class="section" id="id1">
-<h2>Instructions for users<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id2">
+<h2>Instructions for users<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
 <p>The following are the quick start instructions for using the project as an end-user.
 <a class="reference external" href="#instructions-for-developers">Instructions for developers</a> follows this section.</p>
 <p>Installation (Note, not actually functioning):</p>
@@ -327,13 +328,13 @@ What are the feature and benefits?</p>
 </pre></div>
 </div>
 </div>
-<div class="section" id="id3">
-<h2>Instructions for developers<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id4">
+<h2>Instructions for developers<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
 <p>The following are the setup instructions for developers looking to improve this project.
 For information on current contributors and guidelines see the <a class="reference external" href="#contributors">contributors</a> section.
 Follow each step here and ensure tests are working.</p>
-<div class="section" id="id5">
-<h3>Dependency and virtual environment management, library development and build with poetry<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id6">
+<h3>Dependency and virtual environment management, library development and build with poetry<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h3>
 <p>Ensure you have and installation of Poetry 1.2.0a1 or above, along with poetry-version-plugin.</p>
 <p>Make sure you deactivate any existing virtual environments (i.e. conda).</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>poetry install
@@ -349,8 +350,8 @@ In another terminal and in conda, run <code class="docutils literal notranslate"
 </pre></div>
 </div>
 </div>
-<div class="section" id="id6">
-<h3>Dependency and virtual environment management, library development and build with conda<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id7">
+<h3>Dependency and virtual environment management, library development and build with conda<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h3>
 <p>Following commands will create the conda environment and setup the library in interactive development mode using setup.py.</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>conda env create -f environment.yml
 conda activate my_project
@@ -362,8 +363,8 @@ pip install -e .
 </pre></div>
 </div>
 </div>
-<div class="section" id="id7">
-<h3>Code quality, testing, and generating documentation with Nox<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id8">
+<h3>Code quality, testing, and generating documentation with Nox<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h3>
 <p>Nox is a python task automation tool similar to Tox, Makefiles or scripts.</p>
 <p>The following command can be used to run mypy, lint, and tests.
 It is recommended to run these before pushing code, as this is run with Github Actions.
@@ -381,8 +382,8 @@ Documentation publishing using Github Actions to Github pages is enabled by defa
 </pre></div>
 </div>
 </div>
-<div class="section" id="id8">
-<h3>Code formatting with Pre-commit<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id9">
+<h3>Code formatting with Pre-commit<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h3>
 <p>On first time use of the repository, pre-commit will need to be installed locally.
 You can use the following command to install and run pre-commit over all files.
 See .pre-commit-config.yaml for checks in use.
@@ -392,13 +393,13 @@ Intention is to have lightweight checks that automatically make code changes.</p
 </div>
 </div>
 </div>
-<div class="section" id="id9">
-<h2>Contributors<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id10">
+<h2>Contributors<a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li><p><a class="reference external" href="https://www.nickjenkins.com.au">Nick Jenkins</a> - Data Scientist, API &amp; Web dev, Team lead, Writer</p></li>
 </ul>
-<p>See <a class="reference external" href="CONTRIBUTING.md">CONTRIBUTING.md</a> for specific instructions on contributing to project.</p>
-<p>Usage rights governed by <a class="reference external" href="LICENSE">LICENSE</a>.</p>
+<p>See <a class="reference external" href="CONTRIBUTING.md">CONTRIBUTING.md</a> in Github repo for specific instructions on contributing to project.</p>
+<p>Usage rights governed by <a class="reference external" href="LICENSE">LICENSE</a>  in Github repo or page footer.</p>
 </div>
 </div>
 
