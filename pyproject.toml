@@ -59,7 +59,7 @@ line-length = 120
 
 [tool.isort]
 profile = "black"
-known_third_party = ["my_project"]
+known_local_folder = ["my_project"]
 skip_glob = [
     "my_project/__init__.py",
     ]
