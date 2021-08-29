@@ -5,7 +5,7 @@ from pathlib import Path
 
 import sphinx_rtd_theme  # noqa: F401
 
-project = "{{project_name}}"
+project = "my_project"
 author = "Nick Jenkins"
 
 copyright = open(Path("..", "LICENSE")).read()

@@ -6,7 +6,7 @@ authors = ["Nick Jenkins"]
 readme = "README.md"
 homepage = "https://www.nickjenkins.com.au/"
 repository = "https://github.com/ndjenkins85/ndj_cookie/"
-documentation = ""
+documentation = "https://ndjenkins85.github.io/ndj_cookie/"
 keywords = [
     "quick_start",
     "best_practice",

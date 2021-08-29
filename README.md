@@ -7,8 +7,8 @@ While this is intended to be a personal resource, this is open to public users.
 The quick-start includes the following features:
 
 - Handy git files i.e. gitignore, codeowners, templates
-- Initial documentation README, standard git project docs, sphinx documentation for static and API reference
-- Automations including pre-commit, nox, github actions
+- Documentation including README, standard git project docs, sphinx documentation for static and API reference
+- Automations including pre-commit, nox, github actions (including custom poetry nox sphinx github pages workflow)
 - Dependency and virtual environment management with poetry or conda (or docker-compose TBC)
 - Warmed up project example with logging, imports, pytest, and argparse CLI
 
@@ -87,7 +87,6 @@ Check python version in noxfile and Github actions
 
 - Setup Codecov connection
 - Setup pypi and test-pypi connections
-- Setup Readthedocs (and Github pages)
 - Set up dependabot
 
 ## 5. Other cleanup
@@ -95,10 +94,10 @@ Check python version in noxfile and Github actions
 Change name from my_project to new name in:
 
 - project folder name
-- README
+- README.md
 - .flake8
-- mypy.ini
 - pyproject.toml
+- docs/conf.py
 
 
 ==================
