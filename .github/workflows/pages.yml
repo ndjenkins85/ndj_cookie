@@ -6,26 +6,27 @@ on:
       - docs/gh_pages
 
 jobs:
-  sphinx_docs_to_gh-pages:
+  release:
     runs-on: ubuntu-latest
-    name: Sphinx docs to gh-pages
     steps:
-      - uses: actions/checkout@v2
-      - name: Make conda environment
-        uses: conda-incubator/setup-miniconda@v2
-        with:
-          python-version: 3.7    # Python version to build the html sphinx documentation
-          environment-file: environment.yml    # Path to the documentation conda environment
-          auto-update-conda: false
-          auto-activate-base: false
-          show-channel-urls: true
-      - name: Installing the library
-        shell: bash -l {0}
-        run: |
-          python setup.py install
-      - name: Running the Sphinx to gh-pages Action
-        uses: uibcdf/action-sphinx-docs-to-gh-pages@v1.0-beta.2
-        with:
-          branch: main
-          dir_docs: docs
-          sphinxopts: ''
+    - uses: actions/checkout@v2
+    - uses: actions/setup-python@v1
+      with:
+        python-version: '3.8'
+        architecture: x64
+
+    - name: Install Nox
+      run: pip install nox==2021.6.12
+
+    - name: Install Poetry
+      run: pip install poetry==1.1.8
+
+    - name: Build docs
+      run: nox -s docs
+
+    - name: Deploy
+      uses: peaceiris/actions-gh-pages@v3
+      if: ${{ github.ref == 'refs/heads/main' }}
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: ./public
