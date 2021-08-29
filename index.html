@@ -1,0 +1,373 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>ndj_cookie &mdash; {{project_name}}  documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="License" href="license.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="#" class="icon icon-home"> {{project_name}}
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="license.html">License</a></li>
+<li class="toctree-l1"><a class="reference internal" href="reference.html">Reference</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="#">{{project_name}}</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="#" class="icon icon-home"></a> &raquo;</li>
+        
+      <li>ndj_cookie</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="_sources/index.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="toctree-wrapper compound">
+</div>
+<div class="section" id="ndj-cookie">
+<h1>ndj_cookie<a class="headerlink" href="#ndj-cookie" title="Permalink to this headline">¶</a></h1>
+<p>This repo is my personal python project quick starter.
+It contains my favourite tools and options for creating python projects for data science, web development, and adhoc projects.
+While this is intended to be a personal resource, this is open to public users.</p>
+<p>The quick-start includes the following features:</p>
+<ul class="simple">
+<li><p>Handy git files i.e. gitignore, codeowners, templates</p></li>
+<li><p>Initial documentation README, standard git project docs, sphinx documentation for static and API reference</p></li>
+<li><p>Automations including pre-commit, nox, github actions</p></li>
+<li><p>Dependency and virtual environment management with poetry or conda (or docker-compose TBC)</p></li>
+<li><p>Warmed up project example with logging, imports, pytest, and argparse CLI</p></li>
+</ul>
+<p>This README contains three major sections:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="#ndj_cookie">About this repo</a>. General info about this repo.</p></li>
+<li><p><a class="reference external" href="#Instructions-for-copying-to-set-up-new-project">Setup new repo</a>. Instructions for copying this repo to create a new project.</p></li>
+<li><p><a class="reference external" href="#my_project">README Template</a>. Warmed up README template for new projects with writing prompts, instructions for usage and development.</p></li>
+</ul>
+<p>The following sources have been inspiration for creating my own project quick starter.</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://cjolowicz.github.io/posts/hypermodern-python-01-setup/">Hypermodern python</a></p></li>
+<li><p><a class="reference external" href="https://github.com/tiangolo/sqlmodel">SQLmodel</a></p></li>
+<li><p><a class="reference external" href="https://github.com/johnthagen/python-blueprint">Project blueprint</a></p></li>
+</ul>
+</div>
+<div class="section" id="instructions-for-copying-to-set-up-new-project">
+<h1>Instructions for copying to set up new project<a class="headerlink" href="#instructions-for-copying-to-set-up-new-project" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="use-cookie-cutter-or-github-to-copy-repo">
+<h2>1. Use (cookie-cutter) or github to copy repo.<a class="headerlink" href="#use-cookie-cutter-or-github-to-copy-repo" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="instantiate-pre-commit-add-log-directory-create-git-repo">
+<h2>2. Instantiate pre-commit, add log directory, create git repo<a class="headerlink" href="#instantiate-pre-commit-add-log-directory-create-git-repo" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pre-commit install
+git init
+git add .
+git add logs/.gitkeep --force
+git commit -m <span class="s2">&quot;initial commit&quot;</span>
+git tag <span class="m">0</span>.1.0
+</pre></div>
+</div>
+<p>Create a repo in github and follow instructions to push (including tags)</p>
+</div>
+<div class="section" id="choose-any-of-poetry-conda-or-docker-compose-for-project-note-only-poetry-available-at-this-stage">
+<h2>3. Choose any of poetry, conda or docker-compose for project. (NOTE: only poetry available at this stage)<a class="headerlink" href="#choose-any-of-poetry-conda-or-docker-compose-for-project-note-only-poetry-available-at-this-stage" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="poetry">
+<h3>Poetry<a class="headerlink" href="#poetry" title="Permalink to this headline">¶</a></h3>
+<p>Ensure you have Poetry 1.2.0a1 or above, along with poetry-version-plugin.</p>
+<p>Make sure you deactivate any existing virtual environments (i.e. conda).</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>poetry install
+</pre></div>
+</div>
+<p>You may need to point poetry to the correct python interpreter using the following command.
+In another terminal and in conda, run <code class="docutils literal notranslate"><span class="pre">which</span> <span class="pre">python</span></code>.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>poetry env use /path/to/python3
+</pre></div>
+</div>
+<p>Remove tools not required by poetry, but required for conda</p>
+<ul class="simple">
+<li><p>setup.py</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">docs/requirements.txt</span></code></p></li>
+</ul>
+</div>
+<div class="section" id="conda">
+<h3>Conda<a class="headerlink" href="#conda" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>conda create --name my_project
+...
+conda env <span class="nb">export</span> &gt; environment.yml
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>Setup project details in <code class="docutils literal notranslate"><span class="pre">setup.py</span></code>.</p></li>
+<li><p>Nox functions need to be changed to Conda (<code class="docutils literal notranslate"><span class="pre">noxfile.py:black_conda_example</span></code>)</p></li>
+<li><p>Create new Github Actions (currently using poetry)</p></li>
+</ul>
+</div>
+<div class="section" id="docker-compose">
+<h3>Docker-compose<a class="headerlink" href="#docker-compose" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docker-compose up
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="setup-online-resources-for-github-actions">
+<h2>4. Setup online resources for Github actions<a class="headerlink" href="#setup-online-resources-for-github-actions" title="Permalink to this headline">¶</a></h2>
+<p>Check python version in noxfile and Github actions</p>
+<ul class="simple">
+<li><p>Setup Codecov connection</p></li>
+<li><p>Setup pypi and test-pypi connections</p></li>
+<li><p>Setup Readthedocs (and Github pages)</p></li>
+<li><p>Set up dependabot</p></li>
+</ul>
+</div>
+<div class="section" id="other-cleanup">
+<h2>5. Other cleanup<a class="headerlink" href="#other-cleanup" title="Permalink to this headline">¶</a></h2>
+<p>Change name from my_project to new name in:</p>
+<ul class="simple">
+<li><p>project folder name</p></li>
+<li><p>README</p></li>
+<li><p>.flake8</p></li>
+<li><p>mypy.ini</p></li>
+<li><p>pyproject.toml</p></li>
+</ul>
+</div>
+</div>
+<hr class="docutils" />
+<div class="section" id="my-project">
+<h1>my_project<a class="headerlink" href="#my-project" title="Permalink to this headline">¶</a></h1>
+<p>What is it, at a high high level?
+Who is the audience or end users? Any requirements?
+What are the feature and benefits?</p>
+<ul class="simple">
+<li><p><a class="reference external" href="#instructions-for-users">Instructions for users</a></p></li>
+<li><p><a class="reference external" href="#instructions-for-developers">Instructions for developers</a></p></li>
+<li><p><a class="reference external" href="#contributors">Contributors</a></p></li>
+</ul>
+</div>
+<div class="section" id="id1">
+<h1>Instructions for users<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+<p>The following are the quick start instructions for using the library as an end-user.
+<a class="reference external" href="#instructions-for-developers">Instructions for developers</a> follows this section.</p>
+</div>
+<div class="section" id="id3">
+<h1>Instructions for developers<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h1>
+<p>The following are the setup instructions for developers looking to improve this project.
+For information on current contributors and guidelines see the <a class="reference external" href="#contributors">contributors</a> section.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>conda env create -f environment.yml
+conda activate my_project
+</pre></div>
+</div>
+<p>Packaging and publishing (conda, setup.py), details to be added TODO.</p>
+<p><code class="docutils literal notranslate"><span class="pre">poetry</span> <span class="pre">install</span></code></p>
+<p>On first time use of the repository, pre-commit will need to be installed locally. You can use the following command to run pre-commit over all files and install.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pre-commit run --all-files
+</pre></div>
+</div>
+<p>setup.py can be used to generate a python wheel, or install the library for local usage.
+It is useful to run this step before working on project code.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python setup.py bdist_wheel
+</pre></div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python setup.py develop
+</pre></div>
+</div>
+<div class="section" id="manage-sphinx-documentation">
+<h2>Manage sphinx documentation<a class="headerlink" href="#manage-sphinx-documentation" title="Permalink to this headline">¶</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">poetry</span> <span class="pre">run</span> <span class="pre">nox</span> <span class="pre">-s</span> <span class="pre">docs</span></code></p>
+</div>
+<div class="section" id="nox-for-task">
+<h2>Nox for task<a class="headerlink" href="#nox-for-task" title="Permalink to this headline">¶</a></h2>
+<p>Following can be used to run mypy, lint, and tests.
+Recommended to use pre-commit for black.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>poetry run nox
+poetry run nox -s black safety pytype typeguard coverage xdoctest docs autoflake
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="id5">
+<h1>Contributors<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h1>
+<p>Copyright © 2021 by Nick Jenkins. All rights reserved</p>
+<p>See <a class="reference external" href="CONTRIBUTING.md">CONTRIBUTING.md</a> and <a class="reference external" href="LICENSE">LICENSE</a> for more info.</p>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="license.html" class="btn btn-neutral float-right" title="License" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright Copyright © 2021 by Nick Jenkins. All rights reserved
+.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
