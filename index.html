@@ -299,8 +299,12 @@ What are the feature and benefits?</p>
 <h2>Instructions for users<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
 <p>The following are the quick start instructions for using the project as an end-user.
 <a class="reference external" href="#instructions-for-developers">Instructions for developers</a> follows this section.</p>
+<p>Installation (Note, not actually functioning):</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip install my_project
+</pre></div>
+</div>
 <p>Include an example of running the program with expected outputs.</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python -m my_project.utils -i1 environment.yml -i2 environment.yml
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python -m my_project.utils -i1 environment.yml -i2 environment.yml -v
 ...
 <span class="m">2021</span>-08-29 <span class="m">14</span>:59:09,489 <span class="o">[</span>DEBUG<span class="o">]</span> Loading main file from environment.yml
 <span class="m">2021</span>-08-29 <span class="m">14</span>:59:09,489 <span class="o">[</span>DEBUG<span class="o">]</span> Loading second file from environment.yml
@@ -310,6 +314,10 @@ What are the feature and benefits?</p>
   - <span class="nv">sphinx</span><span class="o">=</span><span class="m">3</span>.2.1
   - sphinx-autodoc-typehints<span class="o">=</span><span class="m">1</span>.12.0
   - <span class="nv">sphinx_rtd_theme</span><span class="o">=</span><span class="m">0</span>.4.3
+</pre></div>
+</div>
+<p>Can also be run as a script.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>my_project -i1 environment.yml -i2 environment.yml -v
 </pre></div>
 </div>
 </div>
