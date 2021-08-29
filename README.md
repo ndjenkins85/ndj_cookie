@@ -100,7 +100,7 @@ Check python and library versions in noxfile and Github actions.
 
 - Setup Codecov connection
 - Setup pypi and test-pypi connections
-- Set up dependabot
+- In Github repo set up dependabot and Github pages
 
 ## 5. Other cleanup
 
