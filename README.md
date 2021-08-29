@@ -1,4 +1,4 @@
-# ndj_cookie
+# Python project quick start
 
 This repo is my personal python project quick starter.
 It contains my favourite tools and options for creating python projects for data science, web development, and adhoc projects.
@@ -15,9 +15,9 @@ The quick-start includes the following features:
 
 This README contains three major sections:
 
-* [About this repo](#ndj_cookie). General info about this repo.
-* [Setup new repo](#Instructions-for-copying-to-set-up-new-project). Instructions for copying this repo to create a new project.
-* [README Template](#my_project). Warmed up README template for new projects with writing prompts, instructions for usage and development.
+* [About this repo](#ndj-cookie). General info about this repo.
+* [Setup new repo](#instructions-for-copying-to-set-up-new-project). Instructions for copying this repo to create a new project.
+* [README Template](#my-project). Warmed up README template for new projects with writing prompts, instructions for usage and development.
 
 The following sources have been inspiration for creating my own project quick starter.
 
@@ -113,7 +113,7 @@ Change name from my_project to new name in:
 - docs/conf.py
 - setup.py
 
-# my_project
+# My Project
 
 What is it, at a high high level?
 Who is the audience or end users? Any requirements?
@@ -123,12 +123,12 @@ What are the feature and benefits?
 * [Instructions for developers](#instructions-for-developers)
 * [Contributors](#contributors)
 
-# Instructions for users
+## Instructions for users
 
 The following are the quick start instructions for using the library as an end-user.
 [Instructions for developers](#instructions-for-developers) follows this section.
 
-# Instructions for developers
+## Instructions for developers
 
 The following are the setup instructions for developers looking to improve this project.
 For information on current contributors and guidelines see the [contributors](#contributors) section.
@@ -181,7 +181,7 @@ poetry run nox
 poetry run nox -s black safety pytype typeguard coverage xdoctest docs autoflake
 ```
 
-# Contributors
+## Contributors
 
 Copyright © 2021 by Nick Jenkins. All rights reserved
 
