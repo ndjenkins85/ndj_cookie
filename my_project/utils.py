@@ -106,6 +106,9 @@ def start() -> None:
             handlers=[logging.FileHandler(log_path), logging.StreamHandler()],
         )
     except FileNotFoundError:
+        logging.basicConfig(
+            level=log_level, format="%(asctime)s [%(levelname)s] %(message)s", handlers=[logging.StreamHandler()]
+        )
         logging.warning("'/logs/' directory missing, cannot create log files.")
 
     main_env = Path(args.i1)

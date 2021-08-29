@@ -140,7 +140,7 @@ pip install my_project
 Include an example of running the program with expected outputs.
 
 ```bash
-python -m my_project.utils -i1 environment.yml -i2 environment.yml
+python -m my_project.utils -i1 environment.yml -i2 environment.yml -v
 ...
 2021-08-29 14:59:09,489 [DEBUG] Loading main file from environment.yml
 2021-08-29 14:59:09,489 [DEBUG] Loading second file from environment.yml
@@ -155,7 +155,7 @@ python -m my_project.utils -i1 environment.yml -i2 environment.yml
 Can also be run as a script.
 
 ```bash
-my_project -i1 environment.yml -i2 environment.yml
+my_project -i1 environment.yml -i2 environment.yml -v
 ```
 
 ## Instructions for developers
