@@ -108,6 +108,7 @@ Change name from my_project to new name in:
 
 - project folder name and imports
 - README.md
+- CONTRIBUTING.md
 - .flake8
 - pyproject.toml
 - docs/conf.py
