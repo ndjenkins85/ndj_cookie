@@ -29,6 +29,7 @@ def update_environments(
         opt_env: path as string
     """
     input_path = Path(main_env)
+    logging.debug(f"Loading main file from {input_path}")
     with open(input_path, "r") as f:
         env = f.readlines()
 
@@ -49,6 +50,7 @@ def update_environments(
 
     # Loads the full export
     input_path = Path(opt_env)
+    logging.debug(f"Loading second file from {input_path}")
     with open(input_path, "r") as f:
         env = f.readlines()
 
