@@ -91,7 +91,7 @@ def lint(session: Session) -> None:
         "flake8-builtins",
         "flake8-docstrings",
         "flake8-eradicate",
-        "flake8-import-order",
+        "flake8-isort",
         "darglint",
     )
     session.run("flake8", *args)
