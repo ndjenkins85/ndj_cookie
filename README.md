@@ -31,10 +31,26 @@ The following sources have been inspiration for creating my own project quick st
 
 Clone repo locally and delete the `.git` directory to start fresh.
 
-Edit the `my_project.__init__.py` to revert to version `0.1.0`.
-Edit the `README.md` to include [my project](#my-project) onwards.
+## 2. Pre-use editing
 
-## 2. Choose any of poetry, conda (or docker-compose) for project.
+- Edit the `my_project.__init__.py` to revert to version `0.1.0`.
+- Rename `my_project` package name and imports
+- Edit the `README.md` to include [my project](#my-project) onwards.
+- Check python and library versions in noxfile
+- Check python and library versions, and branch name in Github actions
+- Change [LICENSE](LICENSE) as required. Use [this guide](https://github.com/Lucas-C/pre-commit-hooks#removing-old-license-and-replacing-it-with-a-new-one) to redo licenses across project
+
+Change name from my_project to new name in:
+
+- `README.md`
+- `CONTRIBUTING.md`
+- `.flake8`
+- `pyproject.toml`
+- `docs/conf.py`
+- `setup.py`
+- `tests/test_utils.py`
+
+## 3. Choose any of poetry, conda (or docker-compose) for project.
 
 ### Poetry
 
@@ -90,7 +106,7 @@ Not currently supported, future TODO.
 docker-compose up
 ```
 
-## 3. Instantiate pre-commit, add log directory, create new git repo
+## 4. Instantiate pre-commit, add log directory, create new git repo
 
 ```bash
 pre-commit install
@@ -105,23 +121,11 @@ Create a repo in github and follow instructions to push (including tags).
 
 Check if the branch name is `main` or `master` - Github Actions are set to use `main`.
 
-## 4. Other setup and cleanup
+## 5. Post push cleanup
 
-- Check python and library versions in noxfile and Github actions
 - Setup Codecov connection
 - Setup pypi and test-pypi secrets, uncomment test-pypi github action
 - In Github repo set up dependabot and Github pages
-- Change [LICENSE](LICENSE) as required. Use [this guide](https://github.com/Lucas-C/pre-commit-hooks#removing-old-license-and-replacing-it-with-a-new-one) to redo licenses across project
-
-Change name from my_project to new name in:
-
-- project folder name and imports
-- `README.md`
-- `CONTRIBUTING.md`
-- `.flake8`
-- `pyproject.toml`
-- `docs/conf.py`
-- `setup.py`
 
 # My Project
 
@@ -219,7 +223,7 @@ Nox is a python task automation tool similar to Tox, Makefiles or scripts.
 
 The following command can be used to run mypy, lint, and tests.
 It is recommended to run these before pushing code, as this is run with Github Actions.
-Some checks such as black are run more frequently with [pre-commit](#installing-pre-commit).
+Some checks such as black are run more frequently with [pre-commit](#code-formatting-with-pre-commit).
 
 ```bash
 poetry run nox
