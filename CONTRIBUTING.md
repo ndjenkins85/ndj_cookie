@@ -27,6 +27,7 @@ Labels are automatically managed through a github action. Using these branch nam
 # Issuing releases
 
 Releases to be carried out from the main/master branch with a tagged commit.
+Recommended to use https://semver.org/ versioning definitions.
 We have Github actions which will:
 
 - Run all tests
