@@ -13,7 +13,7 @@ The quick-start includes the following features:
 - CI/CD framework including pre-commit for quick formatting, task automation with Nox, and Github Actions - *to ensure high quality releases*
 - Linting, type checking, and tests with minimum of tool config files and close nox and pyproject.toml integration - *to standardize code and minimize clutter*
 - Tools for release management including tagging and versioning process, Github actions for release notes, test-pypi and release actions - *to simplify the code release process*
-- Warmed up project example with logging, imports, pytest, argparse CLI, poetry scripts, docstrings - *to template good code practices*
+- 'my_project' dummy project example with logging, imports, pytest, argparse CLI, poetry scripts, docstrings - *for a minimal non-tool codeset with warmed up examples*
 
 This guide contains three major sections:
 
