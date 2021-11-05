@@ -2,17 +2,54 @@
 # However, these should non-block the commit process
 # This is why code checks like flake8 are not included
 # Use nox before pushing code
+# standard checks
+# black
+# jupyter notebook cleanups
+# import sorting
+# license
+# poetry check
+
 repos:
 - repo: https://github.com/pre-commit/pre-commit-hooks
-  rev: v4.0.1
-  hooks: # Basic tools to check format of yaml, end of line and trailing whitespace ftw
-  - id: check-yaml
-  - id: end-of-file-fixer
+  rev: v3.4.0  # Use the ref you want to point at
+  hooks:
   - id: trailing-whitespace
-- repo: https://github.com/psf/black
-  rev: 19.3b0
-  hooks: # Black code formatting
-  - id: black
+  - id: pretty-format-json
+    args: [--autofix]
+  - id: requirements-txt-fixer
+  - id: sort-simple-yaml
+#    - id: name-tests-test
+  - id: mixed-line-ending
+#    - id: flake8
+  - id: fix-encoding-pragma
+  - id: end-of-file-fixer
+  - id: detect-private-key
+  - id: detect-aws-credentials
+    args: [--allow-missing-credentials]
+  - id: debug-statements
+  - id: check-yaml
+  - id: check-xml
+  - id: check-toml
+  - id: check-symlinks
+  - id: check-merge-conflict
+  - id: check-json
+  - id: check-executables-have-shebangs
+  - id: check-docstring-first
+  - id: check-case-conflict
+  - id: check-byte-order-marker
+  - id: check-builtin-literals
+  - id: check-ast
+  - id: check-added-large-files
+# IMPORTANT: Run isort before black, to ensure isort cannot break formatting rules.
+- repo: https://github.com/PyCQA/isort
+  rev: "5.9.2"
+  hooks: # Sorts imports
+  - id: isort
+    additional_dependencies: [toml]
+-   repo: https://github.com/ambv/black
+    rev: 21.9b0
+    hooks:
+    - id: black
 - repo: https://github.com/roy-ht/pre-commit-jupyter
   rev: v1.2.1
   hooks: # Cleans up jupyter notebooks before committing
@@ -20,11 +57,6 @@ repos:
     args:
       - --pin-patterns
       - "[pin];[donotremove]"
-- repo: https://github.com/PyCQA/isort
-  rev: "5.9.2"
-  hooks: # Sorts imports
-  - id: isort
-    additional_dependencies: [toml]
 - repo: https://github.com/Lucas-C/pre-commit-hooks
   rev: v1.1.10
   hooks: # Adds LICENSE notice to top of all python files, must have a LICENSE file
@@ -36,5 +68,20 @@ repos:
       - --comment-style
       - "|#|"
       - --license-filepath
-      - LICENSE
+      - LICENSE.txt
       - --fuzzy-match-generates-todo
+- repo: https://github.com/sqlfluff/sqlfluff
+  rev: 0.6.8
+  hooks:
+  - id: sqlfluff-fix
+    verbose: true
+    args:
+      - --force
+- repo: local
+  hooks:
+  - id: poetry-check
+    name: poetry-check
+    entry: poetry check
+    language: system
+    types: [python]
+    always_run: true
