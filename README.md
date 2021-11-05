@@ -266,10 +266,10 @@ Documentation publishing using Github Actions to Github pages is enabled by defa
 poetry run nox -s docs
 ```
 
-All other task automations commands can be optionally run locally with below command.
+Other available commands include:
 
 ```bash
-poetry run nox -s black safety pytype typeguard coverage xdoctest autoflake
+poetry run nox -rs coverage
 ```
 
 ### Code formatting with Pre-commit

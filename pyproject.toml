@@ -31,23 +31,40 @@ include = ["LICENSE", "README.md"]
 
 [tool.poetry.dependencies]
 python = ">=3.7.1,<4"
-pip = "^21.1.2"
-sphinx = {version = "^4", optional = true}
+
+black = { version = "^21.9b0", optional = true }
+darglint = { version = "^0.1", optional = true }
+flake8 = { version = "^4.0", optional = true }
+flake8-annotations = { version = "^2.7", optional = true }
+flake8-bandit = { version = "^2.1", optional = true }
+flake8-bugbear = { version = "^21.9", optional = true }
+flake8-builtins = { version = "^1.5", optional = true }
+flake8-docstrings = { version = "^1.6", optional = true }
+mypy = { version = "^0.910", optional = true }
+safety = { version = "^1.10", optional = true }
+sqlfluff = { version = "^0.6", optional = true }
+xdoctest = { version = "^0.15", optional = true }
+
+pytest = { version = "^6.2", optional = true }
+pytest-cases = { version = "^3.6", optional = true }
+pytest-cov = { version = "^3.0", optional = true }
+coverage = { version = "^6.1", optional = true }
+codecov = { version = "^2.1", optional = true }
+
+m2r2 = { version = "^0.3", optional = true }
+sphinx = { version = "^4.2", optional = true }
+sphinx-autodoc-typehints = { version = "^1.12", optional = true }
+sphinx_rtd_theme = { version = "^1", optional = true }
 
 [tool.poetry.dev-dependencies]
-autoflake = "^1.4"
-black = "^21.7b0"
-m2r2 = "^0.3.1"
-mypy = "^0.910"
-nox = "^2021.6.12"
-pytest = "^6.2.4"
-pytest-cov = "^2.12.1"
-pre-commit = "^2.14.0"
-sphinx-rtd-theme = "^0.5.2"
-sphinx-autodoc-typehints = "^1.12.0"
+jupyter = "^1.0.0"
+nox = "^2021.10.1"
+pre-commit = "^2.15"
 
 [tool.poetry.extras]
-docs = ["sphinx"]
+lint = ["black", "darglint", "flake8", "mypy", "safety", "sqlfluff", "xdoctest", "flake8-annotations", "flake8-bandit", "flake8-bugbear", "flake8-builtins", "flake8-docstrings"]
+tests = ["pytest", "pytest-cases", "pytest-cov", "coverage", "codecov"]
+docs = ["m2r2", "sphinx", "sphinx_rtd_theme", "sphinx-autodoc-typehints"]
 
 [tool.poetry.scripts]
 my_project = 'my_project.utils:start'
