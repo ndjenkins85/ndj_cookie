@@ -51,6 +51,8 @@ Change name from my_project to new name in:
 - `docs/conf.py`
 - `setup.py`
 - `tests/test_utils.py`
+- `Dockerfile`
+- `docker-compose.yml`
 
 ## 3. Choose any of poetry, conda (or docker-compose) for project.
 
@@ -80,6 +82,7 @@ Remove tools not required by poetry, but required for conda
 - Delete `setup.py`
 - Delete `docs/requirements.txt`
 - Edit Conda references in `README.md`
+- Dockerfile and docker-compose.yml
 
 ### Conda
 
@@ -102,10 +105,13 @@ Additional conda related setup:
 
 ### Docker-compose
 
-Not currently supported, future TODO.
+`Dockerfile` and `docker-compose` are supported using poetry for dependencies.
+See above instructions for conda cleanup.
 
 ```bash
+docker-compose build
 docker-compose up
+docker-compose down
 ```
 
 ## 4. Instantiate pre-commit, add log directory, create new git repo
@@ -148,7 +154,9 @@ What are the feature and benefits?
 The following are the quick start instructions for using the project as an end-user.
 [Instructions for developers](#instructions-for-developers) follows this section.
 
-Installation (Note, not actually functioning):
+Note: Instructions marked with %% are not functioning and are for demo purposes only.
+
+Install the project using pip %%:
 
 ```bash
 pip install my_project
@@ -173,6 +181,26 @@ Can also be run as a script.
 
 ```bash
 my_project -i1 environment.yml -i2 environment.yml -v
+```
+
+### Using Dockerfile
+
+Alternatively run from Dockerfile:
+
+``` bash
+docker build -t ndj_cookie/my_project .
+docker run --rm ndj_cookie/my_project
+docker stop $(docker ps -a -q)
+```
+
+### Using docker-compose
+
+Example docker-compose also included.
+
+``` bash
+docker-compose build
+docker-compose up
+docker-compose down
 ```
 
 ## Instructions for developers
