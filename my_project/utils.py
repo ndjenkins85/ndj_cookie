@@ -111,8 +111,13 @@ def start() -> None:
         )
         logging.warning("'/logs/' directory missing, cannot create log files.")
 
-    main_env = Path(args.i1)
-    opt_env = Path(args.i2)
+    try:
+        main_env = Path(args.i1)
+        opt_env = Path(args.i2)
+    except TypeError:
+        error = f"Problem with input path specifications {args.i1} | {args.i2}"
+        logging.error(error)
+        raise ValueError(error)
     update_environments(main_env=main_env, opt_env=opt_env)
 
 
