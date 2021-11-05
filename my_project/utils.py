@@ -90,7 +90,12 @@ def update_environments(
 
 
 def start() -> None:
-    """Program entry point for python and script."""
+    """Program entry point for python and script.
+
+    Raises:
+        TypeError: If there are problems converting the environment
+        inputs to path objects.
+    """
     parser = argparse.ArgumentParser("Conda environment management util")
     parser.add_argument("-i1", help="Path to main environment.yml")
     parser.add_argument("-i2", help="Path to opt environment2.yml")
@@ -111,8 +116,13 @@ def start() -> None:
         )
         logging.warning("'/logs/' directory missing, cannot create log files.")
 
-    main_env = Path(args.i1)
-    opt_env = Path(args.i2)
+    try:
+        main_env = Path(args.i1)
+        opt_env = Path(args.i2)
+    except TypeError:
+        error = f"Problem with input path specifications {args.i1} | {args.i2}"
+        logging.error(error)
+        raise ValueError(error) from None
     update_environments(main_env=main_env, opt_env=opt_env)
 
 

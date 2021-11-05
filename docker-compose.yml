@@ -1,0 +1,14 @@
+# Used stackoverflow to help diagose folder structure under volumes
+# https://stackoverflow.com/questions/38546755/docker-compose-keep-container-running
+# can use `docker exec -i -t personalsite_web_server_1 bash` to investigate
+version: '3'
+services:
+  my_service_name:
+    build: .
+    image: my_project
+    ports:
+      - 5000:5000
+    working_dir: /
+    volumes:
+      - ./my_project:/my_project
+    command: python -m my_project.utils -v
