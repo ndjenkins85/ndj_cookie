@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # Copyright © 2021 by Nick Jenkins. All rights reserved
 #
 # Permission is hereby granted, free of charge, to any person obtaining a
@@ -25,7 +26,8 @@ from my_project import utils  # noqa: F401
 # Git tagging is required in addition to these changes
 # See CONTRIBUTING.md for more info
 
-__version__ = "0.1.3"  # Minor bug fixes and instructions improvements
+__version__ = "0.1.4"  # Add docker resources and improve nox and poetry pairing
+# __version__ = "0.1.3"  # Minor bug fixes and instructions improvements
 # "0.1.2"  # Update docs process
 # "0.1.1"  # Rationalizing files
 # "0.1.0" # Initial commit

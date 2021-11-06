@@ -68,7 +68,7 @@ repos:
       - --comment-style
       - "|#|"
       - --license-filepath
-      - LICENSE.txt
+      - LICENSE
       - --fuzzy-match-generates-todo
 - repo: https://github.com/sqlfluff/sqlfluff
   rev: 0.6.8
@@ -77,11 +77,11 @@ repos:
     verbose: true
     args:
       - --force
-- repo: local
-  hooks:
-  - id: poetry-check
-    name: poetry-check
-    entry: poetry check
-    language: system
-    types: [python]
-    always_run: true
+# - repo: local
+#   hooks:
+#   - id: poetry-check
+#     name: poetry-check
+#     entry: poetry check
+#     language: system
+#     types: [python]
+#     always_run: true
