@@ -31,4 +31,4 @@ RUN poetry install --without dev
 COPY . /app
 WORKDIR /app
 
-CMD python -m my_project.utils -v
+CMD poetry run python -m my_project.utils -v

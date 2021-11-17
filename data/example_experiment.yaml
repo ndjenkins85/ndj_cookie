@@ -1,0 +1,59 @@
+# Name of experiment, used to generate folder and file naming
+run_name: "titanic_survivors"
+
+# Path to datafile
+data_file: ["data", "processed", "titanic.parquet"]
+
+# Save copy of processed data in output
+save_data: True
+
+# Filters. List of string values. Expects a '_filter' column in the processed data.
+# Any of the following strings found in `_filter` column results in row being excluded.
+filters:
+  - remove_me
+
+# Unique key. Model predictions and outputs should include these columns.
+unique_key:
+  - passengerid
+
+# Target variable for modeling
+target: survived
+
+# Baseline. Pre-analysed column to use in baseline metric reporting (Optional).
+baseline: Null
+
+# Train test split. Dict of sklearn type parameters inc. stratification.
+# Alternatively specify a custom field where train = 1, test = 0
+split:
+  # field: my_split_field
+  test_size: 0.1
+  random_state: 42
+  stratify: Null
+
+# Model function and parameters. Function must exist in `model.py`, with params specific to model.
+model_function_name: gbr
+model_params:
+  n_estimators: 50
+  random_state: 42
+
+# Features
+## Simple features. Dictionary of single numeric columns: missing replacement aggregation strategy
+simple_features:
+  sex: mean
+  age: mean
+  sibsp: mean
+  parch: mean
+  fare: mean
+
+## Dummy features. List of feature columns to convert to dummies
+dummy_features:
+  - pclass
+  - embarked
+
+## Dummy feature minimum - If low incidence, group value into an 'other' category
+min_dummy_percent: 0.001
+
+# Visualization config
+## Clip scatterplots to show only these range of values
+plot_lower_clip: 0
+plot_upper_clip: 1
