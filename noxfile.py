@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 """Nox for python task automation.
 
 nox.option.sessions is default run for 'nox' on command line. Currently only tests.
@@ -7,7 +8,7 @@ import tempfile
 import nox
 from nox.sessions import Session
 
-locations = "my_project", "tests", "noxfile.py", "docs/conf.py"
+locations = "my_project", "ndj_pipeline", "tests", "noxfile.py", "docs/conf.py"
 nox.options.sessions = "tests", "lint"
 package = "my_project"
 PY_VERSIONS = ["3.8"]
