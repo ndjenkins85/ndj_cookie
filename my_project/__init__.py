@@ -26,7 +26,9 @@ from my_project import utils  # noqa: F401
 # Git tagging is required in addition to these changes
 # See CONTRIBUTING.md for more info
 
-__version__ = "0.1.4"  # Add docker resources and improve nox and poetry pairing
+
+__version__ = "0.2.0"  # Add ndj_pipeline for ML workflow; etl and schema checks, modeling, visualizations
+# __version__ = "0.1.4"  # Add docker resources and improve nox and poetry pairing
 # __version__ = "0.1.3"  # Minor bug fixes and instructions improvements
 # "0.1.2"  # Update docs process
 # "0.1.1"  # Rationalizing files
