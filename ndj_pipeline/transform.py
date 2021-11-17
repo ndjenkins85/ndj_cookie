@@ -61,10 +61,9 @@ def run():
 
 
 def main():
-    """Run transformations from command line using..
-    ```bash
+    """Run transformations from command line using...`
     python -m ndj_pipeline.transform
-    ```
+    `
     """
     parser = argparse.ArgumentParser(description="ndj_pipeline transformations")
     parser.add_argument("-v", action="store_true", help="Debug mode")

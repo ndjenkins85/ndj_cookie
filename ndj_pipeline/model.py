@@ -140,10 +140,9 @@ def run_model_training(model_config):
 
 def main():
     """Runs either model training or inference depending given command line inputs.
-    Can be run using...
-    ```bash
-    python -m ndj_pipeline.model -p {path_to_experiment.yaml}`
-    ```
+    Can be run using...`
+    python -m ndj_pipeline.model -p {path_to_experiment.yaml}
+    `
     """
     parser = argparse.ArgumentParser(description="ndj_pipeline model training")
     parser.add_argument("-p", type=str, help="Path to model experiment yaml")
