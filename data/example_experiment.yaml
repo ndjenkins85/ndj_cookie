@@ -17,7 +17,7 @@ unique_key:
   - passengerid
 
 # Target variable for modeling
-target: survived
+target: fare
 
 # Baseline. Pre-analysed column to use in baseline metric reporting (Optional).
 baseline: Null
@@ -43,12 +43,12 @@ simple_features:
   age: mean
   sibsp: mean
   parch: mean
-  fare: mean
 
 ## Dummy features. List of feature columns to convert to dummies
 dummy_features:
   - pclass
   - embarked
+  - survived
 
 ## Dummy feature minimum - If low incidence, group value into an 'other' category
 min_dummy_percent: 0.001
@@ -56,4 +56,4 @@ min_dummy_percent: 0.001
 # Visualization config
 ## Clip scatterplots to show only these range of values
 plot_lower_clip: 0
-plot_upper_clip: 1
+plot_upper_clip: 600

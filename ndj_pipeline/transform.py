@@ -40,8 +40,6 @@ def create_titanic_features(df):
     df.loc[0, "_filter"] = "remove_me"
     df.loc[1, "_filter"] = "remove_me, condition_2"
 
-    df = df.loc[df["fare"] > 300]
-
     # Example of custom split field for men vs women; excludes other titles
     df["my_split_field"] = np.nan
     # Single men

@@ -32,6 +32,20 @@ from sklearn.model_selection import train_test_split as tts
 from ndj_pipeline import utils
 
 
+def load_data_and_key(model_config):
+    """Uses config to load data and assign key"""
+    input_path = Path(*model_config["data_file"])
+    logging.info(f"Loading parquet from {input_path}")
+    data = pd.read_parquet(input_path)
+
+    unique_key = model_config.get("unique_key")
+    if unique_key:
+        data = data.set_index(unique_key)
+        if not data.index.is_unique:
+            raise ValueError(f"Config specified key not unique {unique_key}")
+    return data
+
+
 def apply_filtering(df, model_config):
     """Filters a dataframe given a config containing list of filter strings.
 
@@ -81,9 +95,11 @@ def create_compressed_dummies(df, dummy, min_dummy):
 
 def create_dummy_features(df, model_config):
     """Iterate through dummy features and add to dataset."""
+    logging.info("Creating dummy features")
     dummy_features = []
     min_dummy = model_config.get("min_dummy_percent", 0.001)
     for col in model_config.get("dummy_features", []):
+        logging.debug(f"Creating dummy features for {col}")
         _features, _cols = create_compressed_dummies(df, col, min_dummy)
         df = df.join(_features)
         dummy_features += _cols
@@ -131,7 +147,10 @@ def get_simple_feature_averages(df, model_config):
     problems = []
     for feature in simple_features_agg:
         logging.debug(f"{feature} has {str(df[feature].dtype)}")
-        isinf = df[feature].dropna().apply(np.isinf)
+        try:
+            isinf = df[feature].dropna().apply(np.isinf)
+        except TypeError:
+            problems.append(feature)
         if isinf.any():
             problems.append(feature)
     if problems:
@@ -198,4 +217,11 @@ def collate_features(model_config, dummy_features):
         for {len(features)} features total"
     """
     )
+    output_path = Path(utils.get_model_path(model_config), "features.txt")
+    logging.info(f"Saving list of features to {output_path}")
+    with open(output_path, "w") as f:
+        for feature in features:
+            f.write(feature)
+            f.write("\n")
+
     return features

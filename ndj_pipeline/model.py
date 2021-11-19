@@ -26,6 +26,7 @@ from pathlib import Path
 
 import pandas as pd
 from sklearn.ensemble import GradientBoostingRegressor
+from sklearn.linear_model import LinearRegression
 
 from ndj_pipeline import post, prep, utils
 
@@ -45,12 +46,11 @@ def baseline(train, test, features, config):
     logging.debug("Creating plot")
     post.create_metrics_plot(results, config, name="baseline")
 
-    reporting_features = features
-    return None, features
+    return features[:2]
 
 
 def gbr(train, test, features, config):
-    """Run ridge regression and return metrics."""
+    """Run Gradient boosted regression and return metrics."""
     model = GradientBoostingRegressor(**config.get("model_params", {}))
 
     target = config["target"]
@@ -63,9 +63,20 @@ def gbr(train, test, features, config):
     logging.debug("Predicting results")
     results["Predicted"] = model.predict(test[features])
 
-    logging.debug("Creating plot")
-    post.create_metrics_plot(results, config, name="gbr")
+    # Save predictions
+    output_path = Path(utils.get_model_path(config), "pred_test.csv")
+    logging.info(f"Saving GBR predictions to {output_path}")
+    results.to_csv(output_path)
 
+    # Generate metrics
+    if results["Actual"].isna().any():
+        logging.info("GBR predictions contain no ground truth actuals")
+        logging.info("Skipping plots")
+    else:
+        logging.debug("Creating plot")
+        post.create_metrics_plot(results, config, name="gbr")
+
+    # Generate important features analysis
     importance_groups_sub = pd.DataFrame(
         pd.Series(dict(zip(features, model.feature_importances_)), name="temp")
     ).reset_index()
@@ -90,19 +101,47 @@ def gbr(train, test, features, config):
     logging.info(f"Saving to: {output_path}")
     importance_grouped.to_csv(output_path)
 
-    reporting_features = importance_groups_sub.head()["feature"].to_list()
-    return model, reporting_features
+    num_features_reporting = config.get("num_features_reporting", 5)
+    reporting_features = importance_groups_sub.head(num_features_reporting)["feature"].to_list()
+    return reporting_features
+
+
+def ols(train, test, features, config):
+    """Run OLS based model and return metrics."""
+    model = LinearRegression(**config.get("model_params", {}))
+
+    target = config["target"]
+    logging.info("Fitting OLS model")
+    model.fit(train[features], train[target])
+    logging.info("Fit finished OLS model")
+
+    results = pd.DataFrame(test[target])
+    results.columns = ["Actual"]
+    logging.debug("Predicting results")
+    results["Predicted"] = model.predict(test[features])
+
+    # Save predictions
+    output_path = Path(utils.get_model_path(config), "pred_test.csv")
+    logging.info(f"Saving OLS predictions to {output_path}")
+    results.to_csv(output_path)
+
+    # Generate metrics
+    if results["Actual"].isna().any():
+        logging.info("OLS predictions contain no ground truth actuals")
+        logging.info("Skipping plots")
+    else:
+        logging.debug("Creating plot")
+        post.create_metrics_plot(results, config, name="ols")
+
+    # TODO, select features from top coefficients
+    return features[:2]
 
 
 def run_model_training(model_config):
     """Run all modeling transformations."""
     # Create resource folder if not exist
     utils.create_model_folder(model_config)
-
-    # Load data
-    input_path = Path(*model_config["data_file"])
-    logging.info(f"Loading parquet from {input_path}")
-    data = pd.read_parquet(input_path)
+    data = prep.load_data_and_key(model_config)
 
     # Create dummy features
     data, dummy_features = prep.create_dummy_features(data, model_config)
@@ -110,11 +149,11 @@ def run_model_training(model_config):
     # Apply filtering to the filter field, if present in model_config
     data = prep.apply_filtering(data, model_config)
 
-    # Target variable may have missing data; drop all rows with missing
-    data = prep.filter_target(data, model_config)
-
     # Train test split according to config
     train, test = prep.split(data, model_config)
+
+    # Target variable may have missing data; drop all rows with missing
+    train = prep.filter_target(train, model_config)
 
     # Fill missing features (using train) according to config (i.e. mean, mode)
     aggregates = prep.get_simple_feature_averages(train, model_config)
@@ -131,18 +170,18 @@ def run_model_training(model_config):
     model_function_name = model_config.get("model_function_name")
     if model_function_name:
         model_function = utils.get_model(model_function_name)
-        model, reporting_features = model_function(train, test, features, model_config)
+        reporting_features = model_function(train, test, features, model_config)
 
     # Produce diagnostic info
     post.create_univariate_plots(train, reporting_features, model_config)
+    post.create_continuous_plots(train, reporting_features, model_config)
     post.create_correlation_matrix(train, reporting_features, model_config)
 
 
 def main():
     """Runs either model training or inference depending given command line inputs.
-    Can be run using...`
-    python -m ndj_pipeline.model -p {path_to_experiment.yaml}
-    `
+    Can be run using...
+    `python -m ndj_pipeline.model -p {path_to_experiment.yaml}`
     """
     parser = argparse.ArgumentParser(description="ndj_pipeline model training")
     parser.add_argument("-p", type=str, help="Path to model experiment yaml")

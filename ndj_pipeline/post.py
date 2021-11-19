@@ -124,6 +124,32 @@ def create_univariate_plots(df, reporting_features, model_config):
         plt.close("all")
 
 
+def create_continuous_plots(df, reporting_features, model_config):
+    """Create simple scatterplots with basic line fit between each variable and
+    the target variable"""
+    df[reporting_features] = df[reporting_features].astype(float)
+
+    # Limit sample, if too large this is really slow
+    if df.shape[0] > 5000:
+        df = df.sample(5000)
+
+    for feature in reporting_features:
+        plt.figure()
+        plot_fig, plot_ax = plt.subplots()
+
+        x = df.groupby(feature)[model_config["target"]].mean()
+
+        title = f"Continuous plot of {model_config['target']} and {feature}"
+        sns.lineplot(data=x, ax=plot_ax).set_title(title)
+
+        # in case <na> comes in from dummy variables
+        feature = feature.replace("<", "").replace(">", "")
+        output_path = Path(utils.get_model_path(model_config), f"plots_continuous_{feature}.png")
+        logging.info(f"Saving to: {output_path}")
+        plot_fig.savefig(output_path)
+        plt.close("all")
+
+
 def create_correlation_matrix(df, reporting_features, model_config):
     """Creates correlation matrix main reporting features"""
     plt.figure()
