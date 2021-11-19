@@ -208,7 +208,6 @@ def run_model_training(model_config: Dict[str, Any]) -> None:
     Args:
         model_config: Loaded model experiment config
     """
-
     # Create resource folder if not exist
     utils.create_model_folder(model_config)
     data = prep.load_data_and_key(model_config)
@@ -248,7 +247,7 @@ def run_model_training(model_config: Dict[str, Any]) -> None:
     post.create_correlation_matrix(train, reporting_features, model_config)
 
 
-def main():
+def main() -> None:
     """Runs either model training or inference depending given command line inputs.
 
     Can be run from command line using...
@@ -282,7 +281,7 @@ def main():
         )
         logging.warning(msg)
 
-    logging.info(f"Running in training mode")
+    logging.info("Running in training mode")
     run_model_training(model_config)
 
 

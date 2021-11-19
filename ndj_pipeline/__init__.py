@@ -19,4 +19,4 @@
 # FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 # DEALINGS IN THE SOFTWARE.
 
-"""ndj_pipeline package init file. Houses version logging and imports"""
+"""ndj_pipeline package init file. Houses version logging and imports."""

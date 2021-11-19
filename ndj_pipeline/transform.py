@@ -18,11 +18,11 @@
 # LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
 # FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 # DEALINGS IN THE SOFTWARE.
-
 """Data transformations (ETL) from raw (checked) files into single, feature rich dataframe.
 
 Can be run from command line, or as imported functions in other python
-scripts and jupyter notebooks."""
+scripts and jupyter notebooks.
+"""
 import argparse
 import logging
 from pathlib import Path
@@ -58,13 +58,13 @@ def create_titanic_features(df: pd.DataFrame) -> None:
     df.to_parquet(output_path)
 
 
-def run():
+def run() -> None:
     """Perform all data transformation steps."""
     df = data_checks.check_titanic()
     create_titanic_features(df)
 
 
-def main():
+def main() -> None:
     """Run transformations from command line using...
 
     `python -m ndj_pipeline.transform`

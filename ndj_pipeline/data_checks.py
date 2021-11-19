@@ -18,8 +18,8 @@
 # LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
 # FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 # DEALINGS IN THE SOFTWARE.
-
 """Schemas and assertions for raw data inputs.
+
 Schema checks are useful to standardize certain information in raw data including:
 
 * Clean column names (lowercase, underscore)
@@ -40,7 +40,6 @@ import logging
 from pathlib import Path
 
 import pandas as pd
-import pandera as pa
 from pandera import io
 
 from ndj_pipeline import utils
@@ -57,7 +56,7 @@ def check_titanic() -> pd.DataFrame:
     logging.info(f"Loading data from {input_path}")
     df = pd.read_csv(input_path)
 
-    df = df.rename(columns=utils.clean_column_names(df))
+    df = df.rename(columns=utils.clean_column_names(df))  # type: ignore
 
     # Checks for duplicates
     assert df.shape == df.drop_duplicates().shape

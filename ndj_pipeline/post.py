@@ -37,8 +37,8 @@ from ndj_pipeline import utils
 
 # Hack to get plots working correctly on command line
 try:
-    logging.debug("Running with ipython support")
-    get_ipython().__class__.__name__ == "ZMQInteractiveShell"  # type: ignore
+    if get_ipython().__class__.__name__ == "ZMQInteractiveShell":  # type: ignore
+        logging.debug("Running with ipython support")
 except NameError:
     logging.debug("ipython not detected, setting matplotlib backend")
     matplotlib.use("agg")
@@ -183,7 +183,6 @@ def create_correlation_matrix(df: pd.DataFrame, reporting_features: List[str], m
         reporting_features: List of features to produce individual plots
         model_config: Loaded model experiment config
     """
-
     plt.figure()
 
     corr_matrix = df[reporting_features].corr()

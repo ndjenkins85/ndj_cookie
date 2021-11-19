@@ -20,8 +20,6 @@
 # DEALINGS IN THE SOFTWARE.
 
 """Config driven preprocessing functions used in model pipeline."""
-import argparse
-import json
 import logging
 from pathlib import Path
 from typing import Any, Dict, List, Tuple
@@ -278,7 +276,7 @@ def apply_feature_aggregates(df: pd.DataFrame, aggregates: pd.Series) -> pd.Data
             except TypeError:
                 problems.append(col)
         if problems:
-            raise ValueError(f"Unable to parse some fields due to type issues {', '.join(problems)}")
+            raise ValueError(f"Unable to parse some fields due to type issues {', '.join(problems)}") from None
     return df
 
 
