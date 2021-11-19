@@ -1,0 +1,152 @@
+schema_type: dataframe
+version: 0.6.2
+columns:
+  passengerid:
+    comment: >
+      Passenger ID
+    pandas_dtype: int64
+    nullable: false
+    allow_duplicates: false
+    coerce: true
+    required: true
+
+  survived:
+    comment: >
+      xyz
+    pandas_dtype: int64
+    nullable: false
+    checks:
+      isin:
+      - 0
+      - 1
+    allow_duplicates: true
+    coerce: true
+    required: true
+
+  pclass:
+    comment: >
+      Travel class
+    pandas_dtype: int64
+    nullable: false
+    checks:
+      isin:
+      - 1
+      - 2
+      - 3
+    allow_duplicates: true
+    coerce: true
+    required: true
+
+  name:
+    comment: >
+      Passenger name on ticket
+    pandas_dtype: str
+    nullable: true
+    checks:
+      str_length:
+        min_value: 12
+        max_value: 82
+    allow_duplicates: false
+    coerce: true
+    required: true
+
+  sex:
+    comment: >
+      Passenger sex
+    pandas_dtype: Int64
+    nullable: false
+    checks:
+      isin:
+      - 0
+      - 1
+    allow_duplicates: true
+    coerce: true
+    required: true
+
+  age:
+    comment: >
+      Passenger age
+    pandas_dtype: float64
+    nullable: true
+    checks:
+      in_range:
+        min_value: 0
+        max_value: 80
+    allow_duplicates: true
+    coerce: true
+    required: true
+
+  sibsp:
+    comment: >
+      Unknown, could be related passengers
+    pandas_dtype: int64
+    nullable: false
+    checks:
+      in_range:
+        min_value: 0
+        max_value: 8
+    allow_duplicates: true
+    coerce: true
+    required: true
+
+  parch:
+    comment: >
+      Unknown, parch
+    pandas_dtype: int64
+    nullable: false
+    checks:
+      in_range:
+        min_value: 0
+        max_value: 6
+    allow_duplicates: true
+    coerce: true
+    required: true
+
+  ticket:
+    comment: >
+      Ticket information
+    pandas_dtype: str
+    nullable: true
+    allow_duplicates: true
+    coerce: true
+    required: true
+
+  fare:
+    comment: >
+      Fare paid
+    pandas_dtype: float64
+    nullable: false
+    checks:
+      in_range:
+        min_value: 0
+        max_value: 513
+    allow_duplicates: true
+    coerce: true
+    required: true
+
+  cabin:
+    comment: >
+      Cabin number
+    pandas_dtype: str
+    nullable: true
+    allow_duplicates: true
+    coerce: true
+    required: true
+
+  embarked:
+    comment: >
+      xyz
+    pandas_dtype: int64
+    nullable: true
+    checks:
+      isin:
+      - S
+      - C
+      - Q
+    allow_duplicates: true
+    coerce: true
+    required: true
+
+index: null
+coerce: true
+strict: true

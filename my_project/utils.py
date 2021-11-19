@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # Copyright © 2021 by Nick Jenkins. All rights reserved
 #
 # Permission is hereby granted, free of charge, to any person obtaining a
@@ -39,7 +40,7 @@ def update_environments(
     and # commented libraries)* and an environment.yml which is generated
     by above command, and prints the minimal set of libraries needed.
 
-    * While experimenting with new libraries, it can be useful to mark the new
+    While experimenting with new libraries, it can be useful to mark the new
     libraries as a comment in the file until ready to include.
 
     Args:

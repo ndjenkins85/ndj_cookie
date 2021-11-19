@@ -77,11 +77,3 @@ repos:
     verbose: true
     args:
       - --force
-- repo: local
-  hooks:
-  - id: poetry-check
-    name: poetry-check
-    entry: poetry check
-    language: system
-    types: [python]
-    always_run: true
