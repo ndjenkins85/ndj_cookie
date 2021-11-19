@@ -23,6 +23,7 @@
 import argparse
 import logging
 from pathlib import Path
+from typing import Any, Dict, List
 
 import pandas as pd
 from sklearn.ensemble import GradientBoostingRegressor
@@ -213,8 +214,8 @@ def run_model_training(model_config: Dict[str, Any]) -> None:
 
     # Fill missing features (using train) according to config (i.e. mean, mode)
     aggregates = prep.get_simple_feature_aggregates(train, model_config)
-    train = prep.apply_feature_averages(train, aggregates, model_config)
-    test = prep.apply_feature_averages(test, aggregates, model_config)
+    train = prep.apply_feature_aggregates(train, aggregates)
+    test = prep.apply_feature_aggregates(test, aggregates)
 
     if model_config.get("save_data"):
         prep.save_data(train, test, model_config)

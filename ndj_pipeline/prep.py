@@ -24,7 +24,7 @@ import argparse
 import json
 import logging
 from pathlib import Path
-from typing import Any, Dict, List
+from typing import Any, Dict, List, Tuple
 
 import numpy as np
 import pandas as pd
@@ -89,7 +89,7 @@ def apply_filtering(df: pd.DataFrame, model_config: Dict[str, Any]) -> pd.DataFr
     return df
 
 
-def create_compressed_dummies(df: pd.DataFrame, dummy: str, min_dummy: float) -> pd.DataFrame:
+def create_compressed_dummies(df: pd.DataFrame, dummy: str, min_dummy: float) -> Tuple[pd.DataFrame, List[str]]:
     """Creates enhanced feature dummies for a single dataframe column.
 
     Improves on standard pandas.get_dummies by combining low-incidence dummy columns
@@ -122,7 +122,7 @@ def create_compressed_dummies(df: pd.DataFrame, dummy: str, min_dummy: float) ->
     return selected_dummies, selected_dummies.columns.tolist()
 
 
-def create_dummy_features(df: pd.DataFrame, model_config: Dict[str, Any]) -> pd.DataFrame:
+def create_dummy_features(df: pd.DataFrame, model_config: Dict[str, Any]) -> Tuple[pd.DataFrame, List[str]]:
     """Create dummy features for each config specified dummy_variable.
 
     Iterates through all specified dummy features and adds to DataFrame.
@@ -164,7 +164,7 @@ def filter_target(df: pd.DataFrame, model_config: Dict[str, Any]) -> pd.DataFram
     return df
 
 
-def split(df: pd.DataFrame, model_config: Dict[str, Any]) -> pd.DataFrame:
+def split(df: pd.DataFrame, model_config: Dict[str, Any]) -> Tuple[pd.DataFrame, pd.DataFrame]:
     """Create train test split using model config.
 
     Config may specify a pre-calculated column present in the DataFrame,
@@ -200,7 +200,7 @@ def split(df: pd.DataFrame, model_config: Dict[str, Any]) -> pd.DataFrame:
     return train, test
 
 
-def get_simple_feature_aggregates(df: pd.DataFrame, model_config: Dict[str, Any]) -> pd.DataFrame:
+def get_simple_feature_aggregates(df: pd.DataFrame, model_config: Dict[str, Any]) -> pd.Series:
     """Generates config specified feature aggregates.
 
     These are used to inform missing data replacement strategy. Ideally this is
@@ -237,7 +237,7 @@ def get_simple_feature_aggregates(df: pd.DataFrame, model_config: Dict[str, Any]
 
     agg = df.agg(simple_features_agg)
     try:
-        agg = agg.loc[0]
+        agg = agg.loc[0]  # type: ignore
     except KeyError:
         logging.debug("No 'mode' values detected in aggregations")
 
@@ -251,12 +251,25 @@ def get_simple_feature_aggregates(df: pd.DataFrame, model_config: Dict[str, Any]
     return aggregates
 
 
-def apply_feature_averages(df, aggregates, model_config):
-    """Validates and applies feature averages to a dataframe."""
+def apply_feature_aggregates(df: pd.DataFrame, aggregates: pd.Series) -> pd.DataFrame:
+    """Applies feature aggregates to a DataFrame's missing values.
+
+    Performs validations and raises errors as part of process.
+
+    Args:
+        df: Pandas dataframe. Must include same columns as aggregates.
+        aggregates: Pandas series with labels and aggregate values.
+
+    Returns:
+        Pandas Dataframe with missing data replaced.
+
+    Raises:
+        ValueError: If unable to apply aggregation value to a column.
+          This is commonly due to the datatypes not working i.e. float into Int64.
+    """
     try:
         df[aggregates.index] = df[aggregates.index].fillna(aggregates)
-        return df
-    except:
+    except BaseException:
         # If there is a problem, try one by one and report.
         problems = []
         for col, agg in aggregates.items():
@@ -265,11 +278,12 @@ def apply_feature_averages(df, aggregates, model_config):
             except TypeError:
                 problems.append(col)
         if problems:
-            raise ValueError(f"These features set to mean replace, should probably be mode {', '.join(problems)}")
+            raise ValueError(f"Unable to parse some fields due to type issues {', '.join(problems)}")
+    return df
 
 
-def save_data(train, test, model_config):
-    """Optionally save train, test and combined datasets to experiment folder."""
+def save_data(train: pd.DataFrame, test: pd.DataFrame, model_config: Dict[str, Any]) -> None:
+    """Saves train, test and combined datasets to the model folder as parquet."""
     model_path = utils.get_model_path(model_config)
 
     output_path = Path(model_path, "prep_train.parquet")
@@ -285,16 +299,14 @@ def save_data(train, test, model_config):
     pd.concat([train, test]).sort_index().to_parquet(output_path)
 
 
-def collate_features(model_config, dummy_features):
-    """Creates list of simple and dummy features."""
+def collate_features(model_config: Dict[str, Any], dummy_features: List[str]) -> List[str]:
+    """Saves and returns final list of simple and dummy features."""
     simple_features = list(model_config.get("simple_features", {}).keys())
     features = simple_features + dummy_features
     logging.info(
-        f"""
-        "Model uses {len(simple_features)} simple features and
-        {len(dummy_features)} dummy features
-        for {len(features)} features total"
-    """
+        f"Model uses {len(simple_features)} simple features and"
+        + f"{len(dummy_features)} dummy features"
+        + f"for {len(features)} features total"
     )
     output_path = Path(utils.get_model_path(model_config), "features.txt")
     logging.info(f"Saving list of features to {output_path}")

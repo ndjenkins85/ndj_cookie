@@ -28,12 +28,19 @@ import logging
 from pathlib import Path
 
 import numpy as np
+import pandas as pd
 
 from ndj_pipeline import data_checks
 
 
-def create_titanic_features(df):
-    """Creates some basic features from titanic data."""
+def create_titanic_features(df: pd.DataFrame) -> None:
+    """Feature engineering, including _filter and split columns.
+
+    Fully custom pandas code for titanic data feature engineering.
+
+    Args:
+        df: Pre-validated and checked Pandas DataFrame.
+    """
     # Example of custom filter
     df["_filter"] = ""
     df.loc[0, "_filter"] = "remove_me"
@@ -58,9 +65,9 @@ def run():
 
 
 def main():
-    """Run transformations from command line using...`
-    python -m ndj_pipeline.transform
-    `
+    """Run transformations from command line using...
+
+    `python -m ndj_pipeline.transform`
     """
     parser = argparse.ArgumentParser(description="ndj_pipeline transformations")
     parser.add_argument("-v", action="store_true", help="Debug mode")

@@ -22,14 +22,22 @@
 """Mix of utilities."""
 import json
 from pathlib import Path
+from typing import Any, Callable, Dict, List
 
 import yaml
 
 from ndj_pipeline import config, model, post
 
 
-def clean_column_names(column_list):
-    """Simple string cleaning rules for columns."""
+def clean_column_names(column_list: List[str]) -> Dict[str, str]:
+    """Simple string cleaning rules for columns.
+
+    Args:
+        column_list: Column names to be cleaned
+
+    Returns:
+        A dict mapping old and cleaned column names.
+    """
     new_column_list = [
         (
             col.lower()
@@ -47,17 +55,17 @@ def clean_column_names(column_list):
     return dict(zip(column_list, new_column_list))
 
 
-def get_model(function):
-    """Simple redirection to get named function."""
+def get_model(function: str) -> Callable:
+    """Simple redirection to get named function from model.py."""
     return getattr(model, function)
 
 
-def get_post(function):
-    """Simple redirection to get named function."""
+def get_post(function: str) -> Callable:
+    """Simple redirection to get named function from post.py."""
     return getattr(post, function)
 
 
-def load_model_config(model_config_path):
+def load_model_config(model_config_path: str) -> Dict[str, Any]:
     """Loads model config, either from yaml or json format."""
     config_path = Path(model_config_path)
     if config_path.suffix == ".yaml":
@@ -68,16 +76,13 @@ def load_model_config(model_config_path):
         raise ValueError(f"Unsupported config file type {model_config_path}")
 
 
-def get_model_path(model_config):
+def get_model_path(model_config: Dict[str, Any]) -> Path:
+    """Returns the model path from config file."""
     return Path(config.default_model_folder, model_config["run_name"])
 
 
-def get_inference_model_path(model_config):
-    return Path(*model_config.get("model_folder"))
-
-
-def create_model_folder(model_config):
-    """Simple def to create asset folder for model."""
+def create_model_folder(model_config: Dict[str, Any]) -> None:
+    """Create model asset folder and write config if it doesn't exist."""
     model_path = get_model_path(model_config)
     if model_path.exists():
         return None

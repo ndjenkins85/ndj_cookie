@@ -87,10 +87,10 @@ def create_metrics_plot(results: pd.DataFrame, model_config: Dict[str, Any], nam
     # Done to exclude very wild Predictions from plot, symetrically across the two sets
     lower_clip = model_config.get("plot_min_clip", 0)
     upper_clip = model_config.get("plot_max_clip", 1)
-    lower_clip_actual = results["Actual"].quantile(lower_clip)
-    upper_clip_actual = results["Actual"].quantile(upper_clip)
-    lower_clip_predicted = results["Predicted"].quantile(lower_clip)
-    upper_clip_predicted = results["Predicted"].quantile(upper_clip)
+    lower_clip_actual = float(results["Actual"].quantile(lower_clip))
+    upper_clip_actual = float(results["Actual"].quantile(upper_clip))
+    lower_clip_predicted = float(results["Predicted"].quantile(lower_clip))
+    upper_clip_predicted = float(results["Predicted"].quantile(upper_clip))
     lower_clip = min(lower_clip_actual, lower_clip_predicted)
     upper_clip = max(upper_clip_actual, upper_clip_predicted)
     results["Actual"] = results["Actual"].clip(lower=lower_clip, upper=upper_clip)
@@ -123,14 +123,16 @@ def create_univariate_plots(df: pd.DataFrame, reporting_features: List[str], mod
 
     # Limit sample, if too large this is really slow
     if df.shape[0] > 5000:
-        df = df.sample(5000)
+        data = df.sample(5000)
+    else:
+        data = df
 
     for feature in reporting_features:
         plt.figure()
         plot_fig, plot_ax = plt.subplots()
 
         title = f"Univariate plot of {model_config['target']} and {feature}"
-        sns.regplot(data=df, y=model_config["target"], x=feature, ax=plot_ax).set_title(title)
+        sns.regplot(data=data, y=model_config["target"], x=feature, ax=plot_ax).set_title(title)
 
         # in case <na> comes in from dummy variables
         feature = feature.replace("<", "").replace(">", "")
@@ -153,18 +155,14 @@ def create_continuous_plots(df: pd.DataFrame, reporting_features: List[str], mod
     """
     df[reporting_features] = df[reporting_features].astype(float)
 
-    # Limit sample, if too large this is really slow
-    if df.shape[0] > 5000:
-        df = df.sample(5000)
-
     for feature in reporting_features:
         plt.figure()
         plot_fig, plot_ax = plt.subplots()
 
-        x = df.groupby(feature)[model_config["target"]].mean()
+        data = df.groupby(feature)[model_config["target"]].mean()
 
         title = f"Continuous plot of {model_config['target']} and {feature}"
-        sns.lineplot(data=x, ax=plot_ax).set_title(title)
+        sns.lineplot(data=data, ax=plot_ax).set_title(title)
 
         # in case <na> comes in from dummy variables
         feature = feature.replace("<", "").replace(">", "")
