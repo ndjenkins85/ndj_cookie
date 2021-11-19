@@ -33,8 +33,25 @@ from ndj_pipeline import post, prep, utils
 pd.options.mode.chained_assignment = None
 
 
-def baseline(train, test, features, config):
-    """Run naive baseline model."""
+def baseline(train: pd.DataFrame, test: pd.DataFrame, features: List[str], config: Dict[str, Any]) -> List[str]:
+    """Run naive baseline model.
+
+    Creates the results DataFrame based on test data,
+    with "Actual" and "Predicted" fields.
+    Calls metric creation.
+
+    Args:
+        train: training dataframe containing config specified
+          target and numeric features from `features`
+        test: training dataframe containing config specified
+          target and numeric features from `features`
+        features: List of columns to use in model training
+        config: Loaded model experiment config, for model parameters
+
+    Returns:
+        List of strings indicating important features to use
+          for further reporting
+    """
     target = config["target"]
     baseline = config.get("baseline", config["target"])
     logging.info("Fitting Baseline model")
@@ -49,8 +66,25 @@ def baseline(train, test, features, config):
     return features[:2]
 
 
-def gbr(train, test, features, config):
-    """Run Gradient boosted regression and return metrics."""
+def gbr(train: pd.DataFrame, test: pd.DataFrame, features: List[str], config: Dict[str, Any]) -> List[str]:
+    """Run Gradient boosted regression.
+
+    Creates the results DataFrame based on test data,
+    with "Actual" and "Predicted" fields.
+    Calls metric creation.
+
+    Args:
+        train: training dataframe containing config specified
+          target and numeric features from `features`
+        test: training dataframe containing config specified
+          target and numeric features from `features`
+        features: List of columns to use in model training
+        config: Loaded model experiment config, for model parameters
+
+    Returns:
+        List of strings indicating important features to use
+          for further reporting
+    """
     model = GradientBoostingRegressor(**config.get("model_params", {}))
 
     target = config["target"]
@@ -106,8 +140,25 @@ def gbr(train, test, features, config):
     return reporting_features
 
 
-def ols(train, test, features, config):
-    """Run OLS based model and return metrics."""
+def ols(train: pd.DataFrame, test: pd.DataFrame, features: List[str], config: Dict[str, Any]) -> List[str]:
+    """Run OLS based model.
+
+    Creates the results DataFrame based on test data,
+    with "Actual" and "Predicted" fields.
+    Calls metric creation.
+
+    Args:
+        train: training dataframe containing config specified
+          target and numeric features from `features`
+        test: training dataframe containing config specified
+          target and numeric features from `features`
+        features: List of columns to use in model training
+        config: Loaded model experiment config, for model parameters
+
+    Returns:
+        List of strings indicating important features to use
+          for further reporting
+    """
     model = LinearRegression(**config.get("model_params", {}))
 
     target = config["target"]
@@ -137,8 +188,13 @@ def ols(train, test, features, config):
     return features[:2]
 
 
-def run_model_training(model_config):
-    """Run all modeling transformations."""
+def run_model_training(model_config: Dict[str, Any]) -> None:
+    """Run all modeling transformations.
+
+    Args:
+        model_config: Loaded model experiment config
+    """
+
     # Create resource folder if not exist
     utils.create_model_folder(model_config)
     data = prep.load_data_and_key(model_config)
@@ -156,7 +212,7 @@ def run_model_training(model_config):
     train = prep.filter_target(train, model_config)
 
     # Fill missing features (using train) according to config (i.e. mean, mode)
-    aggregates = prep.get_simple_feature_averages(train, model_config)
+    aggregates = prep.get_simple_feature_aggregates(train, model_config)
     train = prep.apply_feature_averages(train, aggregates, model_config)
     test = prep.apply_feature_averages(test, aggregates, model_config)
 
@@ -180,7 +236,8 @@ def run_model_training(model_config):
 
 def main():
     """Runs either model training or inference depending given command line inputs.
-    Can be run using...
+
+    Can be run from command line using...
     `python -m ndj_pipeline.model -p {path_to_experiment.yaml}`
     """
     parser = argparse.ArgumentParser(description="ndj_pipeline model training")

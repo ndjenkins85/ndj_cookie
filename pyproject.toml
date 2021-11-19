@@ -54,6 +54,9 @@ safety = { version = "^1.10", optional = true }
 sqlfluff = { version = "^0.6", optional = true }
 xdoctest = { version = "^0.15", optional = true }
 
+types-PyYAML = { version = "^6.0", optional = true }
+
+
 pytest = { version = "^6.2", optional = true }
 pytest-cases = { version = "^3.6", optional = true }
 pytest-cov = { version = "^3.0", optional = true }
@@ -72,7 +75,7 @@ pre-commit = "^2.15"
 MarkupSafe = "^2.0.1"
 
 [tool.poetry.extras]
-lint = ["black", "darglint", "flake8", "mypy", "safety", "sqlfluff", "xdoctest", "flake8-annotations", "flake8-bandit", "flake8-bugbear", "flake8-builtins", "flake8-docstrings"]
+lint = ["black", "darglint", "flake8", "mypy", "safety", "sqlfluff", "xdoctest", "flake8-annotations", "flake8-bandit", "flake8-bugbear", "flake8-builtins", "flake8-docstrings", "types-PyYAML"]
 tests = ["pytest", "pytest-cases", "pytest-cov", "coverage", "codecov"]
 docs = ["m2r2", "sphinx", "sphinx_rtd_theme", "sphinx-autodoc-typehints"]
 
@@ -106,6 +109,9 @@ module = [
     'sphinx_rtd_theme',
     'nox.*',
     'pytest',
+    'matplotlib.*',
+    'seaborn.*',
+    'sklearn.*',
     ]
 ignore_missing_imports = true
 

@@ -2134,6 +2134,14 @@ doc = ["mkdocs (>=1.1.2,<2.0.0)", "mkdocs-material (>=5.4.0,<6.0.0)", "markdown-
 test = ["shellingham (>=1.3.0,<2.0.0)", "pytest (>=4.4.0,<5.4.0)", "pytest-cov (>=2.10.0,<3.0.0)", "coverage (>=5.2,<6.0)", "pytest-xdist (>=1.32.0,<2.0.0)", "pytest-sugar (>=0.9.4,<0.10.0)", "mypy (==0.910)", "black (>=19.10b0,<20.0b0)", "isort (>=5.0.6,<6.0.0)"]
 
 [[package]]
+name = "types-pyyaml"
+version = "6.0.1"
+description = "Typing stubs for PyYAML"
+category = "main"
+optional = true
+python-versions = "*"
+
+[[package]]
 name = "typing-extensions"
 version = "4.0.0"
 description = "Backported and Experimental Type Hints for Python 3.6+"
@@ -2268,13 +2276,13 @@ testing = ["pytest (>=4.6)", "pytest-checkdocs (>=2.4)", "pytest-flake8", "pytes
 
 [extras]
 docs = ["m2r2", "sphinx", "sphinx_rtd_theme", "sphinx-autodoc-typehints"]
-lint = ["black", "darglint", "flake8", "mypy", "safety", "sqlfluff", "xdoctest", "flake8-annotations", "flake8-bandit", "flake8-bugbear", "flake8-builtins", "flake8-docstrings"]
+lint = ["black", "darglint", "flake8", "mypy", "safety", "sqlfluff", "xdoctest", "flake8-annotations", "flake8-bandit", "flake8-bugbear", "flake8-builtins", "flake8-docstrings", "types-PyYAML"]
 tests = ["pytest", "pytest-cases", "pytest-cov", "coverage", "codecov"]
 
 [metadata]
 lock-version = "1.1"
 python-versions = ">=3.7.1,<3.11"
-content-hash = "dbd9c9495780dba3e389724278214096459a31d1a7e1480c889fb54ef7e0184b"
+content-hash = "92ccefc0936aec160f9ae56cd059365adc0f2159e45973fc5b2cd43b332110a7"
 
 [metadata.files]
 alabaster = [
@@ -3578,6 +3586,10 @@ typed-ast = [
 typer = [
     {file = "typer-0.4.0-py3-none-any.whl", hash = "sha256:d81169725140423d072df464cad1ff25ee154ef381aaf5b8225352ea187ca338"},
     {file = "typer-0.4.0.tar.gz", hash = "sha256:63c3aeab0549750ffe40da79a1b524f60e08a2cbc3126c520ebf2eeaf507f5dd"},
+]
+types-pyyaml = [
+    {file = "types-PyYAML-6.0.1.tar.gz", hash = "sha256:2e27b0118ca4248a646101c5c318dc02e4ca2866d6bc42e84045dbb851555a76"},
+    {file = "types_PyYAML-6.0.1-py3-none-any.whl", hash = "sha256:d5b318269652e809b5c30a5fe666c50159ab80bfd41cd6bafe655bf20b29fcba"},
 ]
 typing-extensions = [
     {file = "typing_extensions-4.0.0-py3-none-any.whl", hash = "sha256:829704698b22e13ec9eaf959122315eabb370b0884400e9818334d8b677023d9"},

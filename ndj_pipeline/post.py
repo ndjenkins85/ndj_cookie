@@ -23,10 +23,10 @@
 import json
 import logging
 from pathlib import Path
+from typing import Any, Dict, List
 
 import matplotlib
 import matplotlib.pyplot as plt
-import numpy as np
 import pandas as pd
 import seaborn as sns
 from sklearn.metrics import mean_absolute_error as mae
@@ -37,8 +37,10 @@ from ndj_pipeline import utils
 
 # Hack to get plots working correctly on command line
 try:
-    get_ipython().__class__.__name__ == "ZMQInteractiveShell"
-except:
+    logging.debug("Running with ipython support")
+    get_ipython().__class__.__name__ == "ZMQInteractiveShell"  # type: ignore
+except NameError:
+    logging.debug("ipython not detected, setting matplotlib backend")
     matplotlib.use("agg")
 
 five_thirty_eight = [
@@ -53,10 +55,16 @@ sns.set_palette(five_thirty_eight)
 sns.set(rc={"figure.figsize": (8, 5)})
 
 
-def create_metrics_plot(results, model_config, name=""):
-    """Given a results table (with Actual and Predicted, produce
-    MAE and R2 metrics, and create a scatterplot with all metrics.
-    Saves plot to model directory"""
+def create_metrics_plot(results: pd.DataFrame, model_config: Dict[str, Any], name: str = "") -> None:
+    """Produce metrics and scatterplot for results table.
+
+    No returns; saves assets to model folder.
+
+    Args:
+        results: DataFrame with "Actual" and "Prediction" columns
+        model_config: Loaded model experiment config
+        name: Simple label added to outputs, helpful to distinguish models
+    """
     # Metrics
     _r2 = r2_score(results["Actual"], results["Predicted"])
     _mae = mae(results["Actual"], results["Predicted"])
@@ -100,9 +108,17 @@ def create_metrics_plot(results, model_config, name=""):
     plt.close("all")
 
 
-def create_univariate_plots(df, reporting_features, model_config):
-    """Create simple scatterplots with basic line fit between each variable and
-    the target variable"""
+def create_univariate_plots(df: pd.DataFrame, reporting_features: List[str], model_config: Dict[str, Any]) -> None:
+    """Create scatterplots with linear fit for each feature against target.
+
+    No returns; saves assets to model folder.
+
+    Args:
+        df: Full, feature rich dataframe, must contain config specified
+          target, and numeric feature columns specified by `reporting_features`
+        reporting_features: List of features to produce individual plots
+        model_config: Loaded model experiment config
+    """
     df[reporting_features] = df[reporting_features].astype(float)
 
     # Limit sample, if too large this is really slow
@@ -124,9 +140,17 @@ def create_univariate_plots(df, reporting_features, model_config):
         plt.close("all")
 
 
-def create_continuous_plots(df, reporting_features, model_config):
-    """Create simple scatterplots with basic line fit between each variable and
-    the target variable"""
+def create_continuous_plots(df: pd.DataFrame, reporting_features: List[str], model_config: Dict[str, Any]) -> None:
+    """Create line plot to show how target varies according to feature.
+
+    No returns; saves assets to model folder.
+
+    Args:
+        df: Full, feature rich dataframe, must contain config specified
+          target, and numeric feature columns specified by `reporting_features`
+        reporting_features: List of features to produce individual plots
+        model_config: Loaded model experiment config
+    """
     df[reporting_features] = df[reporting_features].astype(float)
 
     # Limit sample, if too large this is really slow
@@ -150,8 +174,18 @@ def create_continuous_plots(df, reporting_features, model_config):
         plt.close("all")
 
 
-def create_correlation_matrix(df, reporting_features, model_config):
-    """Creates correlation matrix main reporting features"""
+def create_correlation_matrix(df: pd.DataFrame, reporting_features: List[str], model_config: Dict[str, Any]) -> None:
+    """Create correlation matrix between subset of reported features.
+
+    No returns; saves assets to model folder.
+
+    Args:
+        df: Full, feature rich dataframe, must contain config specified
+          target, and numeric feature columns specified by `reporting_features`
+        reporting_features: List of features to produce individual plots
+        model_config: Loaded model experiment config
+    """
+
     plt.figure()
 
     corr_matrix = df[reporting_features].corr()

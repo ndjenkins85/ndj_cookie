@@ -24,6 +24,7 @@ import argparse
 import json
 import logging
 from pathlib import Path
+from typing import Any, Dict, List
 
 import numpy as np
 import pandas as pd
@@ -32,8 +33,16 @@ from sklearn.model_selection import train_test_split as tts
 from ndj_pipeline import utils
 
 
-def load_data_and_key(model_config):
-    """Uses config to load data and assign key"""
+def load_data_and_key(model_config: Dict[str, Any]) -> pd.DataFrame:
+    """Uses config to load data and assign key.
+
+    Args:
+        model_config: Loaded model experiment config, specifically for
+          data path and index column(s)
+
+    Returns:
+        Pandas dataframe with optionally assigned index
+    """
     input_path = Path(*model_config["data_file"])
     logging.info(f"Loading parquet from {input_path}")
     data = pd.read_parquet(input_path)
@@ -46,11 +55,18 @@ def load_data_and_key(model_config):
     return data
 
 
-def apply_filtering(df, model_config):
-    """Filters a dataframe given a config containing list of filter strings.
+def apply_filtering(df: pd.DataFrame, model_config: Dict[str, Any]) -> pd.DataFrame:
+    """Filters dataframe according to config specified labels.
 
-    Expects a '_filter' column in the processed data.
-    Any string mentioned in 'filters' config, which is found in `_filter` column results in row exclude.
+    Any row containing a specified label is filtered from the data.
+
+    Args:
+        df: Pandas dataframe, must contain `_filter` column with string type.
+        model_config: Loaded model experiment config, specifically for
+          list of filter labels.
+
+    Returns:
+        Pandas dataframe with optionally assigned index
 
     Raises:
         ValueError: Expects '_filter' column in processed data.
@@ -73,11 +89,24 @@ def apply_filtering(df, model_config):
     return df
 
 
-def create_compressed_dummies(df, dummy, min_dummy):
-    """Given dataframe, column specification and minimum percentage, create dummy info.
-    If any of the resulting dummy columns does not match minimum percentage, group into an 'other' category.
-    Returns dummy frame and col list."""
-    # Added cleaning to avoid weird characters in string
+def create_compressed_dummies(df: pd.DataFrame, dummy: str, min_dummy: float) -> pd.DataFrame:
+    """Creates enhanced feature dummies for a single dataframe column.
+
+    Improves on standard pandas.get_dummies by combining low-incidence dummy columns
+      into a single `_other_combined` column. Dummy columns are named according to
+      `{col_name}_##_{value}`
+
+    Args:
+        df: Pandas dataframe, must contain specified dummy column.
+        dummy: string label of DataFrame to create dummy features
+        min_dummy: minimum percentage incidence to create standalone
+          dummy feature, otherwise group into `_other_combined`.
+
+    Returns:
+        Dummified Pandas DataFrame for a single feature.
+        Also returns dummy column names as a list of strings.
+    """
+    # Cleaning steps to avoid weird characters in string
     df[dummy] = df[dummy].astype(str)
     values = list(df[dummy].unique())
     df[dummy] = df[dummy].replace(utils.clean_column_names(values))
@@ -93,8 +122,20 @@ def create_compressed_dummies(df, dummy, min_dummy):
     return selected_dummies, selected_dummies.columns.tolist()
 
 
-def create_dummy_features(df, model_config):
-    """Iterate through dummy features and add to dataset."""
+def create_dummy_features(df: pd.DataFrame, model_config: Dict[str, Any]) -> pd.DataFrame:
+    """Create dummy features for each config specified dummy_variable.
+
+    Iterates through all specified dummy features and adds to DataFrame.
+
+    Args:
+        df: Pandas dataframe, must contain specified dummy columns.
+        model_config: Loaded model experiment config, specifically for
+          list of dummy features.
+
+    Returns:
+        Pandas DataFrame with original data plus all new dummy fields.
+        Also returns full list of created dummy column names
+    """
     logging.info("Creating dummy features")
     dummy_features = []
     min_dummy = model_config.get("min_dummy_percent", 0.001)
@@ -106,18 +147,38 @@ def create_dummy_features(df, model_config):
     return df, dummy_features
 
 
-def filter_target(df, model_config):
-    """Ensure no missing data in target variable."""
+def filter_target(df: pd.DataFrame, model_config: Dict[str, Any]) -> pd.DataFrame:
+    """Filters Dataframe to ensure no missing data in target variable.
+
+    Args:
+        df: Pandas dataframe, must contain config specified target colunn.
+        model_config: Loaded model experiment config, specifically for
+          target column name.
+
+    Returns:
+        Filtered Pandas DataFrame.
+    """
     logging.info(f"Original data size {df.shape}")
     df = df.dropna(subset=[model_config["target"]])
     logging.info(f"Dropped target size {df.shape}")
     return df
 
 
-def split(df, model_config):
+def split(df: pd.DataFrame, model_config: Dict[str, Any]) -> pd.DataFrame:
     """Create train test split using model config.
 
-    Can use pre-calculated column from processed data, or sklearn style split params, (or no split).
+    Config may specify a pre-calculated column present in the DataFrame,
+      or use sklearn style split params. No config results in no split,
+      with the creation of an empty test dataframe.
+
+    Args:
+        df: Pandas dataframe, must contain a pre-calculated split column
+          if this is specified in the `model_config`.
+        model_config: Loaded model experiment config, specifically for
+          split approach, either a `field` or sklearn style params.
+
+    Returns:
+        Two Pandas DataFrames intended for training, test sets.
     """
     split_params = model_config.get("split", {})
     split_field = split_params.get("field", None)
@@ -139,8 +200,26 @@ def split(df, model_config):
     return train, test
 
 
-def get_simple_feature_averages(df, model_config):
-    """Validates config specified aggregations then calculate values from data."""
+def get_simple_feature_aggregates(df: pd.DataFrame, model_config: Dict[str, Any]) -> pd.DataFrame:
+    """Generates config specified feature aggregates.
+
+    These are used to inform missing data replacement strategy. Ideally this is
+      run on training data, and used to replace train and test data.
+
+    Performs validations and raises errors as part of process.
+
+    Args:
+        df: Pandas dataframe. Must include columns specified in the `simple_features`
+          section of config, and these must be numeric type columns with no infinite values.
+        model_config: Loaded model experiment config, specifically for
+          `simple_features` dictionary of column names and aggregation strategy.
+
+    Returns:
+        Pandas Series with specified feature columns: value of aggregation.
+
+    Raises:
+        ValueError: If any features contain infinate values that need fixing.
+    """
     simple_features_agg = model_config.get("simple_features", {})
 
     # Validate to ensure no features contain infinity

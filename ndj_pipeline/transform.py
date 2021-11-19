@@ -28,7 +28,6 @@ import logging
 from pathlib import Path
 
 import numpy as np
-import pandas as pd
 
 from ndj_pipeline import data_checks
 
