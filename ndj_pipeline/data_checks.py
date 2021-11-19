@@ -21,15 +21,18 @@
 
 """Schemas and assertions for raw data inputs.
 Schema checks are useful to standardize certain information in raw data including:
-- Clean column names (lowercase, underscore)
-- Ensure an understanding of primary keys of data (uniqueness)
-- Set data types of columns, i.e. boolean->int, datetime, string, nullable integer
-- Pandera schema checks to attempt to lock some checks about a datafile. This helps
-to quickly assess if a file has changed, or a similar file is same or different. Some examples:
-  - Contains exact list of columns (no more no less)
-  - Nullable column
-  - Data type correct
-  - Data range checks (must not be 0 or less, must contain only these values)
+
+* Clean column names (lowercase, underscore)
+* Ensure an understanding of primary keys of data (uniqueness)
+* Set data types of columns, i.e. boolean->int, datetime, string, nullable integer
+* Pandera schema checks to attempt to lock some checks about a datafile. This helps
+  to quickly assess if a file has changed, or a similar file is same or different.
+  Some examples:
+
+  * Contains exact list of columns (no more no less)
+  * Nullable column
+  * Data type correct
+  * Data range checks (must not be 0 or less, must contain only these values)
 
 Schemas can often be re-applied to similar data files, i.e. tabs of an excel, or train/test data.
 """
@@ -43,8 +46,12 @@ from pandera import io
 from ndj_pipeline import utils
 
 
-def check_titanic():
-    """Example checks."""
+def check_titanic() -> pd.DataFrame:
+    """Data schema and typing validations.
+
+    Returns:
+        Loaded pandas dataframe with typing and schema checks.
+    """
     # Standardize column names
     input_path = Path("data", "titanic.csv")
     logging.info(f"Loading data from {input_path}")

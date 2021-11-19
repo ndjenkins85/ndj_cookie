@@ -51,7 +51,7 @@ def baseline(train: pd.DataFrame, test: pd.DataFrame, features: List[str], confi
 
     Returns:
         List of strings indicating important features to use
-          for further reporting
+        for further reporting
     """
     target = config["target"]
     baseline = config.get("baseline", config["target"])
@@ -84,7 +84,7 @@ def gbr(train: pd.DataFrame, test: pd.DataFrame, features: List[str], config: Di
 
     Returns:
         List of strings indicating important features to use
-          for further reporting
+        for further reporting
     """
     model = GradientBoostingRegressor(**config.get("model_params", {}))
 
@@ -158,7 +158,7 @@ def ols(train: pd.DataFrame, test: pd.DataFrame, features: List[str], config: Di
 
     Returns:
         List of strings indicating important features to use
-          for further reporting
+        for further reporting
     """
     model = LinearRegression(**config.get("model_params", {}))
 
@@ -191,6 +191,19 @@ def ols(train: pd.DataFrame, test: pd.DataFrame, features: List[str], config: Di
 
 def run_model_training(model_config: Dict[str, Any]) -> None:
     """Run all modeling transformations.
+
+    Includes the following steps:
+
+    * Create model and config folder
+    * Loads data and sets index
+    * Create config specified dummy features
+    * Filters rows according to config
+    * Splits data into train/test
+    * Filters target variable in train data
+    * Prepares missing data replacement
+    * Optionally saves data
+    * Trains model according to model specifications
+    * Produce metrics and plots
 
     Args:
         model_config: Loaded model experiment config

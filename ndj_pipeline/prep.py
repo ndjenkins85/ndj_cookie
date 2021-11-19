@@ -93,8 +93,8 @@ def create_compressed_dummies(df: pd.DataFrame, dummy: str, min_dummy: float) ->
     """Creates enhanced feature dummies for a single dataframe column.
 
     Improves on standard pandas.get_dummies by combining low-incidence dummy columns
-      into a single `_other_combined` column. Dummy columns are named according to
-      `{col_name}_##_{value}`
+    into a single `_other_combined` column. Dummy columns are named according to
+    `{col_name}_##_{value}`
 
     Args:
         df: Pandas dataframe, must contain specified dummy column.
@@ -168,8 +168,8 @@ def split(df: pd.DataFrame, model_config: Dict[str, Any]) -> Tuple[pd.DataFrame,
     """Create train test split using model config.
 
     Config may specify a pre-calculated column present in the DataFrame,
-      or use sklearn style split params. No config results in no split,
-      with the creation of an empty test dataframe.
+    or use sklearn style split params. No config results in no split,
+    with the creation of an empty test dataframe.
 
     Args:
         df: Pandas dataframe, must contain a pre-calculated split column
@@ -204,7 +204,7 @@ def get_simple_feature_aggregates(df: pd.DataFrame, model_config: Dict[str, Any]
     """Generates config specified feature aggregates.
 
     These are used to inform missing data replacement strategy. Ideally this is
-      run on training data, and used to replace train and test data.
+    run on training data, and used to replace train and test data.
 
     Performs validations and raises errors as part of process.
 
