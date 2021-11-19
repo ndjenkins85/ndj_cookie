@@ -18,8 +18,10 @@
 # LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
 # FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 # DEALINGS IN THE SOFTWARE.
+"""Set of operations to transform pandas DataFrames given user specified config.
 
-"""Config driven preprocessing functions used in model pipeline."""
+These operations are ordered according to `ndj_pipeline.model.run_model_training`.
+"""
 import logging
 from pathlib import Path
 from typing import Any, Dict, List, Tuple

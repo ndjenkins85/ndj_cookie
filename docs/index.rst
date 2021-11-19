@@ -3,6 +3,9 @@
    :maxdepth: 1
 
    license
-   reference
+   reference_etl
+   reference_model
+   reference_post
+   reference_utils
 
 .. mdinclude:: ../README.md

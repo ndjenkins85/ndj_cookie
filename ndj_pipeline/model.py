@@ -35,7 +35,14 @@ pd.options.mode.chained_assignment = None
 
 
 def baseline(train: pd.DataFrame, test: pd.DataFrame, features: List[str], config: Dict[str, Any]) -> List[str]:
-    """Run naive baseline model.
+    """Compares Actual results to a naive baseline.
+
+    This will compare "Actual" results to a pre-calculated baseline
+    column, assumed to be prepared earlier in transform.py.
+
+    It is always worthwhile to compare ML results to simple models
+    such as an average, or group-by average. This frames any model
+    results as meaningful improvements over a simple rule.
 
     Creates the results DataFrame based on test data,
     with "Actual" and "Predicted" fields.
@@ -68,7 +75,9 @@ def baseline(train: pd.DataFrame, test: pd.DataFrame, features: List[str], confi
 
 
 def gbr(train: pd.DataFrame, test: pd.DataFrame, features: List[str], config: Dict[str, Any]) -> List[str]:
-    """Run Gradient boosted regression.
+    """Train a Gradient Boosted Regression.
+
+    Trains using specified train dataframe and list of simple and dummy features.
 
     Creates the results DataFrame based on test data,
     with "Actual" and "Predicted" fields.
@@ -142,7 +151,9 @@ def gbr(train: pd.DataFrame, test: pd.DataFrame, features: List[str], config: Di
 
 
 def ols(train: pd.DataFrame, test: pd.DataFrame, features: List[str], config: Dict[str, Any]) -> List[str]:
-    """Run OLS based model.
+    """Train a Ordinary Least Squares Regression.
+
+    Trains using specified train dataframe and list of simple and dummy features.
 
     Creates the results DataFrame based on test data,
     with "Actual" and "Predicted" fields.
@@ -248,7 +259,7 @@ def run_model_training(model_config: Dict[str, Any]) -> None:
 
 
 def main() -> None:
-    """Runs either model training or inference depending given command line inputs.
+    """Main command line entry to model training.
 
     Can be run from command line using...
     `python -m ndj_pipeline.model -p {path_to_experiment.yaml}`

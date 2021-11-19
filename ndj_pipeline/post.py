@@ -19,7 +19,7 @@
 # FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 # DEALINGS IN THE SOFTWARE.
 
-"""Post-model fit reporting of results as plots, summary tables and documentation. NJ."""
+"""Post-model fit reporting of results as plots, summary tables and documentation."""
 import json
 import logging
 from pathlib import Path
