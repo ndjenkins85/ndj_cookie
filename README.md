@@ -7,7 +7,7 @@ While this is intended to be a personal resource, this is open to public users.
 The quick-start includes the following features:
 
 - Full set-up guide and checklist - *so you can quickly set up tooling and get into coding*
-- Choice of dependency and virtual environment management with full-featured poetry workflow or partial conda workflow - *so you can ensure code runs on different environments*
+- Choice of dependency and virtual environment management with full-featured poetry workflow, partial conda workflow, and docker with poetry - *so you can ensure code runs on different environments*
 - Pre-populated Git and Github assets including gitignore, codeowners, templates, issue labels - *to make your Github experience more enjoyable*
 - Documentation including README with prompts, opinionated CONTRIBUTORS guide, LICENSE, sphinx docs generation with markdown and API reference support, and actions to automatically generate Github pages - *to easily expose project documentation*
 - CI/CD framework including pre-commit for quick formatting, task automation with Nox, and Github Actions - *to ensure high quality releases*
@@ -185,7 +185,7 @@ Follow each step here and ensure tests are working.
 
 ### Environment 1: Poetry
 
-Poetry handles virtual environment management, dev and optional extra libraries, library development, builds and publishing.
+[Poetry](https://python-poetry.org/docs/) handles virtual environment management, dev and optional extra libraries, library development, builds and publishing.
 
 Ensure you have and installation of Poetry 1.1 or above.
 Make sure you deactivate any existing virtual environments (i.e. conda).
@@ -204,7 +204,7 @@ When the environment is correctly installed, you can enter the virtual environme
 
 ### Environment 2: Conda
 
-Conda is a lightweight solution for Anaconda python users to handle virtual environment management and basic library specification.
+[Conda](https://docs.conda.io/projects/conda/en/latest/user-guide/getting-started.html) is a lightweight solution for Anaconda python users to handle virtual environment management and basic library specification.
 
 Following commands will create the conda environment and setup the library in interactive development mode using setup.py.
 
@@ -222,7 +222,7 @@ python setup.py bdist_wheel
 
 ### Environment 3: Docker
 
-Docker goes beyond virtual environment management to virtualize the operating system itself. The docker container is specified through a Dockerfile and can be run with docker commands or docker-compose. Dependeny management is handled through poetry.
+[Docker](https://www.docker.com/) goes beyond virtual environment management to virtualize the operating system itself. The docker container is specified through a Dockerfile and can be run with docker commands or docker-compose. Dependeny management is handled through poetry.
 
 Use either of the following commands to setup and run the docker environment.
 
@@ -242,8 +242,9 @@ docker-compose down
 
 ### Testing with Nox
 
-Nox is a python task automation tool similar to Tox, Makefiles or scripts.
-It is used here for Code quality, testing, and generating documentation.
+[Nox](https://nox.thea.codes/en/stable/index.html) is a command-line tool that automates testing in multiple Python environments, similar to tox, Makefiles or scripts. Unlike tox, Nox uses a standard Python file for configuration.
+
+Here it is used for code quality, testing, and generating documentation.
 
 The following command can be used to run mypy, lint, and tests.
 It is recommended to run these before pushing code, as this is run with Github Actions.
@@ -268,7 +269,9 @@ poetry run nox -rs coverage
 
 ### Code formatting with Pre-commit
 
-Pre-commit intercepts the `git commit` command to run checks of staged code before the commit is finalized.
+[Pre-commit](https://pre-commit.com/) is a framework for managing and maintaining multi-language pre-commit hooks.
+
+It intercepts the `git commit` command to run checks of staged code before the commit is finalized.
 The checks are specified in `.pre-commit-config.yaml`.
 Checks in use are quick, pragmatic, and apply automatic formatting checks.
 If checks fail, it is usually only a matter of re-staging the files (`git add`) and attempting to commit again.
