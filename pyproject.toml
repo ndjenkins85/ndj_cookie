@@ -88,7 +88,7 @@ source = "init"
 [build-system]
 # Should ideally be the same as `$POETRY_VERSION` in dockerfile
 # But currently no pip installable alpha
-requires = ["poetry>=1.2.0a2"]
+requires = ["poetry>=1.2.0a2", "setuptools"]
 build-backend = "poetry.core.masonry.api"
 
 [tool.black]
