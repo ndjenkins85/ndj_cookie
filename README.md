@@ -13,7 +13,8 @@ The quick-start includes the following features:
 - CI/CD framework including pre-commit for quick formatting, task automation with Nox, and Github Actions - *to ensure high quality releases*
 - Linting, type checking, and tests with minimum of tool config files and close nox and pyproject.toml integration - *to standardize code and minimize clutter*
 - Tools for release management including tagging and versioning process, Github actions for release notes, test-pypi and release actions - *to simplify the code release process*
-- 'my_project' dummy project example with logging, imports, pytest, argparse CLI, poetry scripts, docstrings - *for a minimal non-tool codeset with warmed up examples*
+- `my_project` dummy project example with logging, imports, pytest, argparse CLI, poetry scripts, docstrings - *for a minimal non-tool codeset with warmed up examples*
+- `ndj_pipeline` machine learning pipeline and framework - *to separate data engineering concerns and build repeatable experiments*
 
 This guide contains three major sections:
 
@@ -58,25 +59,7 @@ Change name from my_project to new name in:
 
 ### Poetry
 
-Ensure you have and installation of Poetry 1.2.0a1 or above, along with poetry-version-plugin.
-
-Make sure you deactivate any existing virtual environments (i.e. conda).
-
-```bash
-poetry install
-```
-
-You may need to point poetry to the correct python interpreter using the following command.
-In another terminal and in conda, run `which python`.
-```bash
-poetry env use /path/to/python3
-```
-
-Enter the poetry shell.
-
-```bash
-poetry shell
-```
+See the [Environment 1: Poetry](#environment-1-poetry) in the Developer Guide to set up your own environment first.
 
 Remove tools not required by poetry, but required for conda
 - Delete `setup.py`
@@ -86,12 +69,9 @@ Remove tools not required by poetry, but required for conda
 
 ### Conda
 
-*Note*: using conda will mean incompatability with some Nox, Github actions, and library publish functionality. Only the default Nox sessions are included (with light flake8 checks), plus black and docs.
+See the [Environment 1: Conda](#environment-2-conda) in the Developer Guide to set up your own environment first.
 
-```bash
-conda env create -f environment.yml
-conda activate my_project
-```
+*Note*: using conda will mean incompatability with some Nox, Github actions, and library publish functionality. Only the default Nox sessions are included (with light flake8 checks), plus black and docs.
 
 Additional conda related setup:
 
@@ -108,11 +88,7 @@ Additional conda related setup:
 `Dockerfile` and `docker-compose` are supported using poetry for dependencies.
 See above instructions for conda cleanup.
 
-```bash
-docker-compose build
-docker-compose up
-docker-compose down
-```
+See the [Environment 1: Docker](#environment-3-docker) in the Developer Guide to set up your own environment first.
 
 ## 4. Instantiate pre-commit, add log directory, create new git repo
 
@@ -142,17 +118,25 @@ Who is the audience or end users? Any requirements?
 What are the feature and benefits?
 
 * [Instructions for users](#instructions-for-users)
+  * [Installation](#installation)
+  * [Usage documentation](#usage-documentation)
+  * [Bug reports](#bug-reports)
 * [Instructions for developers](#instructions-for-developers)
-  * [Dependency and virtual environment management, library development and build with poetry](#dependency-and-virtual-environment-management-library-development-and-build-with-poetry)
-  * [Dependency and virtual environment management, library development and build with conda](#dependency-and-virtual-environment-management-library-development-and-build-with-conda)
-  * [Code quality, testing, and generating documentation with Nox](#code-quality-testing-and-generating-documentation-with-nox)
+  * [Environment 1: Poetry](#environment-1-poetry)
+  * [Environment 2: Conda](#environment-2-conda)
+  * [Environment 3: Docker](#environment-3-docker)
+  * [Testing with Nox](#testing-with-nox)
   * [Code formatting with Pre-commit](#code-formatting-with-pre-commit)
 * [Contributors](#contributors)
 
 ## Instructions for users
 
 The following are the quick start instructions for using the project as an end-user.
-[Instructions for developers](#instructions-for-developers) follows this section.
+
+Follow the [Instructions for developers](#instructions-for-developers) to set up the virtual environment and dependency management.
+We recommend `poetry`, but an alternative `conda` environment has been prepared (will not work with `nox`).
+
+### Installation
 
 Note: Instructions marked with %% are not functioning and are for demo purposes only.
 
@@ -164,44 +148,34 @@ pip install my_project
 
 Include an example of running the program with expected outputs.
 
+To replicate the data transformations and model results, run the following commands from the project root.
+These should be run from the `poetry shell`, or `conda` environment, or with the `poetry run` prefix.
 ```bash
-python -m my_project.utils -i1 environment.yml -i2 environment.yml -v
-...
-2021-08-29 14:59:09,489 [DEBUG] Loading main file from environment.yml
-2021-08-29 14:59:09,489 [DEBUG] Loading second file from environment.yml
-...
-  - pytest-cov=2.10.1
-  - python=^3.8
-  - sphinx=3.2.1
-  - sphinx-autodoc-typehints=1.12.0
-  - sphinx_rtd_theme=0.4.3
+python -m ndj_pipeline.transform
+python -m ndj_pipeline.model -p data/doordash_pred.yaml
+python -m ndj_pipeline.final_prediction_clean
+
 ```
 
-Can also be run as a script.
+This will produce a feature rich dataset in `data/processed`, model results and metrics under `data/doordash_pred`, and the formatted predictions file under `data_to_predict.csv`.
+
+Example of using poetry to create scripts.
 
 ```bash
 my_project -i1 environment.yml -i2 environment.yml -v
 ```
 
-### Using Dockerfile
+Alternatively run from Dockerfile or docker-compose.
+See [Docker environment instructions](#environment-3-docker) for more details.
 
-Alternatively run from Dockerfile:
+### Usage documentation
 
-``` bash
-docker build -t ndj_cookie/my_project .
-docker run --rm ndj_cookie/my_project
-docker stop $(docker ps -a -q)
-```
+The user guides can be found on [github pages](https://ndjenkins85.github.io/ndj_cookie).
+This includes overview of features, discussion of `ndj_pipeline` framework, and API reference.
 
-### Using docker-compose
+### Bug reports
 
-Example docker-compose also included.
-
-``` bash
-docker-compose build
-docker-compose up
-docker-compose down
-```
+Please raise an [issue](https://github.com/ndjenkins85/ndj_cookie/issues) with `bug` label and I will look into it!
 
 ## Instructions for developers
 
@@ -209,29 +183,28 @@ The following are the setup instructions for developers looking to improve this 
 For information on current contributors and guidelines see the [contributors](#contributors) section.
 Follow each step here and ensure tests are working.
 
-### Dependency and virtual environment management, library development and build with poetry
+### Environment 1: Poetry
 
-Ensure you have and installation of Poetry 1.2.0a1 or above, along with poetry-version-plugin.
+Poetry handles virtual environment management, dev and optional extra libraries, library development, builds and publishing.
 
+Ensure you have and installation of Poetry 1.1 or above.
 Make sure you deactivate any existing virtual environments (i.e. conda).
 
 ```bash
 poetry install
 ```
 
-You may need to point poetry to the correct python interpreter using the following command.
+Troubleshooting: You may need to point poetry to the correct python interpreter using the following command.
 In another terminal and in conda, run `which python`.
 ```bash
 poetry env use /path/to/python3
 ```
 
-Library can be built using
+When the environment is correctly installed, you can enter the virtual environment using `poetry shell`. Library can be built using `poetry build`.
 
-```bash
-poetry build
-```
+### Environment 2: Conda
 
-### Dependency and virtual environment management, library development and build with conda
+Conda is a lightweight solution for Anaconda python users to handle virtual environment management and basic library specification.
 
 Following commands will create the conda environment and setup the library in interactive development mode using setup.py.
 
@@ -247,9 +220,30 @@ Library can be built using
 python setup.py bdist_wheel
 ```
 
-### Code quality, testing, and generating documentation with Nox
+### Environment 3: Docker
+
+Docker goes beyond virtual environment management to virtualize the operating system itself. The docker container is specified through a Dockerfile and can be run with docker commands or docker-compose. Dependeny management is handled through poetry.
+
+Use either of the following commands to setup and run the docker environment.
+
+``` bash
+docker build -t ndj_cookie/my_project .
+docker run --rm ndj_cookie/my_project
+docker stop $(docker ps -a -q)
+```
+
+Example docker-compose also included.
+
+``` bash
+docker-compose build
+docker-compose up
+docker-compose down
+```
+
+### Testing with Nox
 
 Nox is a python task automation tool similar to Tox, Makefiles or scripts.
+It is used here for Code quality, testing, and generating documentation.
 
 The following command can be used to run mypy, lint, and tests.
 It is recommended to run these before pushing code, as this is run with Github Actions.
