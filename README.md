@@ -69,7 +69,7 @@ Remove tools not required by poetry, but required for conda
 
 ### Conda
 
-See the [Environment 1: Conda](#environment-2-conda) in the Developer Guide to set up your own environment first.
+See the [Environment 2: Conda](#environment-2-conda) in the Developer Guide to set up your own environment first.
 
 *Note*: using conda will mean incompatability with some Nox, Github actions, and library publish functionality. Only the default Nox sessions are included (with light flake8 checks), plus black and docs.
 
@@ -88,7 +88,7 @@ Additional conda related setup:
 `Dockerfile` and `docker-compose` are supported using poetry for dependencies.
 See above instructions for conda cleanup.
 
-See the [Environment 1: Docker](#environment-3-docker) in the Developer Guide to set up your own environment first.
+See the [Environment 3: Docker](#environment-3-docker) in the Developer Guide to set up your own environment first.
 
 ## 4. Instantiate pre-commit, add log directory, create new git repo
 
@@ -268,10 +268,26 @@ poetry run nox -rs coverage
 
 ### Code formatting with Pre-commit
 
+Pre-commit intercepts the `git commit` command to run checks of staged code before the commit is finalized.
+The checks are specified in `.pre-commit-config.yaml`.
+Checks in use are quick, pragmatic, and apply automatic formatting checks.
+If checks fail, it is usually only a matter of re-staging the files (`git add`) and attempting to commit again.
+
+The aim is to provide a lightweight way to keep some code standards automatically in line with standards.
+This does not replace the need to run nox tests, although pre-commits will satisfy some of the nox test checks.
+
 On first time use of the repository, pre-commit will need to be installed locally.
-You can use the following command to install and run pre-commit over all files.
-See .pre-commit-config.yaml for checks in use.
-Intention is to have lightweight checks that automatically make code changes.
+You will need to be in the `poetry shell` or `conda` environment.
+Run the following command to perform a first time install.
+
+```bash
+pre-commit install
+```
+
+This will cache several code assets used in the checks.
+
+When you have new code to commit, pre-commit will kick in and check the code.
+Alternatively, you can run the following command to run for all files in repo.
 
 ``` bash
 pre-commit run --all-files
