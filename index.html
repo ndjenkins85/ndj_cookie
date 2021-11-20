@@ -29,7 +29,7 @@
             <a href="#" class="icon icon-home"> my_project
           </a>
               <div class="version">
-                0.1.4
+                0.2.1
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
@@ -41,7 +41,10 @@
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <ul>
 <li class="toctree-l1"><a class="reference internal" href="license.html">License</a></li>
-<li class="toctree-l1"><a class="reference internal" href="reference.html">Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="reference_etl.html">Data preparation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="reference_model.html">Modeling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="reference_post.html">Post-processing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="reference_utils.html">Utilities</a></li>
 </ul>
 
         </div>
@@ -78,13 +81,14 @@ While this is intended to be a personal resource, this is open to public users.<
 <p>The quick-start includes the following features:</p>
 <ul class="simple">
 <li><p>Full set-up guide and checklist - <em>so you can quickly set up tooling and get into coding</em></p></li>
-<li><p>Choice of dependency and virtual environment management with full-featured poetry workflow or partial conda workflow - <em>so you can ensure code runs on different environments</em></p></li>
+<li><p>Choice of dependency and virtual environment management with full-featured poetry workflow, partial conda workflow, and docker with poetry - <em>so you can ensure code runs on different environments</em></p></li>
 <li><p>Pre-populated Git and Github assets including gitignore, codeowners, templates, issue labels - <em>to make your Github experience more enjoyable</em></p></li>
 <li><p>Documentation including README with prompts, opinionated CONTRIBUTORS guide, LICENSE, sphinx docs generation with markdown and API reference support, and actions to automatically generate Github pages - <em>to easily expose project documentation</em></p></li>
 <li><p>CI/CD framework including pre-commit for quick formatting, task automation with Nox, and Github Actions - <em>to ensure high quality releases</em></p></li>
 <li><p>Linting, type checking, and tests with minimum of tool config files and close nox and pyproject.toml integration - <em>to standardize code and minimize clutter</em></p></li>
 <li><p>Tools for release management including tagging and versioning process, Github actions for release notes, test-pypi and release actions - <em>to simplify the code release process</em></p></li>
-<li><p>‘my_project’ dummy project example with logging, imports, pytest, argparse CLI, poetry scripts, docstrings - <em>for a minimal non-tool codeset with warmed up examples</em></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">my_project</span></code> dummy project example with logging, imports, pytest, argparse CLI, poetry scripts, docstrings - <em>for a minimal non-tool codeset with warmed up examples</em></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ndj_pipeline</span></code> machine learning pipeline and framework - <em>to separate data engineering concerns and build repeatable experiments</em></p></li>
 </ul>
 <p>This guide contains three major sections:</p>
 <ul class="simple">
@@ -132,20 +136,7 @@ While this is intended to be a personal resource, this is open to public users.<
 <h2>3. Choose any of poetry, conda (or docker-compose) for project.<a class="headerlink" href="#choose-any-of-poetry-conda-or-docker-compose-for-project" title="Permalink to this headline"></a></h2>
 <section id="poetry">
 <h3>Poetry<a class="headerlink" href="#poetry" title="Permalink to this headline"></a></h3>
-<p>Ensure you have and installation of Poetry 1.2.0a1 or above, along with poetry-version-plugin.</p>
-<p>Make sure you deactivate any existing virtual environments (i.e. conda).</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>poetry install
-</pre></div>
-</div>
-<p>You may need to point poetry to the correct python interpreter using the following command.
-In another terminal and in conda, run <code class="docutils literal notranslate"><span class="pre">which</span> <span class="pre">python</span></code>.</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>poetry env use /path/to/python3
-</pre></div>
-</div>
-<p>Enter the poetry shell.</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>poetry shell
-</pre></div>
-</div>
+<p>See the <a class="reference external" href="#environment-1-poetry">Environment 1: Poetry</a> in the Developer Guide to set up your own environment first.</p>
 <p>Remove tools not required by poetry, but required for conda</p>
 <ul class="simple">
 <li><p>Delete <code class="docutils literal notranslate"><span class="pre">setup.py</span></code></p></li>
@@ -156,11 +147,8 @@ In another terminal and in conda, run <code class="docutils literal notranslate"
 </section>
 <section id="conda">
 <h3>Conda<a class="headerlink" href="#conda" title="Permalink to this headline"></a></h3>
+<p>See the <a class="reference external" href="#environment-2-conda">Environment 2: Conda</a> in the Developer Guide to set up your own environment first.</p>
 <p><em>Note</em>: using conda will mean incompatability with some Nox, Github actions, and library publish functionality. Only the default Nox sessions are included (with light flake8 checks), plus black and docs.</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>conda env create -f environment.yml
-conda activate my_project
-</pre></div>
-</div>
 <p>Additional conda related setup:</p>
 <ul class="simple">
 <li><p>Setup project details in <code class="docutils literal notranslate"><span class="pre">setup.py</span></code>.</p></li>
@@ -179,11 +167,7 @@ conda activate my_project
 <h3>Docker-compose<a class="headerlink" href="#docker-compose" title="Permalink to this headline"></a></h3>
 <p><code class="docutils literal notranslate"><span class="pre">Dockerfile</span></code> and <code class="docutils literal notranslate"><span class="pre">docker-compose</span></code> are supported using poetry for dependencies.
 See above instructions for conda cleanup.</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docker-compose build
-docker-compose up
-docker-compose down
-</pre></div>
-</div>
+<p>See the <a class="reference external" href="#environment-3-docker">Environment 3: Docker</a> in the Developer Guide to set up your own environment first.</p>
 </section>
 </section>
 <section id="instantiate-pre-commit-add-log-directory-create-new-git-repo">
@@ -214,86 +198,95 @@ git tag <span class="m">0</span>.1.0
 Who is the audience or end users? Any requirements?
 What are the feature and benefits?</p>
 <ul class="simple">
-<li><p><a class="reference external" href="#instructions-for-users">Instructions for users</a></p></li>
+<li><p><a class="reference external" href="#instructions-for-users">Instructions for users</a></p>
+<ul>
+<li><p><a class="reference external" href="#installation">Installation</a></p></li>
+<li><p><a class="reference external" href="#usage-documentation">Usage documentation</a></p></li>
+<li><p><a class="reference external" href="#bug-reports">Bug reports</a></p></li>
+</ul>
+</li>
 <li><p><a class="reference external" href="#instructions-for-developers">Instructions for developers</a></p>
 <ul>
-<li><p><a class="reference external" href="#dependency-and-virtual-environment-management-library-development-and-build-with-poetry">Dependency and virtual environment management, library development and build with poetry</a></p></li>
-<li><p><a class="reference external" href="#dependency-and-virtual-environment-management-library-development-and-build-with-conda">Dependency and virtual environment management, library development and build with conda</a></p></li>
-<li><p><a class="reference external" href="#code-quality-testing-and-generating-documentation-with-nox">Code quality, testing, and generating documentation with Nox</a></p></li>
+<li><p><a class="reference external" href="#environment-1-poetry">Environment 1: Poetry</a></p></li>
+<li><p><a class="reference external" href="#environment-2-conda">Environment 2: Conda</a></p></li>
+<li><p><a class="reference external" href="#environment-3-docker">Environment 3: Docker</a></p></li>
+<li><p><a class="reference external" href="#testing-with-nox">Testing with Nox</a></p></li>
 <li><p><a class="reference external" href="#code-formatting-with-pre-commit">Code formatting with Pre-commit</a></p></li>
 </ul>
 </li>
 <li><p><a class="reference external" href="#contributors">Contributors</a></p></li>
 </ul>
-<section id="id2">
-<h2>Instructions for users<a class="headerlink" href="#id2" title="Permalink to this headline"></a></h2>
-<p>The following are the quick start instructions for using the project as an end-user.
-<a class="reference external" href="#instructions-for-developers">Instructions for developers</a> follows this section.</p>
+<section id="id5">
+<h2>Instructions for users<a class="headerlink" href="#id5" title="Permalink to this headline"></a></h2>
+<p>The following are the quick start instructions for using the project as an end-user.</p>
+<p>Follow the <a class="reference external" href="#instructions-for-developers">Instructions for developers</a> to set up the virtual environment and dependency management.
+We recommend <code class="docutils literal notranslate"><span class="pre">poetry</span></code> for full functionality. An alternative <code class="docutils literal notranslate"><span class="pre">conda</span></code> environment has been prepared but will not work with <code class="docutils literal notranslate"><span class="pre">nox</span></code>.</p>
+<section id="id7">
+<h3>Installation<a class="headerlink" href="#id7" title="Permalink to this headline"></a></h3>
 <p>Note: Instructions marked with %% are not functioning and are for demo purposes only.</p>
 <p>Install the project using pip %%:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip install my_project
 </pre></div>
 </div>
 <p>Include an example of running the program with expected outputs.</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python -m my_project.utils -i1 environment.yml -i2 environment.yml -v
-...
-<span class="m">2021</span>-08-29 <span class="m">14</span>:59:09,489 <span class="o">[</span>DEBUG<span class="o">]</span> Loading main file from environment.yml
-<span class="m">2021</span>-08-29 <span class="m">14</span>:59:09,489 <span class="o">[</span>DEBUG<span class="o">]</span> Loading second file from environment.yml
-...
-  - pytest-cov<span class="o">=</span><span class="m">2</span>.10.1
-  - <span class="nv">python</span><span class="o">=</span>^3.8
-  - <span class="nv">sphinx</span><span class="o">=</span><span class="m">3</span>.2.1
-  - sphinx-autodoc-typehints<span class="o">=</span><span class="m">1</span>.12.0
-  - <span class="nv">sphinx_rtd_theme</span><span class="o">=</span><span class="m">0</span>.4.3
+<p>To replicate the data transformations and model results, run the following commands from the project root.
+These should be run from the <code class="docutils literal notranslate"><span class="pre">poetry</span> <span class="pre">shell</span></code>, or <code class="docutils literal notranslate"><span class="pre">conda</span></code> environment, or with the <code class="docutils literal notranslate"><span class="pre">poetry</span> <span class="pre">run</span></code> prefix.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python -m ndj_pipeline.transform
+python -m ndj_pipeline.model -p data/doordash_pred.yaml
+python -m ndj_pipeline.final_prediction_clean
 </pre></div>
 </div>
-<p>Can also be run as a script.</p>
+<p>This will produce a feature rich dataset in <code class="docutils literal notranslate"><span class="pre">data/processed</span></code>, model results and metrics under <code class="docutils literal notranslate"><span class="pre">data/doordash_pred</span></code>, and the formatted predictions file under <code class="docutils literal notranslate"><span class="pre">data_to_predict.csv</span></code>.</p>
+<p>Example of using poetry to create scripts.</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>my_project -i1 environment.yml -i2 environment.yml -v
 </pre></div>
 </div>
-<section id="using-dockerfile">
-<h3>Using Dockerfile<a class="headerlink" href="#using-dockerfile" title="Permalink to this headline"></a></h3>
-<p>Alternatively run from Dockerfile:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docker build -t ndj_cookie/my_project .
-docker run --rm ndj_cookie/my_project
-docker stop <span class="k">$(</span>docker ps -a -q<span class="k">)</span>
-</pre></div>
-</div>
+<p>Alternatively run from Dockerfile or docker-compose.
+See <a class="reference external" href="#environment-3-docker">Docker environment instructions</a> for more details.</p>
 </section>
-<section id="using-docker-compose">
-<h3>Using docker-compose<a class="headerlink" href="#using-docker-compose" title="Permalink to this headline"></a></h3>
-<p>Example docker-compose also included.</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docker-compose build
-docker-compose up
-docker-compose down
-</pre></div>
-</div>
+<section id="id8">
+<h3>Usage documentation<a class="headerlink" href="#id8" title="Permalink to this headline"></a></h3>
+<p>The user guides can be found on <a class="reference external" href="https://ndjenkins85.github.io/ndj_cookie">github pages</a>.
+This includes overview of features, discussion of <code class="docutils literal notranslate"><span class="pre">ndj_pipeline</span></code> framework, and API reference.</p>
+</section>
+<section id="id9">
+<h3>Bug reports<a class="headerlink" href="#id9" title="Permalink to this headline"></a></h3>
+<p>Please raise an <a class="reference external" href="https://github.com/ndjenkins85/ndj_cookie/issues">issue</a> with <code class="docutils literal notranslate"><span class="pre">bug</span></code> label and I will look into it!</p>
 </section>
 </section>
-<section id="id4">
-<h2>Instructions for developers<a class="headerlink" href="#id4" title="Permalink to this headline"></a></h2>
+<section id="id10">
+<h2>Instructions for developers<a class="headerlink" href="#id10" title="Permalink to this headline"></a></h2>
 <p>The following are the setup instructions for developers looking to improve this project.
 For information on current contributors and guidelines see the <a class="reference external" href="#contributors">contributors</a> section.
 Follow each step here and ensure tests are working.</p>
-<section id="id6">
-<h3>Dependency and virtual environment management, library development and build with poetry<a class="headerlink" href="#id6" title="Permalink to this headline"></a></h3>
-<p>Ensure you have and installation of Poetry 1.2.0a1 or above, along with poetry-version-plugin.</p>
-<p>Make sure you deactivate any existing virtual environments (i.e. conda).</p>
+<section id="id12">
+<h3>Environment 1: Poetry<a class="headerlink" href="#id12" title="Permalink to this headline"></a></h3>
+<p><a class="reference external" href="https://python-poetry.org/docs/">Poetry</a> handles virtual environment management, dev and optional extra libraries, library development, builds and publishing.</p>
+<p>Check the poetry website for the latest instructions on how to install poetry.
+You can use the following command on OS/linux to install poetry 1.1.9 used in this project.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>curl -sSL https://install.python-poetry.org <span class="p">|</span> python - --version <span class="m">1</span>.1.9
+</pre></div>
+</div>
+<p>It is recommended to set virtual environment creation to within project using the following command.
+This adds a <code class="docutils literal notranslate"><span class="pre">.venv</span></code> directory to project to handle cache and virtual environment.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>poetry config virtualenvs.in-project <span class="nb">true</span>
+</pre></div>
+</div>
+<p>You can set up the virtual environment in the repo using the following command.
+Make sure that any other virtual environments (i.e. <code class="docutils literal notranslate"><span class="pre">conda</span> <span class="pre">deactivate</span></code>) are deactivated before running.</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>poetry install
 </pre></div>
 </div>
-<p>You may need to point poetry to the correct python interpreter using the following command.
+<p>Troubleshooting: You may need to point poetry to the correct python interpreter using the following command.
 In another terminal and in conda, run <code class="docutils literal notranslate"><span class="pre">which</span> <span class="pre">python</span></code>.</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>poetry env use /path/to/python3
 </pre></div>
 </div>
-<p>Library can be built using</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>poetry build
-</pre></div>
-</div>
+<p>When the environment is correctly installed, you can enter the virtual environment using <code class="docutils literal notranslate"><span class="pre">poetry</span> <span class="pre">shell</span></code>. Library can be built using <code class="docutils literal notranslate"><span class="pre">poetry</span> <span class="pre">build</span></code>.</p>
 </section>
-<section id="id7">
-<h3>Dependency and virtual environment management, library development and build with conda<a class="headerlink" href="#id7" title="Permalink to this headline"></a></h3>
+<section id="id14">
+<h3>Environment 2: Conda<a class="headerlink" href="#id14" title="Permalink to this headline"></a></h3>
+<p><a class="reference external" href="https://docs.conda.io/projects/conda/en/latest/user-guide/getting-started.html">Conda</a> is a lightweight solution for Anaconda python users to handle virtual environment management and basic library specification.</p>
 <p>Following commands will create the conda environment and setup the library in interactive development mode using setup.py.</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>conda env create -f environment.yml
 conda activate my_project
@@ -305,9 +298,26 @@ pip install -e .
 </pre></div>
 </div>
 </section>
-<section id="id8">
-<h3>Code quality, testing, and generating documentation with Nox<a class="headerlink" href="#id8" title="Permalink to this headline"></a></h3>
-<p>Nox is a python task automation tool similar to Tox, Makefiles or scripts.</p>
+<section id="id16">
+<h3>Environment 3: Docker<a class="headerlink" href="#id16" title="Permalink to this headline"></a></h3>
+<p><a class="reference external" href="https://www.docker.com/">Docker</a> goes beyond virtual environment management to virtualize the operating system itself. The docker container is specified through a Dockerfile and can be run with docker commands or docker-compose. Dependeny management is handled through poetry.</p>
+<p>Use either of the following commands to setup and run the docker environment.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docker build -t ndj_cookie/my_project .
+docker run --rm ndj_cookie/my_project
+docker stop <span class="k">$(</span>docker ps -a -q<span class="k">)</span>
+</pre></div>
+</div>
+<p>Example docker-compose also included.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docker-compose build
+docker-compose up
+docker-compose down
+</pre></div>
+</div>
+</section>
+<section id="id17">
+<h3>Testing with Nox<a class="headerlink" href="#id17" title="Permalink to this headline"></a></h3>
+<p><a class="reference external" href="https://nox.thea.codes/en/stable/index.html">Nox</a> is a command-line tool that automates testing in multiple Python environments, similar to tox, Makefiles or scripts. Unlike tox, Nox uses a standard Python file for configuration.</p>
+<p>Here it is used for code quality, testing, and generating documentation.</p>
 <p>The following command can be used to run mypy, lint, and tests.
 It is recommended to run these before pushing code, as this is run with Github Actions.
 Some checks such as black are run more frequently with <a class="reference external" href="#code-formatting-with-pre-commit">pre-commit</a>.</p>
@@ -324,19 +334,31 @@ Documentation publishing using Github Actions to Github pages is enabled by defa
 </pre></div>
 </div>
 </section>
-<section id="id9">
-<h3>Code formatting with Pre-commit<a class="headerlink" href="#id9" title="Permalink to this headline"></a></h3>
+<section id="id18">
+<h3>Code formatting with Pre-commit<a class="headerlink" href="#id18" title="Permalink to this headline"></a></h3>
+<p><a class="reference external" href="https://pre-commit.com/">Pre-commit</a> is a framework for managing and maintaining multi-language pre-commit hooks.</p>
+<p>It intercepts the <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">commit</span></code> command to run checks of staged code before the commit is finalized.
+The checks are specified in <code class="docutils literal notranslate"><span class="pre">.pre-commit-config.yaml</span></code>.
+Checks in use are quick, pragmatic, and apply automatic formatting checks.
+If checks fail, it is usually only a matter of re-staging the files (<code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">add</span></code>) and attempting to commit again.</p>
+<p>The aim is to provide a lightweight way to keep some code standards automatically in line with standards.
+This does not replace the need to run nox tests, although pre-commits will satisfy some of the nox test checks.</p>
 <p>On first time use of the repository, pre-commit will need to be installed locally.
-You can use the following command to install and run pre-commit over all files.
-See .pre-commit-config.yaml for checks in use.
-Intention is to have lightweight checks that automatically make code changes.</p>
+You will need to be in the <code class="docutils literal notranslate"><span class="pre">poetry</span> <span class="pre">shell</span></code> or <code class="docutils literal notranslate"><span class="pre">conda</span></code> environment.
+Run the following command to perform a first time install.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pre-commit install
+</pre></div>
+</div>
+<p>This will cache several code assets used in the checks.</p>
+<p>When you have new code to commit, pre-commit will kick in and check the code.
+Alternatively, you can run the following command to run for all files in repo.</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pre-commit run --all-files
 </pre></div>
 </div>
 </section>
 </section>
-<section id="id10">
-<h2>Contributors<a class="headerlink" href="#id10" title="Permalink to this headline"></a></h2>
+<section id="id20">
+<h2>Contributors<a class="headerlink" href="#id20" title="Permalink to this headline"></a></h2>
 <ul class="simple">
 <li><p><a class="reference external" href="https://www.nickjenkins.com.au">Nick Jenkins</a> - Data Scientist, API &amp; Web dev, Team lead, Writer</p></li>
 </ul>

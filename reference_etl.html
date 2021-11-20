@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Data preparation &mdash; my_project  documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Modeling" href="reference_model.html" />
+    <link rel="prev" title="License" href="license.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="index.html" class="icon icon-home"> my_project
+          </a>
+              <div class="version">
+                0.2.1
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="license.html">License</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Data preparation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#module-ndj_pipeline.data_checks">ndj_pipeline.data_checks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-ndj_pipeline.transform">ndj_pipeline.transform</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="reference_model.html">Modeling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="reference_post.html">Post-processing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="reference_utils.html">Utilities</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">my_project</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+      <li>Data preparation</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/reference_etl.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="data-preparation">
+<h1>Data preparation<a class="headerlink" href="#data-preparation" title="Permalink to this headline"></a></h1>
+<div class="contents local topic" id="contents">
+<ul class="simple">
+<li><p><a class="reference internal" href="#module-ndj_pipeline.data_checks" id="id1">ndj_pipeline.data_checks</a></p></li>
+<li><p><a class="reference internal" href="#module-ndj_pipeline.transform" id="id2">ndj_pipeline.transform</a></p></li>
+</ul>
+</div>
+<p>The following provides a reference guide to the data preparation steps.</p>
+<p>It includes two python modules; data checks and transformations.</p>
+<p>It is useful to separate these concerns, as once you have confidence in the schema, data typing, and consistency of data, you can confidently prepare feature engineering.</p>
+<p>In addition, having feature engineering separate from the modeling step enhances the ability to create config generated model experimentation.</p>
+<p>While there is some boilerplate code to help with logging and command line interface, functions created here are usually completely bespoke to the needs of the data analysis. The examples show the types of information to check, and required columns for config.</p>
+<section id="module-ndj_pipeline.data_checks">
+<span id="ndj-pipeline-data-checks"></span><h2>ndj_pipeline.data_checks<a class="headerlink" href="#module-ndj_pipeline.data_checks" title="Permalink to this headline"></a></h2>
+<p>Schemas and assertions for raw data inputs.</p>
+<p>Schema checks are useful to standardize certain information in raw data including:</p>
+<ul class="simple">
+<li><p>Clean column names (lowercase, underscore)</p></li>
+<li><p>Ensure an understanding of primary keys of data (uniqueness)</p></li>
+<li><p>Set data types of columns, i.e. boolean-&gt;int, datetime, string, nullable integer</p></li>
+<li><p>Pandera schema checks to attempt to lock some checks about a datafile. This helps
+to quickly assess if a file has changed, or a similar file is same or different.
+Some examples:</p>
+<ul>
+<li><p>Contains exact list of columns (no more no less)</p></li>
+<li><p>Nullable column</p></li>
+<li><p>Data type correct</p></li>
+<li><p>Data range checks (must not be 0 or less, must contain only these values)</p></li>
+</ul>
+</li>
+</ul>
+<p>Schemas can often be re-applied to similar data files, i.e. tabs of an excel, or train/test data.</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="ndj_pipeline.data_checks.check_titanic">
+<span class="sig-prename descclassname"><span class="pre">ndj_pipeline.data_checks.</span></span><span class="sig-name descname"><span class="pre">check_titanic</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ndj_pipeline.data_checks.check_titanic" title="Permalink to this definition"></a></dt>
+<dd><p>Data schema and typing validations.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">DataFrame</span></code></p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Loaded pandas dataframe with typing and schema checks.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-ndj_pipeline.transform">
+<span id="ndj-pipeline-transform"></span><h2>ndj_pipeline.transform<a class="headerlink" href="#module-ndj_pipeline.transform" title="Permalink to this headline"></a></h2>
+<p>Data transformations (ETL) from raw (checked) files into single, feature rich dataframe.</p>
+<p>Can be run from command line, or as imported functions in other python
+scripts and jupyter notebooks.</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="ndj_pipeline.transform.create_titanic_features">
+<span class="sig-prename descclassname"><span class="pre">ndj_pipeline.transform.</span></span><span class="sig-name descname"><span class="pre">create_titanic_features</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ndj_pipeline.transform.create_titanic_features" title="Permalink to this definition"></a></dt>
+<dd><p>Feature engineering, including _filter and split columns.</p>
+<p>Fully custom pandas code for titanic data feature engineering.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>df</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">DataFrame</span></code>) – Pre-validated and checked Pandas DataFrame.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="ndj_pipeline.transform.main">
+<span class="sig-prename descclassname"><span class="pre">ndj_pipeline.transform.</span></span><span class="sig-name descname"><span class="pre">main</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ndj_pipeline.transform.main" title="Permalink to this definition"></a></dt>
+<dd><p>Run transformations from command line using…</p>
+<p><cite>python -m ndj_pipeline.transform</cite></p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="ndj_pipeline.transform.run">
+<span class="sig-prename descclassname"><span class="pre">ndj_pipeline.transform.</span></span><span class="sig-name descname"><span class="pre">run</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ndj_pipeline.transform.run" title="Permalink to this definition"></a></dt>
+<dd><p>Perform all data transformation steps.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="license.html" class="btn btn-neutral float-left" title="License" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="reference_model.html" class="btn btn-neutral float-right" title="Modeling" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright Copyright © 2021 by Nick Jenkins. All rights reserved
+
+Permission is hereby granted, free of charge, to any person obtaining a
+copy of this software and associated documentation files (the &#34;Software&#34;),
+to deal in the Software without restriction, including without limitation
+the rights to use, copy, modify, merge, publish, distribute, sublicense,
+and/or sell copies of the Software, and to permit persons to whom the
+Software is furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED &#34;AS IS&#34;, WITHOUT WARRANTY OF ANY KIND, EXPRESS
+OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
+THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
+DEALINGS IN THE SOFTWARE.
+.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

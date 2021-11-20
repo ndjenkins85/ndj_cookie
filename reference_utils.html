@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Reference &mdash; my_project  documentation</title>
+  <title>Utilities &mdash; my_project  documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -18,7 +18,7 @@
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="prev" title="License" href="license.html" /> 
+    <link rel="prev" title="Post-processing" href="reference_post.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -29,7 +29,7 @@
             <a href="index.html" class="icon icon-home"> my_project
           </a>
               <div class="version">
-                0.1.4
+                0.2.1
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
@@ -41,8 +41,13 @@
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="license.html">License</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Reference</a><ul>
+<li class="toctree-l1"><a class="reference internal" href="reference_etl.html">Data preparation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="reference_model.html">Modeling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="reference_post.html">Post-processing</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Utilities</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#module-my_project.utils">my_project.utils</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-ndj_pipeline.config">ndj_pipeline.config</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-ndj_pipeline.utils">ndj_pipeline.utils</a></li>
 </ul>
 </li>
 </ul>
@@ -61,9 +66,9 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
-      <li>Reference</li>
+      <li>Utilities</li>
       <li class="wy-breadcrumbs-aside">
-            <a href="_sources/reference.rst.txt" rel="nofollow"> View page source</a>
+            <a href="_sources/reference_utils.rst.txt" rel="nofollow"> View page source</a>
       </li>
   </ul>
   <hr/>
@@ -71,13 +76,16 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="reference">
-<h1>Reference<a class="headerlink" href="#reference" title="Permalink to this headline"></a></h1>
+  <section id="utilities">
+<h1>Utilities<a class="headerlink" href="#utilities" title="Permalink to this headline"></a></h1>
 <div class="contents local topic" id="contents">
 <ul class="simple">
 <li><p><a class="reference internal" href="#module-my_project.utils" id="id1">my_project.utils</a></p></li>
+<li><p><a class="reference internal" href="#module-ndj_pipeline.config" id="id2">ndj_pipeline.config</a></p></li>
+<li><p><a class="reference internal" href="#module-ndj_pipeline.utils" id="id3">ndj_pipeline.utils</a></p></li>
 </ul>
 </div>
+<p>Various utilities used in the basic example and ndj_pipeline.</p>
 <section id="module-my_project.utils">
 <span id="my-project-utils"></span><h2>my_project.utils<a class="headerlink" href="#module-my_project.utils" title="Permalink to this headline"></a></h2>
 <p>Utility functions for modeling, data processing and one time use def tools.</p>
@@ -109,10 +117,8 @@ replication.</p>
 <p>This util takes the current environment.yml (with current hashes
 and # commented libraries)* and an environment.yml which is generated
 by above command, and prints the minimal set of libraries needed.</p>
-<ul class="simple">
-<li><p>While experimenting with new libraries, it can be useful to mark the new</p></li>
-</ul>
-<p>libraries as a comment in the file until ready to include.</p>
+<p>While experimenting with new libraries, it can be useful to mark the new
+libraries as a comment in the file until ready to include.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -127,13 +133,93 @@ by above command, and prints the minimal set of libraries needed.</p>
 </dd></dl>
 
 </section>
+<section id="module-ndj_pipeline.config">
+<span id="ndj-pipeline-config"></span><h2>ndj_pipeline.config<a class="headerlink" href="#module-ndj_pipeline.config" title="Permalink to this headline"></a></h2>
+<p>Configuration variables ndj_pipeline project.</p>
+</section>
+<section id="module-ndj_pipeline.utils">
+<span id="ndj-pipeline-utils"></span><h2>ndj_pipeline.utils<a class="headerlink" href="#module-ndj_pipeline.utils" title="Permalink to this headline"></a></h2>
+<p>Mix of utilities.</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="ndj_pipeline.utils.clean_column_names">
+<span class="sig-prename descclassname"><span class="pre">ndj_pipeline.utils.</span></span><span class="sig-name descname"><span class="pre">clean_column_names</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">column_list</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ndj_pipeline.utils.clean_column_names" title="Permalink to this definition"></a></dt>
+<dd><p>Simple string cleaning rules for columns.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>column_list</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>]) – Column names to be cleaned</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">Dict</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>]</p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>A dict mapping old and cleaned column names.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="ndj_pipeline.utils.create_model_folder">
+<span class="sig-prename descclassname"><span class="pre">ndj_pipeline.utils.</span></span><span class="sig-name descname"><span class="pre">create_model_folder</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model_config</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ndj_pipeline.utils.create_model_folder" title="Permalink to this definition"></a></dt>
+<dd><p>Create model asset folder and write config if it doesn’t exist.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="ndj_pipeline.utils.get_model">
+<span class="sig-prename descclassname"><span class="pre">ndj_pipeline.utils.</span></span><span class="sig-name descname"><span class="pre">get_model</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">function</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ndj_pipeline.utils.get_model" title="Permalink to this definition"></a></dt>
+<dd><p>Simple redirection to get named function from model.py.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><code class="xref py py-data docutils literal notranslate"><span class="pre">Callable</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="ndj_pipeline.utils.get_model_path">
+<span class="sig-prename descclassname"><span class="pre">ndj_pipeline.utils.</span></span><span class="sig-name descname"><span class="pre">get_model_path</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model_config</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ndj_pipeline.utils.get_model_path" title="Permalink to this definition"></a></dt>
+<dd><p>Returns the model path from config file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">Path</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="ndj_pipeline.utils.get_post">
+<span class="sig-prename descclassname"><span class="pre">ndj_pipeline.utils.</span></span><span class="sig-name descname"><span class="pre">get_post</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">function</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ndj_pipeline.utils.get_post" title="Permalink to this definition"></a></dt>
+<dd><p>Simple redirection to get named function from post.py.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><code class="xref py py-data docutils literal notranslate"><span class="pre">Callable</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="ndj_pipeline.utils.load_model_config">
+<span class="sig-prename descclassname"><span class="pre">ndj_pipeline.utils.</span></span><span class="sig-name descname"><span class="pre">load_model_config</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model_config_path</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ndj_pipeline.utils.load_model_config" title="Permalink to this definition"></a></dt>
+<dd><p>Loads model config, either from yaml or json format.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">Dict</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code>]</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
 </section>
 
 
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="license.html" class="btn btn-neutral float-left" title="License" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="reference_post.html" class="btn btn-neutral float-left" title="Post-processing" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
     </div>
 
   <hr/>

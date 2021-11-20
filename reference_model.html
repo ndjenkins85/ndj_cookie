@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Modeling &mdash; my_project  documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Post-processing" href="reference_post.html" />
+    <link rel="prev" title="Data preparation" href="reference_etl.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="index.html" class="icon icon-home"> my_project
+          </a>
+              <div class="version">
+                0.2.1
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="license.html">License</a></li>
+<li class="toctree-l1"><a class="reference internal" href="reference_etl.html">Data preparation</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Modeling</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#module-ndj_pipeline.model">ndj_pipeline.model</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-ndj_pipeline.prep">ndj_pipeline.prep</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="reference_post.html">Post-processing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="reference_utils.html">Utilities</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">my_project</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+      <li>Modeling</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/reference_model.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="modeling">
+<h1>Modeling<a class="headerlink" href="#modeling" title="Permalink to this headline"></a></h1>
+<div class="contents local topic" id="contents">
+<ul class="simple">
+<li><p><a class="reference internal" href="#module-ndj_pipeline.model" id="id1">ndj_pipeline.model</a></p></li>
+<li><p><a class="reference internal" href="#module-ndj_pipeline.prep" id="id2">ndj_pipeline.prep</a></p></li>
+</ul>
+</div>
+<p>Modeling is largely static code and suitable for most use cases.</p>
+<p>The primary way to use this code is through a YAML configuration file to run model experiments.</p>
+<p>You can optionally create additional model types in <cite>model.py</cite>, provided they output a list of features for further reporting.</p>
+<p>See the <cite>model.run_model_training</cite> for a list of steps undertaken in processing.</p>
+<section id="module-ndj_pipeline.model">
+<span id="ndj-pipeline-model"></span><h2>ndj_pipeline.model<a class="headerlink" href="#module-ndj_pipeline.model" title="Permalink to this headline"></a></h2>
+<p>Contains custom ML model functions and pipeline for running modeling.</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="ndj_pipeline.model.baseline">
+<span class="sig-prename descclassname"><span class="pre">ndj_pipeline.model.</span></span><span class="sig-name descname"><span class="pre">baseline</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">train</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">test</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">features</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">config</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ndj_pipeline.model.baseline" title="Permalink to this definition"></a></dt>
+<dd><p>Compares Actual results to a naive baseline.</p>
+<p>This will compare “Actual” results to a pre-calculated baseline
+column, assumed to be prepared earlier in transform.py.</p>
+<p>It is always worthwhile to compare ML results to simple models
+such as an average, or group-by average. This frames any model
+results as meaningful improvements over a simple rule.</p>
+<p>Creates the results DataFrame based on test data,
+with “Actual” and “Predicted” fields.
+Calls metric creation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>train</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">DataFrame</span></code>) – training dataframe containing config specified
+target and numeric features from <cite>features</cite></p></li>
+<li><p><strong>test</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">DataFrame</span></code>) – training dataframe containing config specified
+target and numeric features from <cite>features</cite></p></li>
+<li><p><strong>features</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>]) – List of columns to use in model training</p></li>
+<li><p><strong>config</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Dict</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code>]) – Loaded model experiment config, for model parameters</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>]</p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>List of strings indicating important features to use
+for further reporting</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="ndj_pipeline.model.gbr">
+<span class="sig-prename descclassname"><span class="pre">ndj_pipeline.model.</span></span><span class="sig-name descname"><span class="pre">gbr</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">train</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">test</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">features</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">config</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ndj_pipeline.model.gbr" title="Permalink to this definition"></a></dt>
+<dd><p>Train a Gradient Boosted Regression.</p>
+<p>Trains using specified train dataframe and list of simple and dummy features.</p>
+<p>Creates the results DataFrame based on test data,
+with “Actual” and “Predicted” fields.
+Calls metric creation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>train</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">DataFrame</span></code>) – training dataframe containing config specified
+target and numeric features from <cite>features</cite></p></li>
+<li><p><strong>test</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">DataFrame</span></code>) – training dataframe containing config specified
+target and numeric features from <cite>features</cite></p></li>
+<li><p><strong>features</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>]) – List of columns to use in model training</p></li>
+<li><p><strong>config</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Dict</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code>]) – Loaded model experiment config, for model parameters</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>]</p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>List of strings indicating important features to use
+for further reporting</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="ndj_pipeline.model.main">
+<span class="sig-prename descclassname"><span class="pre">ndj_pipeline.model.</span></span><span class="sig-name descname"><span class="pre">main</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ndj_pipeline.model.main" title="Permalink to this definition"></a></dt>
+<dd><p>Main command line entry to model training.</p>
+<p>Can be run from command line using…
+<cite>python -m ndj_pipeline.model -p {path_to_experiment.yaml}</cite></p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="ndj_pipeline.model.ols">
+<span class="sig-prename descclassname"><span class="pre">ndj_pipeline.model.</span></span><span class="sig-name descname"><span class="pre">ols</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">train</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">test</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">features</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">config</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ndj_pipeline.model.ols" title="Permalink to this definition"></a></dt>
+<dd><p>Train a Ordinary Least Squares Regression.</p>
+<p>Trains using specified train dataframe and list of simple and dummy features.</p>
+<p>Creates the results DataFrame based on test data,
+with “Actual” and “Predicted” fields.
+Calls metric creation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>train</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">DataFrame</span></code>) – training dataframe containing config specified
+target and numeric features from <cite>features</cite></p></li>
+<li><p><strong>test</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">DataFrame</span></code>) – training dataframe containing config specified
+target and numeric features from <cite>features</cite></p></li>
+<li><p><strong>features</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>]) – List of columns to use in model training</p></li>
+<li><p><strong>config</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Dict</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code>]) – Loaded model experiment config, for model parameters</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>]</p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>List of strings indicating important features to use
+for further reporting</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="ndj_pipeline.model.run_model_training">
+<span class="sig-prename descclassname"><span class="pre">ndj_pipeline.model.</span></span><span class="sig-name descname"><span class="pre">run_model_training</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model_config</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ndj_pipeline.model.run_model_training" title="Permalink to this definition"></a></dt>
+<dd><p>Run all modeling transformations.</p>
+<p>Includes the following steps:</p>
+<ul class="simple">
+<li><p>Create model and config folder</p></li>
+<li><p>Loads data and sets index</p></li>
+<li><p>Create config specified dummy features</p></li>
+<li><p>Filters rows according to config</p></li>
+<li><p>Splits data into train/test</p></li>
+<li><p>Filters target variable in train data</p></li>
+<li><p>Prepares missing data replacement</p></li>
+<li><p>Optionally saves data</p></li>
+<li><p>Trains model according to model specifications</p></li>
+<li><p>Produce metrics and plots</p></li>
+</ul>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>model_config</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Dict</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code>]) – Loaded model experiment config</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-ndj_pipeline.prep">
+<span id="ndj-pipeline-prep"></span><h2>ndj_pipeline.prep<a class="headerlink" href="#module-ndj_pipeline.prep" title="Permalink to this headline"></a></h2>
+<p>Set of operations to transform pandas DataFrames given user specified config.</p>
+<p>These operations are ordered according to <cite>ndj_pipeline.model.run_model_training</cite>.</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="ndj_pipeline.prep.apply_feature_aggregates">
+<span class="sig-prename descclassname"><span class="pre">ndj_pipeline.prep.</span></span><span class="sig-name descname"><span class="pre">apply_feature_aggregates</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">aggregates</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ndj_pipeline.prep.apply_feature_aggregates" title="Permalink to this definition"></a></dt>
+<dd><p>Applies feature aggregates to a DataFrame’s missing values.</p>
+<p>Performs validations and raises errors as part of process.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>df</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">DataFrame</span></code>) – Pandas dataframe. Must include same columns as aggregates.</p></li>
+<li><p><strong>aggregates</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Series</span></code>) – Pandas series with labels and aggregate values.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">DataFrame</span></code></p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>Pandas Dataframe with missing data replaced.</p>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><p><strong>ValueError</strong> – If unable to apply aggregation value to a column.
+    This is commonly due to the datatypes not working i.e. float into Int64.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="ndj_pipeline.prep.apply_filtering">
+<span class="sig-prename descclassname"><span class="pre">ndj_pipeline.prep.</span></span><span class="sig-name descname"><span class="pre">apply_filtering</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model_config</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ndj_pipeline.prep.apply_filtering" title="Permalink to this definition"></a></dt>
+<dd><p>Filters dataframe according to config specified labels.</p>
+<p>Any row containing a specified label is filtered from the data.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>df</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">DataFrame</span></code>) – Pandas dataframe, must contain <cite>_filter</cite> column with string type.</p></li>
+<li><p><strong>model_config</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Dict</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code>]) – Loaded model experiment config, specifically for
+list of filter labels.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">DataFrame</span></code></p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>Pandas dataframe with optionally assigned index</p>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><p><strong>ValueError</strong> – Expects ‘_filter’ column in processed data.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="ndj_pipeline.prep.collate_features">
+<span class="sig-prename descclassname"><span class="pre">ndj_pipeline.prep.</span></span><span class="sig-name descname"><span class="pre">collate_features</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model_config</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dummy_features</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ndj_pipeline.prep.collate_features" title="Permalink to this definition"></a></dt>
+<dd><p>Saves and returns final list of simple and dummy features.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="ndj_pipeline.prep.create_compressed_dummies">
+<span class="sig-prename descclassname"><span class="pre">ndj_pipeline.prep.</span></span><span class="sig-name descname"><span class="pre">create_compressed_dummies</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dummy</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">min_dummy</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ndj_pipeline.prep.create_compressed_dummies" title="Permalink to this definition"></a></dt>
+<dd><p>Creates enhanced feature dummies for a single dataframe column.</p>
+<p>Improves on standard pandas.get_dummies by combining low-incidence dummy columns
+into a single <cite>_other_combined</cite> column. Dummy columns are named according to
+<cite>{col_name}_##_{value}</cite></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>df</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">DataFrame</span></code>) – Pandas dataframe, must contain specified dummy column.</p></li>
+<li><p><strong>dummy</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>) – string label of DataFrame to create dummy features</p></li>
+<li><p><strong>min_dummy</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>) – minimum percentage incidence to create standalone
+dummy feature, otherwise group into <cite>_other_combined</cite>.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><code class="xref py py-data docutils literal notranslate"><span class="pre">Tuple</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">DataFrame</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>]]</p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>Dummified Pandas DataFrame for a single feature.
+Also returns dummy column names as a list of strings.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="ndj_pipeline.prep.create_dummy_features">
+<span class="sig-prename descclassname"><span class="pre">ndj_pipeline.prep.</span></span><span class="sig-name descname"><span class="pre">create_dummy_features</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model_config</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ndj_pipeline.prep.create_dummy_features" title="Permalink to this definition"></a></dt>
+<dd><p>Create dummy features for each config specified dummy_variable.</p>
+<p>Iterates through all specified dummy features and adds to DataFrame.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>df</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">DataFrame</span></code>) – Pandas dataframe, must contain specified dummy columns.</p></li>
+<li><p><strong>model_config</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Dict</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code>]) – Loaded model experiment config, specifically for
+list of dummy features.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><code class="xref py py-data docutils literal notranslate"><span class="pre">Tuple</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">DataFrame</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>]]</p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>Pandas DataFrame with original data plus all new dummy fields.
+Also returns full list of created dummy column names</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="ndj_pipeline.prep.filter_target">
+<span class="sig-prename descclassname"><span class="pre">ndj_pipeline.prep.</span></span><span class="sig-name descname"><span class="pre">filter_target</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model_config</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ndj_pipeline.prep.filter_target" title="Permalink to this definition"></a></dt>
+<dd><p>Filters Dataframe to ensure no missing data in target variable.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>df</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">DataFrame</span></code>) – Pandas dataframe, must contain config specified target colunn.</p></li>
+<li><p><strong>model_config</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Dict</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code>]) – Loaded model experiment config, specifically for
+target column name.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">DataFrame</span></code></p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>Filtered Pandas DataFrame.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="ndj_pipeline.prep.get_simple_feature_aggregates">
+<span class="sig-prename descclassname"><span class="pre">ndj_pipeline.prep.</span></span><span class="sig-name descname"><span class="pre">get_simple_feature_aggregates</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model_config</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ndj_pipeline.prep.get_simple_feature_aggregates" title="Permalink to this definition"></a></dt>
+<dd><p>Generates config specified feature aggregates.</p>
+<p>These are used to inform missing data replacement strategy. Ideally this is
+run on training data, and used to replace train and test data.</p>
+<p>Performs validations and raises errors as part of process.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>df</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">DataFrame</span></code>) – Pandas dataframe. Must include columns specified in the <cite>simple_features</cite>
+section of config, and these must be numeric type columns with no infinite values.</p></li>
+<li><p><strong>model_config</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Dict</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code>]) – Loaded model experiment config, specifically for
+<cite>simple_features</cite> dictionary of column names and aggregation strategy.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>value of aggregation.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>Pandas Series with specified feature columns</p>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><p><strong>ValueError</strong> – If any features contain infinate values that need fixing.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="ndj_pipeline.prep.load_data_and_key">
+<span class="sig-prename descclassname"><span class="pre">ndj_pipeline.prep.</span></span><span class="sig-name descname"><span class="pre">load_data_and_key</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model_config</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ndj_pipeline.prep.load_data_and_key" title="Permalink to this definition"></a></dt>
+<dd><p>Uses config to load data and assign key.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>model_config</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Dict</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code>]) – Loaded model experiment config, specifically for
+data path and index column(s)</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">DataFrame</span></code></p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>Pandas dataframe with optionally assigned index</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="ndj_pipeline.prep.save_data">
+<span class="sig-prename descclassname"><span class="pre">ndj_pipeline.prep.</span></span><span class="sig-name descname"><span class="pre">save_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">train</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">test</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model_config</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ndj_pipeline.prep.save_data" title="Permalink to this definition"></a></dt>
+<dd><p>Saves train, test and combined datasets to the model folder as parquet.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="ndj_pipeline.prep.split">
+<span class="sig-prename descclassname"><span class="pre">ndj_pipeline.prep.</span></span><span class="sig-name descname"><span class="pre">split</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model_config</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ndj_pipeline.prep.split" title="Permalink to this definition"></a></dt>
+<dd><p>Create train test split using model config.</p>
+<p>Config may specify a pre-calculated column present in the DataFrame,
+or use sklearn style split params. No config results in no split,
+with the creation of an empty test dataframe.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>df</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">DataFrame</span></code>) – Pandas dataframe, must contain a pre-calculated split column
+if this is specified in the <cite>model_config</cite>.</p></li>
+<li><p><strong>model_config</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Dict</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code>]) – Loaded model experiment config, specifically for
+split approach, either a <cite>field</cite> or sklearn style params.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><code class="xref py py-data docutils literal notranslate"><span class="pre">Tuple</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">DataFrame</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">DataFrame</span></code>]</p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>Two Pandas DataFrames intended for training, test sets.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="reference_etl.html" class="btn btn-neutral float-left" title="Data preparation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="reference_post.html" class="btn btn-neutral float-right" title="Post-processing" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright Copyright © 2021 by Nick Jenkins. All rights reserved
+
+Permission is hereby granted, free of charge, to any person obtaining a
+copy of this software and associated documentation files (the &#34;Software&#34;),
+to deal in the Software without restriction, including without limitation
+the rights to use, copy, modify, merge, publish, distribute, sublicense,
+and/or sell copies of the Software, and to permit persons to whom the
+Software is furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED &#34;AS IS&#34;, WITHOUT WARRANTY OF ANY KIND, EXPRESS
+OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
+THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
+DEALINGS IN THE SOFTWARE.
+.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
