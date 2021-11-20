@@ -23,9 +23,6 @@ jobs:
     - name: Install Poetry
       run: pip install poetry==1.1.9
 
-    - name: Check lockfile sync
-      run: poetry lock --no-update
-
     - name: Build docs
       run: nox -s docs
 

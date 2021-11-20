@@ -38,11 +38,10 @@ matplotlib = "^3.5.0"
 seaborn = "^0.11.2"
 
 pandera = {extras = ["io"], version = "^0.8.0"}
+setuptools = "^59.2"
 black = "^21.9b0"
 PyYAML = "^6.0"
 frictionless = "^4.22.0"
-
-setuptools = { version = "^59.2", optional = true }
 
 darglint = { version = "^0.1", optional = true }
 flake8 = { version = "^4.0", optional = true }
@@ -75,9 +74,9 @@ pre-commit = "^2.15"
 MarkupSafe = "^2.0.1"
 
 [tool.poetry.extras]
-lint = ["setuptools", "black", "darglint", "flake8", "mypy", "safety", "sqlfluff", "xdoctest", "flake8-annotations", "flake8-bandit", "flake8-bugbear", "flake8-builtins", "flake8-docstrings", "types-PyYAML"]
-tests = ["setuptools", "pytest", "pytest-cases", "pytest-cov", "coverage", "codecov"]
-docs = ["setuptools", "m2r2", "sphinx", "sphinx_rtd_theme", "sphinx-autodoc-typehints"]
+lint = ["black", "darglint", "flake8", "mypy", "safety", "sqlfluff", "xdoctest", "flake8-annotations", "flake8-bandit", "flake8-bugbear", "flake8-builtins", "flake8-docstrings", "types-PyYAML"]
+tests = ["pytest", "pytest-cases", "pytest-cov", "coverage", "codecov"]
+docs = ["m2r2", "sphinx", "sphinx_rtd_theme", "sphinx-autodoc-typehints"]
 
 [tool.poetry.scripts]
 my_project = 'my_project.utils:start'

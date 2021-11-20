@@ -134,7 +134,7 @@ What are the feature and benefits?
 The following are the quick start instructions for using the project as an end-user.
 
 Follow the [Instructions for developers](#instructions-for-developers) to set up the virtual environment and dependency management.
-We recommend `poetry`, but an alternative `conda` environment has been prepared (will not work with `nox`).
+We recommend `poetry` for full functionality. An alternative `conda` environment has been prepared but will not work with `nox`.
 
 ### Installation
 
