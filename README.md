@@ -134,7 +134,7 @@ What are the feature and benefits?
 The following are the quick start instructions for using the project as an end-user.
 
 Follow the [Instructions for developers](#instructions-for-developers) to set up the virtual environment and dependency management.
-We recommend `poetry`, but an alternative `conda` environment has been prepared (will not work with `nox`).
+We recommend `poetry` for full functionality. An alternative `conda` environment has been prepared but will not work with `nox`.
 
 ### Installation
 
@@ -187,8 +187,21 @@ Follow each step here and ensure tests are working.
 
 [Poetry](https://python-poetry.org/docs/) handles virtual environment management, dev and optional extra libraries, library development, builds and publishing.
 
-Ensure you have and installation of Poetry 1.1 or above.
-Make sure you deactivate any existing virtual environments (i.e. conda).
+Check the poetry website for the latest instructions on how to install poetry.
+You can use the following command on OS/linux to install poetry 1.1.9 used in this project.
+
+```bash
+curl -sSL https://install.python-poetry.org | python - --version 1.1.9
+```
+
+It is recommended to set virtual environment creation to within project using the following command.
+This adds a `.venv` directory to project to handle cache and virtual environment.
+```bash
+poetry config virtualenvs.in-project true
+```
+
+You can set up the virtual environment in the repo using the following command.
+Make sure that any other virtual environments (i.e. `conda deactivate`) are deactivated before running.
 
 ```bash
 poetry install

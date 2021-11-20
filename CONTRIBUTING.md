@@ -37,7 +37,8 @@ We have Github actions which will:
 The process for performing a release is as follows:
 
 - [ ] Merge all feature branches into dev branch
-- [ ] On local dev branch, increment the project version by updating `my_project.__init__.py`
+- [ ] On local dev branch, increment the project version by updating `my_project.__init__.py`. This is useful to have the changelog, importable version, and in setuptools process.
+- [ ] If using `poetry`, use `poetry version {major|minor|patch}`. This is used for poetry build versioning.
 - [ ] Ensure the project README is current
 - [ ] Commit changes, and use `git tag` to tag the commit
 - [ ] Push to Github using `git push origin master --tags`
