@@ -38,9 +38,8 @@ from ndj_pipeline import utils
 # Hack to get plots working correctly on command line
 try:
     if get_ipython().__class__.__name__ == "ZMQInteractiveShell":  # type: ignore
-        logging.debug("Running with ipython support")
+        pass
 except NameError:
-    logging.debug("ipython not detected, setting matplotlib backend")
     matplotlib.use("agg")
 
 five_thirty_eight = [
