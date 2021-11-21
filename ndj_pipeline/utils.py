@@ -20,10 +20,13 @@
 # DEALINGS IN THE SOFTWARE.
 
 """Mix of utilities."""
+import argparse
 import json
+import logging
 from pathlib import Path
 from typing import Any, Callable, Dict, List
 
+import pandas as pd
 import yaml
 
 from ndj_pipeline import config, model, post
@@ -91,3 +94,83 @@ def create_model_folder(model_config: Dict[str, Any]) -> None:
         config = Path(model_path, "config.json")
         with open(config, "w") as f:
             json.dump(model_config, f, indent=4)
+
+
+def create_tables_html() -> None:
+    """Scan schemas directory to create HTML page for data documentation."""
+    schema_paths = Path("schemas").glob("*.yaml")
+
+    html = []
+    for schema_path in schema_paths:
+        logging.info(f"Loading schema from {schema_path}")
+        with open(schema_path, "r") as f:
+            schema = yaml.safe_load(f)
+
+        table_name = f"<h1>{schema_path.stem.title()}</h1>"
+        html.append(table_name)
+        table_comment = schema.get("comment", "")
+        html.append(table_comment)
+        table_html = parse_schema_to_table(schema)
+        html.append(table_html)
+
+    output_path = Path("docs", "data_dictionary.html")
+    logging.info(f"Saving data dictionary to {output_path}")
+
+    html = "\n<p>\n".join(html)
+
+    with open(output_path, "w") as f:
+        f.write(html)
+
+
+def parse_schema_to_table(schema: Dict[str, Any]) -> str:
+    """Parses a table schema into a HTML table for use in documentation."""
+    data = pd.DataFrame.from_dict(schema["columns"], orient="index")
+    data.index.name = "name"
+
+    data["comment"] = data["comment"].str.replace(r"\n", "")
+
+    data = data.drop(["coerce", "required"], axis=1)
+    data[["nullable", "allow_duplicates"]] = data[["nullable", "allow_duplicates"]].replace({True: "✓", False: "✗"})
+
+    html = data.reset_index().to_html(index=False, na_rep="", classes="docutils align-default")
+    return html
+
+
+def main() -> None:
+    """Run selected utility function
+
+    Can be run from command line using...
+    `python -m ndj_pipeline.utils --tables`
+    """
+    parser = argparse.ArgumentParser(description="ndj_cookie utils")
+    parser.add_argument("--tables", action="store_true", help="Create html tables")
+    parser.add_argument("-v", action="store_true", help="Debug mode")
+
+    args = parser.parse_args()
+    log_level = logging.DEBUG if args.v else logging.INFO
+    log_path = Path("logs", "_log.txt")
+
+    try:
+        logging.basicConfig(
+            level=log_level,
+            format="%(asctime)s [%(levelname)s] %(message)s",
+            handlers=[logging.FileHandler(log_path), logging.StreamHandler()],
+        )
+    except FileNotFoundError:
+        msg = f"""Directory '{log_path}' missing, cannot create log file.
+                  Make sure you are running from base of repo, with correct data folder structure.
+                  Continuing without log file writing."""
+        logging.basicConfig(
+            level=log_level,
+            format="%(asctime)s [%(levelname)s] %(message)s",
+            handlers=[logging.StreamHandler()],
+        )
+        logging.warning(msg)
+
+    if args.tables:
+        logging.info(f"Running html table creation for data dictionary")
+        create_tables_html()
+
+
+if __name__ == "__main__":
+    main()

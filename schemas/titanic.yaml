@@ -1,5 +1,17 @@
 schema_type: dataframe
 version: 0.6.2
+comment: >
+  The sinking of the Titanic is one of the most infamous
+  shipwrecks in history.
+
+  On April 15, 1912, during her maiden voyage, the widely
+  considered “unsinkable” RMS Titanic sank after colliding
+  with an iceberg. Unfortunately, there weren’t enough
+  lifeboats for everyone onboard, resulting in the death
+  of 1502 out of 2224 passengers and crew.
+
+  While there was some element of luck involved in surviving,
+  it seems some groups of people were more likely to survive than others.
 columns:
   passengerid:
     comment: >
@@ -12,7 +24,7 @@ columns:
 
   survived:
     comment: >
-      xyz
+      Survival where 1 = survived, and 0 = perished
     pandas_dtype: int64
     nullable: false
     checks:
@@ -25,7 +37,12 @@ columns:
 
   pclass:
     comment: >
-      Travel class
+      Passenger Class.
+      PClass can be a proxy for socio-economic status (SES)
+
+      * 1st ~ Upper
+      * 2nd ~ Middle
+      * 3rd ~ Lower
     pandas_dtype: int64
     nullable: false
     checks:
@@ -39,7 +56,7 @@ columns:
 
   name:
     comment: >
-      Passenger name on ticket
+      First and Last Name
     pandas_dtype: str
     nullable: true
     checks:
@@ -78,7 +95,11 @@ columns:
 
   sibsp:
     comment: >
-      Unknown, could be related passengers
+      Number of Siblings/Spouses Aboard.
+
+      Sibling: Brother, Sister, Stepbrother, or Stepsister of
+      Passenger Aboard Titanic Spouse: Husband or Wife of Passenger
+      Aboard Titanic (Mistresses and Fiances Ignored)
     pandas_dtype: int64
     nullable: false
     checks:
@@ -91,7 +112,9 @@ columns:
 
   parch:
     comment: >
-      Unknown, parch
+      Number of Parents/Children Aboard. Parent: Mother or Father of
+      Passenger Aboard Titanic Child: Son, Daughter, Stepson, or
+      Stepdaughter of Passenger Aboard Titanic
     pandas_dtype: int64
     nullable: false
     checks:
@@ -104,7 +127,7 @@ columns:
 
   ticket:
     comment: >
-      Ticket information
+      Ticket Number
     pandas_dtype: str
     nullable: true
     allow_duplicates: true
@@ -113,7 +136,7 @@ columns:
 
   fare:
     comment: >
-      Fare paid
+      Passenger Fare
     pandas_dtype: float64
     nullable: false
     checks:
@@ -135,7 +158,8 @@ columns:
 
   embarked:
     comment: >
-      xyz
+      Port of Embarkation where C = Cherbourg;
+      Q = Queenstown; S = Southampton
     pandas_dtype: int64
     nullable: true
     checks:

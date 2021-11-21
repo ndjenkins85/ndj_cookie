@@ -1,0 +1,117 @@
+<h1>Titanic</h1>
+<p>
+The sinking of the Titanic is one of the most infamous  shipwrecks in history.
+On April 15, 1912, during her maiden voyage, the widely  considered “unsinkable” RMS Titanic sank after colliding  with an iceberg. Unfortunately, there weren’t enough  lifeboats for everyone onboard, resulting in the death  of 1502 out of 2224 passengers and crew.
+While there was some element of luck involved in surviving,  it seems some groups of people were more likely to survive than others.
+
+<p>
+<table border="1" class="dataframe docutils align-default">
+  <thead>
+    <tr style="text-align: right;">
+      <th>name</th>
+      <th>comment</th>
+      <th>pandas_dtype</th>
+      <th>nullable</th>
+      <th>allow_duplicates</th>
+      <th>checks</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>passengerid</td>
+      <td>Passenger ID</td>
+      <td>int64</td>
+      <td>✗</td>
+      <td>✗</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>survived</td>
+      <td>Survival where 1 = survived, and 0 = perished</td>
+      <td>int64</td>
+      <td>✗</td>
+      <td>✓</td>
+      <td>{'isin': [0, 1]}</td>
+    </tr>
+    <tr>
+      <td>pclass</td>
+      <td>Passenger Class.  PClass can be a proxy for socio-economic status (SES)* 1st ~ Upper * 2nd ~ Middle * 3rd ~ Lower</td>
+      <td>int64</td>
+      <td>✗</td>
+      <td>✓</td>
+      <td>{'isin': [1, 2, 3]}</td>
+    </tr>
+    <tr>
+      <td>name</td>
+      <td>First and Last Name</td>
+      <td>str</td>
+      <td>✓</td>
+      <td>✗</td>
+      <td>{'str_length': {'min_value': 12, 'max_value': 82}}</td>
+    </tr>
+    <tr>
+      <td>sex</td>
+      <td>Passenger sex</td>
+      <td>Int64</td>
+      <td>✗</td>
+      <td>✓</td>
+      <td>{'isin': [0, 1]}</td>
+    </tr>
+    <tr>
+      <td>age</td>
+      <td>Passenger age</td>
+      <td>float64</td>
+      <td>✓</td>
+      <td>✓</td>
+      <td>{'in_range': {'min_value': 0, 'max_value': 80}}</td>
+    </tr>
+    <tr>
+      <td>sibsp</td>
+      <td>Number of Siblings/Spouses Aboard. Sibling: Brother, Sister, Stepbrother, or Stepsister of  Passenger Aboard Titanic Spouse: Husband or Wife of Passenger  Aboard Titanic (Mistresses and Fiances Ignored)</td>
+      <td>int64</td>
+      <td>✗</td>
+      <td>✓</td>
+      <td>{'in_range': {'min_value': 0, 'max_value': 8}}</td>
+    </tr>
+    <tr>
+      <td>parch</td>
+      <td>Number of Parents/Children Aboard. Parent: Mother or Father of  Passenger Aboard Titanic Child: Son, Daughter, Stepson, or  Stepdaughter of Passenger Aboard Titanic</td>
+      <td>int64</td>
+      <td>✗</td>
+      <td>✓</td>
+      <td>{'in_range': {'min_value': 0, 'max_value': 6}}</td>
+    </tr>
+    <tr>
+      <td>ticket</td>
+      <td>Ticket Number</td>
+      <td>str</td>
+      <td>✓</td>
+      <td>✓</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>fare</td>
+      <td>Passenger Fare</td>
+      <td>float64</td>
+      <td>✗</td>
+      <td>✓</td>
+      <td>{'in_range': {'min_value': 0, 'max_value': 513}}</td>
+    </tr>
+    <tr>
+      <td>cabin</td>
+      <td>Cabin number</td>
+      <td>str</td>
+      <td>✓</td>
+      <td>✓</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>embarked</td>
+      <td>Port of Embarkation where C = Cherbourg;  Q = Queenstown; S = Southampton</td>
+      <td>int64</td>
+      <td>✓</td>
+      <td>✓</td>
+      <td>{'isin': ['S', 'C', 'Q']}</td>
+    </tr>
+  </tbody>
+</table>
