@@ -9,7 +9,7 @@ The quick-start includes the following features:
 - Full set-up guide and checklist - *so you can quickly set up tooling and get into coding*
 - Choice of dependency and virtual environment management with full-featured poetry workflow, partial conda workflow, and docker with poetry - *so you can ensure code runs on different environments*
 - Pre-populated Git and Github assets including gitignore, codeowners, templates, issue labels - *to make your Github experience more enjoyable*
-- Documentation including README with prompts, opinionated CONTRIBUTORS guide, LICENSE, sphinx docs generation with markdown and API reference support, and actions to automatically generate Github pages - *to easily expose project documentation*
+- Full featured documentation. Includes README with prompts, opinionated CONTRIBUTORS guide, and LICENSE. Sphinx documentation generation with markdown and API reference support, and ability to convert schema tables into data documentation. Github actions to automatically generate Github pages - *to easily expose project documentation*
 - CI/CD framework including pre-commit for quick formatting, task automation with Nox, and Github Actions - *to ensure high quality releases*
 - Linting, type checking, and tests with minimum of tool config files and close nox and pyproject.toml integration - *to standardize code and minimize clutter*
 - Tools for release management including tagging and versioning process, Github actions for release notes, test-pypi and release actions - *to simplify the code release process*
