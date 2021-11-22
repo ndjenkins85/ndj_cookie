@@ -18,6 +18,7 @@
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="License" href="license.html" />
     <link rel="prev" title="Post-processing" href="reference_post.html" /> 
 </head>
 
@@ -40,7 +41,7 @@
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="license.html">License</a></li>
+<li class="toctree-l1"><a class="reference internal" href="data_dictionary.html">Data dictionary</a></li>
 <li class="toctree-l1"><a class="reference internal" href="reference_etl.html">Data preparation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="reference_model.html">Modeling</a></li>
 <li class="toctree-l1"><a class="reference internal" href="reference_post.html">Post-processing</a></li>
@@ -50,6 +51,7 @@
 <li class="toctree-l2"><a class="reference internal" href="#module-ndj_pipeline.utils">ndj_pipeline.utils</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="license.html">License</a></li>
 </ul>
 
         </div>
@@ -169,6 +171,17 @@ libraries as a comment in the file until ready to include.</p>
 </dd></dl>
 
 <dl class="py function">
+<dt class="sig sig-object py" id="ndj_pipeline.utils.create_tables_html">
+<span class="sig-prename descclassname"><span class="pre">ndj_pipeline.utils.</span></span><span class="sig-name descname"><span class="pre">create_tables_html</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ndj_pipeline.utils.create_tables_html" title="Permalink to this definition"></a></dt>
+<dd><p>Scan schemas directory to create HTML page for data documentation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
 <dt class="sig sig-object py" id="ndj_pipeline.utils.get_model">
 <span class="sig-prename descclassname"><span class="pre">ndj_pipeline.utils.</span></span><span class="sig-name descname"><span class="pre">get_model</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">function</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ndj_pipeline.utils.get_model" title="Permalink to this definition"></a></dt>
 <dd><p>Simple redirection to get named function from model.py.</p>
@@ -212,6 +225,30 @@ libraries as a comment in the file until ready to include.</p>
 </dl>
 </dd></dl>
 
+<dl class="py function">
+<dt class="sig sig-object py" id="ndj_pipeline.utils.main">
+<span class="sig-prename descclassname"><span class="pre">ndj_pipeline.utils.</span></span><span class="sig-name descname"><span class="pre">main</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ndj_pipeline.utils.main" title="Permalink to this definition"></a></dt>
+<dd><p>Run selected utility function.</p>
+<p>Can be run from command line using…
+<cite>python -m ndj_pipeline.utils –tables</cite></p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="ndj_pipeline.utils.parse_schema_to_table">
+<span class="sig-prename descclassname"><span class="pre">ndj_pipeline.utils.</span></span><span class="sig-name descname"><span class="pre">parse_schema_to_table</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">schema</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ndj_pipeline.utils.parse_schema_to_table" title="Permalink to this definition"></a></dt>
+<dd><p>Parses a table schema into a HTML table for use in documentation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
 </section>
 </section>
 
@@ -220,6 +257,7 @@ libraries as a comment in the file until ready to include.</p>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="reference_post.html" class="btn btn-neutral float-left" title="Post-processing" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="license.html" class="btn btn-neutral float-right" title="License" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
