@@ -67,4 +67,5 @@ def docs(session: Session) -> None:
     """Build documentation."""
     session.run("poetry", "install", "--no-dev", "--extras", "docs", external=True)
     session.run("rm", "-rf", "docs/_build")
+    session.run("python", "-m", "ndj_pipeline.utils", "--tables")
     session.run("sphinx-build", "docs", "docs/_build", *session.posargs)
