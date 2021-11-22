@@ -100,23 +100,23 @@ def create_tables_html() -> None:
     """Scan schemas directory to create HTML page for data documentation."""
     schema_paths = Path("schemas").glob("*.yaml")
 
-    html = []
+    html_list = []
     for schema_path in schema_paths:
         logging.info(f"Loading schema from {schema_path}")
         with open(schema_path, "r") as f:
             schema = yaml.safe_load(f)
 
         table_name = f"<h1>{schema_path.stem.title()}</h1>"
-        html.append(table_name)
+        html_list.append(table_name)
         table_comment = schema.get("comment", "")
-        html.append(table_comment)
+        html_list.append(table_comment)
         table_html = parse_schema_to_table(schema)
-        html.append(table_html)
+        html_list.append(table_html)
 
     output_path = Path("docs", "data_dictionary.html")
     logging.info(f"Saving data dictionary to {output_path}")
 
-    html = "\n<p>\n".join(html)
+    html = "\n<p>\n".join(html_list)
 
     with open(output_path, "w") as f:
         f.write(html)
@@ -137,7 +137,7 @@ def parse_schema_to_table(schema: Dict[str, Any]) -> str:
 
 
 def main() -> None:
-    """Run selected utility function
+    """Run selected utility function.
 
     Can be run from command line using...
     `python -m ndj_pipeline.utils --tables`
@@ -168,7 +168,7 @@ def main() -> None:
         logging.warning(msg)
 
     if args.tables:
-        logging.info(f"Running html table creation for data dictionary")
+        logging.info("Running html table creation for data dictionary")
         create_tables_html()
 
 
