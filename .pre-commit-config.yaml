@@ -73,7 +73,8 @@ repos:
 - repo: https://github.com/sqlfluff/sqlfluff
   rev: 0.6.8
   hooks:
-  - id: sqlfluff-fix
+  - id: sqlfluff-lint
+  - id: sqlfluff-fix  # if this fails; try sqlfluff lint for more info
     verbose: true
     args:
       - --force
