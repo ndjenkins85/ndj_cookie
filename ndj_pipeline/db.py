@@ -47,7 +47,7 @@ def create_db() -> None:
     logging.info(f"Loading data from {input_path}")
     data = pd.read_parquet(input_path)
 
-    logging.info(f"Saving data to {database_path}")
+    logging.info(f"Saving data to {config.database_path}")
     data.to_sql("titanic", conn, if_exists="replace", index_label="id")
 
 
