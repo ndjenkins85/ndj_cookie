@@ -19,8 +19,40 @@
 # FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 # DEALINGS IN THE SOFTWARE.
 
-"""Configuration variables ndj_pipeline project."""
+"""Standalone module to assist database creation and querying.
+
+Useful for practicing SQL techniques and scripts.
+"""
+import logging
+import sqlite3
 from pathlib import Path
 
-default_model_folder = Path("data")
-database_path = Path("data", "titanic.db")
+import pandas as pd
+
+from ndj_pipeline import config
+
+
+def get_db_connection() -> sqlite3.Connection:
+    """Creates and returns a sqlite DB connection."""
+    logging.info(f"Connecting to database at {config.database_path}")
+    conn = sqlite3.connect(config.database_path)
+    return conn
+
+
+def create_db() -> None:
+    """Converts processed titanic data into an SQLite3 DB."""
+    conn = get_db_connection()
+
+    input_path = Path("data", "processed", "titanic.parquet")
+    logging.info(f"Loading data from {input_path}")
+    data = pd.read_parquet(input_path)
+
+    logging.info(f"Saving data to {database_path}")
+    data.to_sql("titanic", conn, if_exists="replace", index_label="id")
+
+
+def query_db(sql_string: str) -> pd.DataFrame:
+    """Query the titanic database and return pandas dataframe."""
+    with get_db_connection() as conn:
+        df = pd.read_sql(sql_string, conn)
+    return df
