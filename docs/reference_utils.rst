@@ -22,3 +22,8 @@ ndj_pipeline.utils
 ------------------
 .. automodule:: ndj_pipeline.utils
    :members:
+
+ndj_pipeline.db
+---------------
+.. automodule:: ndj_pipeline.db
+   :members:

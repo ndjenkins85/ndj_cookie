@@ -21,7 +21,10 @@
 
 """Standalone module to assist database creation and querying.
 
-Useful for practicing SQL techniques and scripts.
+Useful for practicing SQL techniques and scripts:
+
+1. Initialize database with `create_db`. This requires 'data preparation' of titanic data.
+2. Query database with SQL strings with `query_db`.
 """
 import logging
 import sqlite3
