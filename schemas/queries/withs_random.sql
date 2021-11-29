@@ -1,7 +1,9 @@
--- Example of multiple with, and random sampling
+-- Example of multiple CTE common table expressions (WITH)
+-- AND random sampling
 -- in sqlite, can use RANDOM() line below to get a float between 0-1.
 -- NOTE! The column will continue to be random with subsequent calculations
 -- THUS the results will not match final output (note the WHERE > 0.3)
+-- BECAUSE SQL Server may reevaluate the CTE each time it is accessed
 -- This looks to create a stratified sample of 2x3 choices, age and pclass
 -- And returns 5 candidates from each
 WITH base AS (
