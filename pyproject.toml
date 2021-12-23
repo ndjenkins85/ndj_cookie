@@ -65,6 +65,7 @@ m2r2 = { version = "^0.3", optional = true }
 sphinx = { version = "^4.2", optional = true }
 sphinx-autodoc-typehints = { version = "^1.12", optional = true }
 sphinx_rtd_theme = { version = "^1", optional = true }
+statsmodels = "^0.13.1"
 
 [tool.poetry.dev-dependencies]
 jupyter = "^1.0.0"
