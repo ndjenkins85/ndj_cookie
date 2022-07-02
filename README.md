@@ -311,7 +311,7 @@ pre-commit run --all-files
 
 ## Contributors
 
-* [Nick Jenkins](https://www.nickjenkins.com.au) - Data Scientist, API & Web dev, Team lead, Writer
+* [Nick Jenkins](https://www.ndjenkins.com) - Data Scientist, API & Web dev, Team lead, Writer
 
 See [CONTRIBUTING.md](CONTRIBUTING.md) in Github repo for specific instructions on contributing to project.
 

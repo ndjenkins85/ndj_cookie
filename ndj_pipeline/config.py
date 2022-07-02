@@ -23,3 +23,4 @@
 from pathlib import Path
 
 default_model_folder = Path("data")
+database_path = Path("data", "titanic.db")
